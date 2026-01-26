@@ -1,0 +1,25 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f8fafc;
+  --foreground: #0f172a;
+}
+
+body {
+  font-family: var(--font-title), system-ui, -apple-system, sans-serif;
+  color: var(--foreground);
+  background: var(--background);
+  text-rendering: optimizeLegibility;
+}
+
+a {
+  color: inherit;
+}
+
+.font-title {
+  font-family: var(--font-title), system-ui, -apple-system, sans-serif;
+}
+
+.font-ui {
+  font-family: var(--font-ui), system-ui, -apple-system, sans-serif;
+}
