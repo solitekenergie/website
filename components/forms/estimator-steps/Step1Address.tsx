@@ -24,18 +24,47 @@ export default function Step1Address({ formData, updateFormData, onNext }: Step1
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [selectedCoords, setSelectedCoords] = useState(formData.coordinates);
   const [showMap, setShowMap] = useState(!!formData.address);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const fetchAddressSuggestions = useCallback(async (query: string) => {
+    setIsLoading(true);
+    setError(null);
+
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 5000);
+
     try {
       const response = await fetch(
-        `https://api-adresse.data.gouv.fr/search/?q=${encodeURIComponent(query)}&limit=5`
+        `https://api-adresse.data.gouv.fr/search/?q=${encodeURIComponent(query)}&limit=5`,
+        {
+          signal: controller.signal,
+        }
       );
+
+      clearTimeout(timeoutId);
+
+      if (!response.ok) {
+        throw new Error(`Erreur HTTP: ${response.status}`);
+      }
+
       const data = await response.json();
       setSuggestions(data.features || []);
-      setShowSuggestions(true);
+      setShowSuggestions(data.features && data.features.length > 0);
     } catch (error) {
+      clearTimeout(timeoutId);
       console.error("Error fetching address suggestions:", error);
+
+      if (error instanceof Error && error.name === 'AbortError') {
+        setError("La recherche a pris trop de temps. Veuillez réessayer.");
+      } else {
+        setError("Service d'adresse temporairement indisponible. Vous pouvez saisir votre adresse manuellement.");
+      }
+      setSuggestions([]);
+      setShowSuggestions(false);
+    } finally {
+      setIsLoading(false);
     }
   }, []);
 
@@ -65,9 +94,23 @@ export default function Step1Address({ formData, updateFormData, onNext }: Step1
     updateFormData({ address: selectedAddress, coordinates: coords });
   };
 
+  const handleManualValidation = () => {
+    // Permet de continuer même sans coordonnées si l'utilisateur a saisi une adresse
+    if (address) {
+      updateFormData({
+        address,
+        coordinates: selectedCoords || { lat: 0, lng: 0 } // Coordonnées par défaut si non disponibles
+      });
+      onNext();
+    }
+  };
+
   const handleNext = () => {
     if (address && selectedCoords) {
       onNext();
+    } else if (address && !selectedCoords) {
+      // Si l'utilisateur a saisi une adresse mais pas de coordonnées (API down)
+      handleManualValidation();
     }
   };
 
@@ -78,14 +121,27 @@ export default function Step1Address({ formData, updateFormData, onNext }: Step1
       </h2>
 
       <div className="relative space-y-4">
-        <input
-          ref={inputRef}
-          type="text"
-          value={address}
-          onChange={(e) => setAddress(e.target.value)}
-          placeholder="votre adresse*"
-          className="w-full rounded-lg border-2 border-slate-300 px-4 py-3 text-base transition-colors focus:border-[#5CB88F] focus:outline-none"
-        />
+        <div className="relative">
+          <input
+            ref={inputRef}
+            type="text"
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
+            placeholder="votre adresse*"
+            className="w-full rounded-lg border-2 border-slate-300 px-4 py-3 text-base transition-colors focus:border-[#5CB88F] focus:outline-none"
+          />
+          {isLoading && (
+            <div className="absolute right-3 top-1/2 -translate-y-1/2">
+              <div className="h-5 w-5 animate-spin rounded-full border-2 border-slate-300 border-t-[#5CB88F]"></div>
+            </div>
+          )}
+        </div>
+
+        {error && (
+          <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+            {error}
+          </div>
+        )}
 
         {showSuggestions && suggestions.length > 0 && (
           <div className="absolute z-10 mt-1 w-full rounded-lg border border-slate-200 bg-white shadow-lg">
@@ -133,11 +189,17 @@ export default function Step1Address({ formData, updateFormData, onNext }: Step1
       <button
         type="button"
         onClick={handleNext}
-        disabled={!address || !selectedCoords}
+        disabled={!address}
         className="w-full rounded-lg bg-[#5CB88F] px-6 py-3 font-semibold text-white transition-colors hover:bg-[#4da77e] disabled:cursor-not-allowed disabled:bg-slate-300"
       >
         Suivant
       </button>
+
+      {address && !selectedCoords && (
+        <p className="text-center text-sm text-slate-500">
+          Vous pouvez continuer avec l&apos;adresse saisie manuellement
+        </p>
+      )}
     </div>
   );
 }

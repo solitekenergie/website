@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import PrimaryCta from "../ui/PrimaryCta";
+import { AnimatedLink } from "../ui/AnimatedLink";
 
 interface MobileMenuProps {
   isOpen: boolean;
@@ -96,10 +97,12 @@ export default function MobileMenu({ isOpen, onClose, navItems }: MobileMenuProp
                     className="group relative block overflow-hidden py-4 font-ui text-3xl font-bold"
                     style={{ color: '#ffffff' }}
                   >
-                    <span className="relative inline-block transition-transform duration-300 group-hover:translate-x-2">
-                      {item.label}
-                      <span className="absolute bottom-0 left-0 h-0.5 w-0 bg-gradient-to-r from-[#2DB180] to-[#23A3D2] transition-all duration-300 group-hover:w-full" />
-                    </span>
+                    <AnimatedLink>
+                      <span className="relative inline-block">
+                        {item.label}
+                        <span className="absolute bottom-0 left-0 h-0.5 w-0 bg-gradient-to-r from-[#2DB180] to-[#23A3D2] transition-all duration-300 group-hover:w-full" />
+                      </span>
+                    </AnimatedLink>
                   </Link>
                 </li>
               ))}

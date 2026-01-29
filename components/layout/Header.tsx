@@ -5,6 +5,7 @@ import Link from "next/link";
 import PrimaryCta from "../ui/PrimaryCta";
 import MobileMenu from "./MobileMenu";
 import BurgerButton from "./BurgerButton";
+import { AnimatedLink } from "../ui/AnimatedLink";
 
 const navItems = [
   { href: "/", label: "Accueil" },
@@ -93,7 +94,7 @@ export default function Header() {
                   href={item.href}
                   className="transition-colors hover:text-[#2DB180] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#2DB180]"
                 >
-                  {item.label}
+                  <AnimatedLink>{item.label}</AnimatedLink>
                 </Link>
               ))}
             </nav>

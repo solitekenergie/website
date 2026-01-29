@@ -1,5 +1,6 @@
 import Link, { LinkProps } from "next/link";
 import React from "react";
+import { AnimatedLink } from "./AnimatedLink";
 
 type ButtonSize = "sm" | "md";
 
@@ -26,7 +27,7 @@ export default function ButtonLink({ children, className = "", size = "md", ...p
 
   return (
     <Link {...props} className={classes}>
-      {children}
+      <AnimatedLink>{children}</AnimatedLink>
     </Link>
   );
 }

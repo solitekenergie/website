@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { AnimatedLink } from "../ui/AnimatedLink";
 
 export function HighlightSection() {
   return (
@@ -33,7 +34,7 @@ export function HighlightSection() {
             href="/estimateur"
             className="inline-flex h-12 items-center justify-center gap-2 rounded bg-[#161A1E] px-6 py-2 font-['Figtree'] text-sm font-bold leading-tight text-white sm:h-14 sm:text-base sm:leading-[22.4px]"
           >
-            Mon estimation
+            <AnimatedLink>Mon estimation</AnimatedLink>
           </Link>
         </div>
       </div>

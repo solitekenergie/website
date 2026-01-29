@@ -1,5 +1,6 @@
 import Link, { LinkProps } from "next/link";
 import React from "react";
+import { AnimatedLink } from "./AnimatedLink";
 
 type PrimaryCtaProps = LinkProps & {
   children: React.ReactNode;
@@ -19,7 +20,7 @@ export default function PrimaryCta({ children, className = "", ...props }: Prima
 
   return (
     <Link {...props} className={classes}>
-      {children}
+      <AnimatedLink>{children}</AnimatedLink>
     </Link>
   );
 }

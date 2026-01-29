@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { SuppliersSection } from "@/components/sections/SuppliersSection";
+import { AnimatedLink } from "@/components/ui/AnimatedLink";
 
 type FaqItem = {
   question: string;
@@ -97,9 +98,9 @@ export default function FaqPage() {
             type="button"
             className="px-12 py-6 bg-[#2DB180] rounded-[8px] inline-flex items-center justify-center gap-2"
           >
-            <span className="text-white text-[16px] leading-[19.2px] font-['Figtree'] font-bold uppercase">
-              Obtenir de l’aide
-            </span>
+            <AnimatedLink className="text-white text-[16px] leading-[19.2px] font-['Figtree'] font-bold uppercase">
+              Obtenir de l&apos;aide
+            </AnimatedLink>
           </button>
         </div>
       </section>

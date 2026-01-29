@@ -1,3 +1,5 @@
+import { AnimatedLink } from "@/components/ui/AnimatedLink";
+
 export default function ContactPage() {
   return (
     <section className="w-full h-full pt-[160px] pb-20 px-[100px] inline-flex justify-start items-start gap-[120px] bg-[#F5F7FA]">
@@ -22,9 +24,9 @@ export default function ContactPage() {
               type="submit"
               className="mt-2 inline-flex items-center justify-center gap-2 rounded-[8px] bg-[#2DB180] px-6 py-4"
             >
-              <span className="text-white text-[14px] leading-[16.8px] font-['Figtree'] font-bold uppercase">
+              <AnimatedLink className="text-white text-[14px] leading-[16.8px] font-['Figtree'] font-bold uppercase">
                 Envoyer
-              </span>
+              </AnimatedLink>
             </button>
           </form>
         </div>

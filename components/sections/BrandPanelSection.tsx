@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
 import { SolitekLogo } from "../layout/Header";
+import { AnimatedLink } from "../ui/AnimatedLink";
 
 const exploreLinks = [
   { label: "À propos", href: "/a-propos" },
@@ -50,9 +51,9 @@ export function BrandPanelSection() {
                   className="group inline-flex w-full items-center justify-between border-b border-b-white/30 py-3 transition-all duration-300 hover:border-b-[#2DB180]"
                   style={{ color: '#ffffff' }}
                 >
-                  <span className="font-['Figtree'] text-sm font-bold text-white transition-colors duration-300 group-hover:text-[#2DB180] sm:text-[14px] sm:leading-[19.6px]">
+                  <AnimatedLink className="font-['Figtree'] text-sm font-bold text-white transition-colors duration-300 group-hover:text-[#2DB180] sm:text-[14px] sm:leading-[19.6px]">
                     {link.label}
-                  </span>
+                  </AnimatedLink>
                   <svg
                     width="20"
                     height="20"
@@ -81,9 +82,9 @@ export function BrandPanelSection() {
                   className="group inline-flex w-full items-center justify-between border-b border-b-white/30 py-3 transition-all duration-300 hover:border-b-[#2DB180]"
                   style={{ color: '#ffffff' }}
                 >
-                  <span className="font-['Figtree'] text-sm font-bold text-white transition-colors duration-300 group-hover:text-[#2DB180] sm:text-[14px] sm:leading-[19.6px]">
+                  <AnimatedLink className="font-['Figtree'] text-sm font-bold text-white transition-colors duration-300 group-hover:text-[#2DB180] sm:text-[14px] sm:leading-[19.6px]">
                     {link.label}
-                  </span>
+                  </AnimatedLink>
                   <svg
                     width="20"
                     height="20"
@@ -109,14 +110,14 @@ export function BrandPanelSection() {
             className="font-['Figtree'] text-xs font-normal text-white transition-colors duration-300 hover:text-[#2DB180] sm:text-[13px] sm:leading-[13px]"
             style={{ color: '#ffffff' }}
           >
-            Mentions légales
+            <AnimatedLink>Mentions légales</AnimatedLink>
           </Link>
           <Link
             href="/politique-de-confidentialite"
             className="font-['Figtree'] text-xs font-normal text-white transition-colors duration-300 hover:text-[#2DB180] sm:text-[13px] sm:leading-[13px]"
             style={{ color: '#ffffff' }}
           >
-            Politique de confidentialité
+            <AnimatedLink>Politique de confidentialité</AnimatedLink>
           </Link>
         </nav>
         <div className="flex items-center justify-end gap-2 sm:gap-3">
