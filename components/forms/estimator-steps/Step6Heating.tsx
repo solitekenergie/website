@@ -28,8 +28,8 @@ export default function Step6Heating({ formData, updateFormData, onNext, onBack 
 
   const options = [
     { value: "heat-pump", label: "Pompe à chaleur" },
-    { value: "electric-radiator", label: "Radiateur élétrique" },
-    { value: "non-electric", label: "Chauffage non-électrique (gaz, filoul...)" },
+    { value: "electric-radiator", label: "Radiateur électrique" },
+    { value: "non-electric", label: "Chauffage non-électrique (gaz, fioul...)" },
   ];
 
   return (

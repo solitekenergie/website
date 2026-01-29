@@ -11,11 +11,12 @@ interface EstimatorResultsProps {
 }
 
 interface SolarPotential {
-  solarPotentialKwh: number;
+  annualProductionKwh: number;
   recommendedKwc: number;
+  installationCost: number;
+  annualSavings: number;
   totalSavings: number;
-  annualReduction: number;
-  roi: number;
+  paybackYears: number;
 }
 
 export default function EstimatorResults({ formData, onBack }: EstimatorResultsProps) {
@@ -75,22 +76,26 @@ export default function EstimatorResults({ formData, onBack }: EstimatorResultsP
       const recommendedKwc = Math.round((adjustedConsumption * coverageTarget) / irradiation * 10) / 10;
 
       // Calculate expected production
-      const solarPotentialKwh = Math.round(recommendedKwc * irradiation);
+      const annualProductionKwh = Math.round(recommendedKwc * irradiation);
 
       // Calculate savings (assuming 0.20€/kWh average price)
       const electricityPrice = formData.electricityPrice || 0.20;
-      const annualReduction = Math.round(solarPotentialKwh * electricityPrice);
-      const totalSavings = Math.round(annualReduction * 25); // 25 year lifespan
+      const annualSavings = Math.round(annualProductionKwh * electricityPrice);
+      const totalSavings = Math.round(annualSavings * 25); // 25 year lifespan
 
-      // Calculate ROI (simplified)
-      const roi = 1.7; // Internal rate of return
+      // Calculate installation cost (average 2500€/kWc in France)
+      const installationCost = Math.round(recommendedKwc * 2500);
+
+      // Calculate payback period
+      const paybackYears = annualSavings > 0 ? Math.round((installationCost / annualSavings) * 10) / 10 : 0;
 
       setResults({
-        solarPotentialKwh,
+        annualProductionKwh,
         recommendedKwc,
+        installationCost,
+        annualSavings,
         totalSavings,
-        annualReduction,
-        roi,
+        paybackYears,
       });
     } catch (error) {
       console.error("Error calculating solar potential:", error);
@@ -206,13 +211,13 @@ export default function EstimatorResults({ formData, onBack }: EstimatorResultsP
                         strokeLinecap="round"
                         strokeLinejoin="round"
                         strokeWidth={2}
-                        d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+                        d="M13 10V3L4 14h7v7l9-11h-7z"
                       />
                     </svg>
                   </div>
                   <div className="flex-1">
-                    <p className="text-5xl font-bold">{results.solarPotentialKwh} h</p>
-                    <p className="mt-2 text-lg">d&apos;ensoleillement par an</p>
+                    <p className="text-5xl font-bold">{results.annualProductionKwh.toLocaleString()} kWh</p>
+                    <p className="mt-2 text-lg">Production estimée par an</p>
                   </div>
                 </div>
                 </div>
@@ -235,8 +240,32 @@ export default function EstimatorResults({ formData, onBack }: EstimatorResultsP
                     </svg>
                   </div>
                   <div className="flex-1">
-                    <p className="text-5xl font-bold text-slate-900">-{results.totalSavings} €</p>
-                    <p className="mt-2 text-lg text-slate-600">Économies totales</p>
+                    <p className="text-5xl font-bold text-slate-900">{results.annualSavings.toLocaleString()} €</p>
+                    <p className="mt-2 text-lg text-slate-600">Économies annuelles</p>
+                  </div>
+                </div>
+                </div>
+
+                <div className="rounded-2xl border-2 border-slate-200 bg-white p-6">
+                  <div className="flex items-start gap-4">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-slate-900 text-white">
+                    <svg
+                      className="h-6 w-6"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
+                    </svg>
+                  </div>
+                  <div className="flex-1">
+                    <p className="text-5xl font-bold text-slate-900">{results.paybackYears} ans</p>
+                    <p className="mt-2 text-lg text-slate-600">Temps de retour sur investissement</p>
                   </div>
                 </div>
                 </div>
@@ -259,36 +288,8 @@ export default function EstimatorResults({ formData, onBack }: EstimatorResultsP
                     </svg>
                   </div>
                   <div className="flex-1">
-                    <p className="text-5xl font-bold text-slate-900">-{results.annualReduction} €</p>
-                    <p className="mt-2 text-lg text-slate-600">Réduction annuelle</p>
-                  </div>
-                </div>
-                </div>
-
-                <div className="rounded-2xl border-2 border-slate-200 bg-white p-6">
-                  <div className="flex items-start gap-4">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-slate-900 text-white">
-                    <svg
-                      className="h-6 w-6"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
-                      />
-                    </svg>
-                  </div>
-                  <div className="flex-1">
-                    <p className="text-5xl font-bold text-slate-900">-{results.roi} %</p>
-                    <p className="mt-2 text-lg text-slate-600">
-                      Taux de rentabilité interne vs 1,7%
-                      <br />
-                      pour un livret A
-                    </p>
+                    <p className="text-5xl font-bold text-slate-900">{results.totalSavings.toLocaleString()} €</p>
+                    <p className="mt-2 text-lg text-slate-600">Économies totales sur 25 ans</p>
                   </div>
                 </div>
                 </div>

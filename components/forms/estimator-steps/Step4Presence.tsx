@@ -28,7 +28,7 @@ export default function Step4Presence({ formData, updateFormData, onNext, onBack
 
   const options = [
     { value: "morning-evening", label: "Présent le matin et le soir" },
-    { value: "all-day", label: "Présent tout au long de la journées" },
+    { value: "all-day", label: "Présent tout au long de la journée" },
     { value: "school-holidays", label: "Présent pendant les périodes scolaires" },
   ];
 

@@ -76,7 +76,7 @@ export default function MultiStepEstimatorForm() {
         {/* Centered Header */}
         <div className="mb-6 text-center">
           <h1 className="font-[900] text-[48px] leading-tight tracking-tight text-slate-900">
-            CONNAITRE VOTRE BESOIN
+            CONNAÎTRE VOTRE BESOIN
           </h1>
         </div>
 

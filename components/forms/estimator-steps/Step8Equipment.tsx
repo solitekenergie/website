@@ -28,7 +28,7 @@ export default function Step8Equipment({ formData, updateFormData, onNext, onBac
   };
 
   const options = [
-    { value: "electric-vehicle", label: "Voiture éléatique" },
+    { value: "electric-vehicle", label: "Voiture électrique" },
     { value: "pool", label: "Piscine" },
     { value: "air-conditioning", label: "Climatisation" },
   ];

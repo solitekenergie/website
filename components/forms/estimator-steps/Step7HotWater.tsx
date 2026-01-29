@@ -27,10 +27,10 @@ export default function Step7HotWater({ formData, updateFormData, onNext, onBack
   };
 
   const options = [
-    { value: "electric", label: "Chauffe-eau élétrique" },
+    { value: "electric", label: "Chauffe-eau électrique" },
     { value: "thermodynamic", label: "Ballon thermodynamique" },
     { value: "heat-pump", label: "Pompe à chaleur" },
-    { value: "non-electric", label: "chauffe-eau non-électrique" },
+    { value: "non-electric", label: "Chauffe-eau non-électrique" },
   ];
 
   return (
