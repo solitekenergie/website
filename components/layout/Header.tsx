@@ -8,12 +8,14 @@ const navItems = [
   { href: "/contact", label: "Contact" },
 ];
 
-function SolitekLogo() {
+export function SolitekLogo({ variant = "header" }: { variant?: "header" | "footer" }) {
+  const isFooter = variant === "footer";
+
   return (
     <Link href="/" className="flex items-center" aria-label="Solitek">
-      <div className="relative h-[34px] w-[134px]">
+      <div className={`relative ${isFooter ? "h-[34px] w-[134px] md:h-[120px] md:w-[467px] lg:h-[120px] lg:w-[467px]" : "h-[34px] w-[134px]"}`}>
         <svg
-          className="absolute left-0 top-0 h-[34px] w-[28px]"
+          className={`absolute left-0 top-0 ${isFooter ? "h-[34px] w-[28px] md:h-[120px] md:w-[99px] lg:h-[120px] lg:w-[99px]" : "h-[34px] w-[28px]"}`}
           width="28"
           height="35"
           viewBox="0 0 28 35"
@@ -26,7 +28,7 @@ function SolitekLogo() {
           />
         </svg>
         <svg
-          className="absolute left-[3px] top-0 h-[34px] w-[28px]"
+          className={`absolute ${isFooter ? "left-[3px] md:left-[11px] lg:left-[11px]" : "left-[3px]"} top-0 ${isFooter ? "h-[34px] w-[28px] md:h-[120px] md:w-[99px] lg:h-[120px] lg:w-[99px]" : "h-[34px] w-[28px]"}`}
           width="28"
           height="35"
           viewBox="0 0 28 35"
@@ -39,7 +41,7 @@ function SolitekLogo() {
           />
         </svg>
         <svg
-          className="absolute left-[38px] top-[9px] h-4 w-[95px]"
+          className={`absolute ${isFooter ? "left-[38px] md:left-[134px] lg:left-[134px]" : "left-[38px]"} ${isFooter ? "top-[9px] md:top-[32px] lg:top-[32px]" : "top-[9px]"} ${isFooter ? "h-4 w-[95px] md:h-[56px] md:w-[335px] lg:h-[56px] lg:w-[335px]" : "h-4 w-[95px]"}`}
           width="96"
           height="16"
           viewBox="0 0 96 16"

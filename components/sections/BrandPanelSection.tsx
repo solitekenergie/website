@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
+import { SolitekLogo } from "../layout/Header";
 
 const exploreLinks = ["À propos", "Services", "Estimer son besoin", "Nos réalisation", "Nos fournisseur", "Les avis"];
 const socialLinks = ["Facebook", "Instagram", "LinkedIn"];
@@ -10,8 +11,9 @@ export function BrandPanelSection() {
       <div className="self-stretch px-[60px] py-12 bg-[#161A1E] overflow-hidden flex flex-col justify-center items-center gap-12">
         <div className="self-stretch flex flex-col justify-start items-center gap-15">
           <div className="flex items-end justify-center gap-2 h-[120.43px]">
-            <LogoStack />
-            <Wordmark />
+            {/* <LogoStack />
+            <Wordmark /> */}
+            <SolitekLogo variant="footer" />
           </div>
         </div>
 

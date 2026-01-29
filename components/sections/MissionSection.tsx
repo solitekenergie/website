@@ -3,7 +3,7 @@ export function MissionSection() {
   return (
     <section className="w-full pb-[60px] inline-flex flex-col items-center">
       <div className="self-stretch pt-[100px] pb-[80px] px-[80px] flex flex-col items-center gap-6">
-        <div className="text-[#161A1E] text-[56px] font-title font-black uppercase leading-[78.40px]">
+        <div className="text-[#2DB180] text-[56px] font-title font-black uppercase leading-[78.40px]">
           Notre mission
         </div>
         <div className="w-[800px] text-center text-black text-[18px] font-normal font-['Figtree'] leading-[27px]">

@@ -48,8 +48,8 @@ const cards = [
 export default function RealisationsPage() {
   return (
     <section className="w-full h-full pt-[200px] pb-[100px] px-[100px] inline-flex flex-col justify-start items-start gap-20">
-      <div className="self-stretch text-center text-black text-[56px] leading-[56px] font-title font-black uppercase">
-        Nos réalisation
+      <div className="self-stretch text-center text-[#2DB180] text-[56px] leading-[56px] font-title font-black uppercase">
+        Nos réalisations
       </div>
 
       <div className="self-stretch flex flex-col justify-start items-start gap-20">

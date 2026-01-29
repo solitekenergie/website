@@ -82,7 +82,7 @@ export default function FaqPage() {
   return (
     <div className="flex flex-col">
       <section className="w-full h-full pt-[160px] pb-20 px-[60px] inline-flex flex-col justify-start items-center gap-14">
-        <div className="text-[#161A1E] text-[72px] leading-[72px] font-title font-black uppercase">FAQ</div>
+        <div className="text-[#2DB180] text-[72px] leading-[72px] font-title font-black uppercase">FAQ</div>
 
         <div className="self-stretch flex flex-col justify-start items-center gap-6">
           <div className="flex w-full max-w-[1320px] flex-col gap-[14px]">

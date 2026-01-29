@@ -80,9 +80,9 @@ export default function Step2Consumption({ formData, updateFormData, onNext, onB
             value={consumption}
             onChange={(e) => setConsumption(e.target.value)}
             placeholder="Consommation annuelle*"
-            className="w-full rounded-lg border-2 border-slate-300 px-4 py-3 pr-24 text-base transition-colors focus:border-[#5CB88F] focus:outline-none"
+            className="w-full rounded-lg border-2 border-slate-300 px-4 py-3 pr-32 text-base transition-colors focus:border-[#5CB88F] focus:outline-none"
           />
-          <span className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500">
+          <span className="absolute right-4 top-1/2 -translate-y-1/2 text-sm text-slate-500">
             {unit === "kwh" ? "kWh par an" : "€ TTC / an"}
           </span>
         </div>

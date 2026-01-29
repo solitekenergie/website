@@ -3,7 +3,7 @@ export default function ContactPage() {
     <section className="w-full h-full pt-[160px] pb-20 px-[100px] inline-flex justify-start items-start gap-[120px] bg-[#F5F7FA]">
       <div className="flex-1 overflow-hidden rounded-[8px] inline-flex flex-col justify-start items-start gap-8 p-0">
         <div className="w-full flex flex-col justify-start items-start gap-6">
-          <div className="text-[#161A1E] text-[72px] leading-[72px] font-title font-black uppercase">
+          <div className="text-[#2DB180] text-[72px] leading-[72px] font-title font-black uppercase">
             Demandez <br />
             un devis
           </div>
@@ -41,7 +41,7 @@ export default function ContactPage() {
           preload="metadata"
           poster="/images/mission-toiture-05.jpg"
         >
-          <source src="/images/contact-hero.mp4" type="video/mp4" />
+          <source src="/hero.mp4" type="video/mp4" />
           Votre navigateur ne supporte pas la vidéo HTML5.
         </video>
       </div>

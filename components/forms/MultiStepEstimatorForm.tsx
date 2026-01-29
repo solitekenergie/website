@@ -56,7 +56,7 @@ export default function MultiStepEstimatorForm() {
     }
   };
 
-  const progressPercentage = (currentStep / TOTAL_STEPS) * 100;
+  const progressPercentage = ((currentStep - 1) / TOTAL_STEPS) * 100;
 
   if (showResults) {
     return (
@@ -71,42 +71,34 @@ export default function MultiStepEstimatorForm() {
   }
 
   return (
-    <div className="min-h-screen w-full bg-white">
-      <div className="mx-auto max-w-[1400px] px-4 py-16">
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-16">
+    <div className="flex min-h-screen w-full items-center bg-white">
+      <div className="mx-auto w-full max-w-[1400px] px-4 py-8">
+        {/* Centered Header */}
+        <div className="mb-6 text-center">
+          <h1 className="font-[900] text-[48px] leading-tight tracking-tight text-slate-900">
+            CONNAITRE VOTRE BESOIN
+          </h1>
+        </div>
+
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-12">
           {/* Left side - Form */}
           <div className="flex flex-col">
-            {/* Header */}
-            <div className="mb-8 space-y-4">
-              <div className="flex items-center gap-3">
-                <div className="flex h-12 w-12 items-center justify-center rounded-full border-2 border-slate-900">
-                  <svg
-                    className="h-6 w-6"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
-                    />
-                  </svg>
-                </div>
-                <div>
-                  <h1 className="font-[900] text-[56px] leading-tight tracking-tight text-slate-900">
-                    CONNAITRE VOTRE BESOIN
-                  </h1>
-                </div>
-              </div>
-
-              <p className="font-medium text-[18px] text-slate-700">
+            {/* Icon and Subtitle */}
+            <div className="mb-6 flex flex-col items-center space-y-3">
+              <img
+                src="/images/EstimateurIcon.svg"
+                alt="Icône estimateur"
+                className="h-12 w-12"
+              />
+              <p className="text-center font-medium text-[16px] text-slate-700">
                 Faites votre demande de devis
                 <br />
                 en moins de 2 minutes
               </p>
+            </div>
 
+            {/* Progress */}
+            <div className="mb-6 space-y-2">
               {/* Progress bar */}
               <div className="space-y-2">
                 <div className="h-2 w-full overflow-hidden rounded-full bg-slate-200">
@@ -115,7 +107,7 @@ export default function MultiStepEstimatorForm() {
                     style={{ width: `${progressPercentage}%` }}
                   />
                 </div>
-                <p className="text-right text-sm text-slate-600">{currentStep * 10}%</p>
+                <p className="text-right text-sm text-slate-600">{((currentStep - 1) / TOTAL_STEPS * 100).toFixed(0)}%</p>
               </div>
             </div>
 
@@ -189,13 +181,11 @@ export default function MultiStepEstimatorForm() {
 
           {/* Right side - Image */}
           <div className="relative hidden lg:block">
-            <div className="sticky top-16">
-              <img
-                src="/images/solar-panel-installation.jpg"
-                alt="Installation de panneaux solaires"
-                className="h-[600px] w-full rounded-2xl object-cover"
-              />
-            </div>
+            <img
+              src="/images/EstimateurImage.png"
+              alt="Installation de panneaux solaires"
+              className="h-[450px] w-full rounded-2xl object-cover"
+            />
           </div>
         </div>
       </div>
