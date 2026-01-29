@@ -1,5 +1,10 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
 import PrimaryCta from "../ui/PrimaryCta";
+import MobileMenu from "./MobileMenu";
+import BurgerButton from "./BurgerButton";
 
 const navItems = [
   { href: "/", label: "Accueil" },
@@ -71,25 +76,44 @@ export function SolitekLogo({ variant = "header" }: { variant?: "header" | "foot
 }
 
 export default function Header() {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
   return (
-    <header className="bg-[#161A1E] text-white sticky top-0 z-50">
-      <div className="mx-auto flex w-full max-w-[1440px] items-center justify-between gap-4 px-4 py-5 sm:px-8 xl:px-[80px]">
-        <SolitekLogo />
-        <div className="flex flex-wrap items-center justify-end gap-6">
-          <nav className="flex flex-wrap items-center gap-6 text-[15px] font-ui font-bold leading-[21px]">
-            {navItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="transition-colors hover:text-[#2DB180] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#2DB180]"
-              >
-                {item.label}
-              </Link>
-            ))}
-          </nav>
-          <PrimaryCta href="/estimateur">Mon estimation</PrimaryCta>
+    <>
+      <header className="sticky top-0 z-50 bg-[#161A1E] text-white">
+        <div className="mx-auto flex w-full max-w-[1440px] items-center justify-between gap-4 px-4 py-5 sm:px-8 xl:px-[80px]">
+          <SolitekLogo />
+
+          {/* Desktop navigation */}
+          <div className="hidden flex-wrap items-center justify-end gap-6 lg:flex">
+            <nav className="flex flex-wrap items-center gap-6 text-[15px] font-ui font-bold leading-[21px]">
+              {navItems.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="transition-colors hover:text-[#2DB180] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#2DB180]"
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </nav>
+            <PrimaryCta href="/estimateur">Mon estimation</PrimaryCta>
+          </div>
+
+          {/* Mobile burger button */}
+          <BurgerButton
+            isOpen={isMobileMenuOpen}
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          />
         </div>
-      </div>
-    </header>
+      </header>
+
+      {/* Mobile menu */}
+      <MobileMenu
+        isOpen={isMobileMenuOpen}
+        onClose={() => setIsMobileMenuOpen(false)}
+        navItems={navItems}
+      />
+    </>
   );
 }

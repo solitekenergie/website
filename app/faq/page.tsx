@@ -133,7 +133,7 @@ function FaqCard({ item, onToggle }: { item: FaqItem; onToggle: () => void }) {
           </div>
         </div>
         <div className="flex items-center justify-center pointer-events-none">
-          <div className="w-[47px] rounded-[8px] bg-[#2DB180] px-6 py-4 inline-flex items-center justify-center">
+          <div className="w-[56px] h-[56px] rounded-[8px] bg-[#2DB180] inline-flex items-center justify-center">
             <Chevron isOpen={isOpen} />
           </div>
         </div>
@@ -151,14 +151,20 @@ function FaqCard({ item, onToggle }: { item: FaqItem; onToggle: () => void }) {
 function Chevron({ isOpen }: { isOpen: boolean }) {
   return (
     <svg
-      width="16"
-      height="16"
-      viewBox="0 0 16 16"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className={isOpen ? "" : "-rotate-90"}
+      className={`transition-transform duration-300 ${isOpen ? "rotate-90" : ""}`}
     >
-      <path d="M3 6L8 11L13 6" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+      <path
+        d="M9 6L15 12L9 18"
+        stroke="white"
+        strokeWidth="3"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
     </svg>
   );
 }

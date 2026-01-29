@@ -2,40 +2,40 @@
 
 export function TestimonialsSection() {
   return (
-    <section className="w-full h-full px-[100px] pb-[60px] pt-[60px] inline-flex flex-col justify-center items-center gap-10">
-      <div className="self-stretch h-14 text-[#161A1E] text-[56px] leading-[56px] font-title font-bold uppercase">
-        Ce qu’on dis de nous
-      </div>
+    <section className="inline-flex h-full w-full flex-col items-center justify-center gap-8 px-4 pb-12 pt-12 sm:gap-10 sm:px-8 sm:pb-[60px] sm:pt-[60px] lg:px-[100px]">
+      <h2 className="h-auto self-stretch font-title text-3xl font-bold uppercase leading-tight text-[#161A1E] sm:text-4xl sm:leading-tight lg:h-14 lg:text-[56px] lg:leading-[56px]">
+        Ce qu&apos;on dis de nous
+      </h2>
 
-      <div className="self-stretch p-[44px] bg-[rgba(45,177,128,0.20)] overflow-hidden rounded-[12px] flex flex-col justify-center items-end gap-20">
-        <div className="self-stretch inline-flex justify-between items-center">
+      <div className="flex flex-col items-end justify-center gap-12 overflow-hidden rounded-lg bg-[rgba(45,177,128,0.20)] p-6 self-stretch sm:gap-16 sm:rounded-xl sm:p-8 lg:gap-20 lg:p-[44px]">
+        <div className="inline-flex flex-col items-center justify-between gap-6 self-stretch sm:gap-8 lg:flex-row lg:items-center">
           <img
-            className="w-[250px] h-[249px] relative rounded-[12px] object-cover"
+            className="relative h-[200px] w-[200px] rounded-lg object-cover sm:h-[240px] sm:w-[240px] lg:h-[249px] lg:w-[250px] lg:rounded-xl"
             src="/images/mission-installation-01.jpg"
             alt="Portrait ou réalisation client"
           />
-          <div className="inline-flex flex-col justify-end items-start gap-[18px]">
-            <div className="flex flex-col justify-start items-start gap-6">
-              <div className="inline-flex justify-center items-center gap-1">
-                <div className="flex flex-col justify-end text-[#5D6B6C] text-[11px] leading-[22px] font-['Figtree'] font-medium uppercase">
+          <div className="inline-flex flex-col items-start justify-end gap-4 sm:gap-[18px]">
+            <div className="flex flex-col items-start justify-start gap-4 sm:gap-6">
+              <div className="inline-flex items-center justify-center gap-1">
+                <p className="flex flex-col justify-end font-['Figtree'] text-[11px] font-medium uppercase leading-[22px] text-[#5D6B6C]">
                   Romain Huck | Head of Product
-                </div>
+                </p>
               </div>
-              <div className="text-[#2DB180] text-[48px] leading-[52px] font-title font-bold uppercase">
+              <h3 className="font-title text-3xl font-bold uppercase leading-tight text-[#2DB180] sm:text-4xl sm:leading-tight lg:text-[48px] lg:leading-[52px]">
                 Groupe EDF
-              </div>
+              </h3>
             </div>
-            <div className="flex flex-col justify-start items-start gap-[10px]">
-              <div className="w-[524px] text-[#5D6B6C] text-[15px] leading-[22.5px] font-['Figtree'] font-normal">
-                “Bien plus qu’un simple installateur, un véritable partenaire de confiance à vos côtés, qui vous accompagne
-                avec rigueur, transparence et engagement pour garantir la qualité et la pérennité de chaque installation.”
-              </div>
+            <div className="flex flex-col items-start justify-start gap-2 sm:gap-[10px]">
+              <blockquote className="max-w-[524px] font-['Figtree'] text-sm font-normal leading-relaxed text-[#5D6B6C] sm:text-[15px] sm:leading-[22.5px]">
+                &quot;Bien plus qu&apos;un simple installateur, un véritable partenaire de confiance à vos côtés, qui vous accompagne
+                avec rigueur, transparence et engagement pour garantir la qualité et la pérennité de chaque installation.&quot;
+              </blockquote>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="inline-flex justify-start items-start gap-2">
+      <div className="inline-flex items-start justify-start gap-2">
         <NavButton direction="left" />
         <NavButton direction="right" />
       </div>

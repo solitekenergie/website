@@ -16,17 +16,17 @@ const cardBackground = (image: string) => ({
 function ServiceCard({ title, description, image, className, alt }: ServiceCardProps) {
   return (
     <div
-      className={`${className ?? ""} self-stretch px-[80px] py-12 bg-cover bg-center overflow-hidden rounded-[12px] inline-flex flex-col justify-center items-center gap-6`}
+      className={`${className ?? ""} inline-flex flex-col items-center justify-center gap-4 self-stretch overflow-hidden rounded-lg bg-cover bg-center px-6 py-8 sm:gap-6 sm:rounded-xl sm:px-12 sm:py-10 lg:px-20 lg:py-12`}
       style={cardBackground(image)}
     >
-      <div className="w-[603px] flex flex-col justify-end items-center gap-12">
-        <div className="w-full text-center text-white text-[56px] leading-[56px] font-title font-black uppercase">
+      <div className="flex max-w-[603px] flex-col items-center justify-end gap-8 sm:gap-12">
+        <h3 className="w-full text-center font-title text-3xl font-black uppercase leading-tight text-white sm:text-4xl sm:leading-tight lg:text-[56px] lg:leading-[56px]">
           {title}
-        </div>
-        <div className="flex flex-col justify-start items-center gap-6">
-          <div className="text-white text-[24px] leading-[24px] font-title font-normal">{description}</div>
-          <div className="inline-flex h-14 px-6 py-2 bg-white rounded-[4px] justify-center items-center gap-2">
-            <div className="flex flex-col justify-end text-[#161A1E] text-[16px] leading-[22.4px] font-['Figtree'] font-bold">
+        </h3>
+        <div className="flex flex-col items-center justify-start gap-4 sm:gap-6">
+          <p className="font-title text-lg font-normal leading-tight text-white sm:text-xl lg:text-2xl lg:leading-6">{description}</p>
+          <div className="inline-flex h-12 items-center justify-center gap-2 rounded bg-white px-6 py-2 sm:h-14">
+            <div className="flex flex-col justify-end font-['Figtree'] text-sm font-bold leading-tight text-[#161A1E] sm:text-base sm:leading-[22.4px]">
               Mon estimation
             </div>
           </div>
@@ -39,72 +39,72 @@ function ServiceCard({ title, description, image, className, alt }: ServiceCardP
 
 export function ServicesSection() {
   return (
-    <section className="w-full h-full px-20 pt-[100px] pb-[100px] inline-flex flex-col justify-start items-start gap-12">
-      <div className="self-stretch flex flex-col justify-start items-start gap-6">
-        <div className="flex flex-col justify-end text-[#161A1E] text-[32px] leading-[44.8px] font-title font-bold uppercase">
+    <section className="inline-flex h-full w-full flex-col items-start justify-start gap-8 px-4 pb-12 pt-12 sm:gap-10 sm:px-8 sm:pb-16 sm:pt-16 lg:gap-12 lg:px-20 lg:pb-[100px] lg:pt-[100px]">
+      <div className="flex flex-col items-start justify-start gap-6 self-stretch">
+        <h2 className="flex flex-col justify-end font-title text-2xl font-bold uppercase leading-tight text-[#161A1E] sm:text-3xl sm:leading-[44.8px] lg:text-[32px]">
           Nos Services
-        </div>
+        </h2>
       </div>
 
-      <div className="self-stretch flex flex-col justify-start items-start gap-6">
+      <div className="flex flex-col items-start justify-start gap-4 self-stretch sm:gap-6">
         <ServiceCard
           title="Photovoltaïque"
           description="Lorem ipsum dolor sit amet"
           image="/images/services-photovoltaique.jpg"
           alt="Panneaux photovoltaïques en fonctionnement"
-          className="h-[500px]"
+          className="h-[350px] sm:h-[400px] lg:h-[500px]"
         />
 
-        <div className="self-stretch h-[600px] inline-flex justify-start items-start gap-6">
+        <div className="inline-flex flex-col items-start justify-start gap-4 self-stretch sm:gap-6 lg:h-[600px] lg:flex-row">
           <ServiceCard
             title="Chauffage"
             description="Lorem ipsum dolor sit amet"
             image="/images/services-chauffage.jpg"
             alt="Système de chauffage moderne"
-            className="flex-1 h-full"
+            className="h-[350px] flex-1 sm:h-[400px] lg:h-full"
           />
           <ServiceCard
             title="Climatisation"
             description="Lorem ipsum dolor sit amet"
             image="/images/services-climatisation.jpg"
             alt="Installation de climatisation"
-            className="flex-1 h-full"
+            className="h-[350px] flex-1 sm:h-[400px] lg:h-full"
           />
         </div>
 
-        <div className="self-stretch h-[600px] inline-flex justify-start items-start gap-6">
+        <div className="inline-flex flex-col items-start justify-start gap-4 self-stretch sm:gap-6 lg:h-[600px] lg:flex-row">
           <ServiceCard
             title="Ventilation"
             description="Lorem ipsum dolor sit amet"
             image="/images/services-ventilation.jpg"
             alt="Système de ventilation résidentielle"
-            className="flex-1 h-full"
+            className="h-[350px] flex-1 sm:h-[400px] lg:h-full"
           />
           <ServiceCard
             title="Electricité"
             description="Lorem ipsum dolor sit amet"
             image="/images/services-electricite.jpg"
             alt="Travaux et installations électriques"
-            className="flex-1 h-full"
+            className="h-[350px] flex-1 sm:h-[400px] lg:h-full"
           />
         </div>
 
-        <div className="self-stretch h-[600px] inline-flex justify-start items-start gap-6">
+        <div className="inline-flex flex-col items-start justify-start gap-4 self-stretch sm:gap-6 lg:h-[600px] lg:flex-row">
           <ServiceCard
             title="Entretiens et nettoyage"
             description="Lorem ipsum dolor sit amet"
             image="/images/services-entretien.jpg"
-            alt="Prestations d’entretien et nettoyage"
-            className="flex-1 h-full"
+            alt="Prestations d&apos;entretien et nettoyage"
+            className="h-[350px] flex-1 sm:h-[400px] lg:h-full"
           />
         </div>
       </div>
 
-      <div className="self-stretch pt-[60px] pb-[60px] inline-flex justify-start items-start gap-[300px]">
-        <div className="flex flex-col justify-end text-[#161A1E] text-[32px] leading-[44.8px] font-title font-bold uppercase">
+      <div className="inline-flex flex-col items-start justify-start gap-6 self-stretch pb-12 pt-8 sm:pb-[60px] sm:pt-12 lg:flex-row lg:gap-[300px] lg:pb-[60px] lg:pt-[60px]">
+        <h3 className="flex flex-col justify-end font-title text-2xl font-bold uppercase leading-tight text-[#161A1E] sm:text-3xl sm:leading-[44.8px] lg:text-[32px]">
           Titre
-        </div>
-        <div className="flex-1 text-black text-[18px] leading-[27px] font-['Figtree'] font-normal">
+        </h3>
+        <div className="flex-1 font-['Figtree'] text-base font-normal leading-relaxed text-black sm:text-lg sm:leading-[27px]">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nec elit nec diam efficitur auctor. Praesent eros
           est, laoreet in ornare vitae, volutpat quis velit. Quisque condimentum finibus nisl vel viverra. Nunc sed lectus
           sem. Aenean non lacus ac lacus dictum tincidunt. Duis risus ligula, porttitor a orci vel, consequat feugiat

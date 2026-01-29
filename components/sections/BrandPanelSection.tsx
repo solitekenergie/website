@@ -2,92 +2,129 @@
 import Link from "next/link";
 import { SolitekLogo } from "../layout/Header";
 
-const exploreLinks = ["À propos", "Services", "Estimer son besoin", "Nos réalisation", "Nos fournisseur", "Les avis"];
-const socialLinks = ["Facebook", "Instagram", "LinkedIn"];
+const exploreLinks = [
+  { label: "À propos", href: "/a-propos" },
+  { label: "Services", href: "/#services" },
+  { label: "Estimer son besoin", href: "/estimateur" },
+  { label: "Nos réalisations", href: "/realisations" },
+  { label: "Nos fournisseurs", href: "/#fournisseurs" },
+  { label: "Les avis", href: "/#avis" },
+];
+
+const socialLinks = [
+  { label: "Facebook", href: "https://facebook.com", icon: "facebook" },
+  { label: "Instagram", href: "https://instagram.com", icon: "instagram" },
+  { label: "LinkedIn", href: "https://linkedin.com", icon: "linkedin" },
+];
 
 export function BrandPanelSection() {
   return (
-    <section className="w-full h-full inline-flex flex-col justify-start items-start">
-      <div className="self-stretch px-[60px] py-12 bg-[#161A1E] overflow-hidden flex flex-col justify-center items-center gap-12">
-        <div className="self-stretch flex flex-col justify-start items-center gap-15">
-          <div className="flex items-end justify-center gap-2 h-[120.43px]">
-            {/* <LogoStack />
-            <Wordmark /> */}
+    <footer className="inline-flex h-full w-full flex-col items-start justify-start">
+      {/* Main footer content */}
+      <div className="flex flex-col items-center justify-center gap-8 self-stretch overflow-hidden bg-[#161A1E] px-4 py-12 sm:gap-10 sm:px-8 sm:py-16 lg:gap-12 lg:px-[60px]">
+        {/* Logo */}
+        <div className="flex flex-col items-center justify-start gap-4 self-stretch">
+          <div className="flex h-auto items-end justify-center gap-2 sm:h-[80px] lg:h-[120.43px]">
             <SolitekLogo variant="footer" />
           </div>
         </div>
 
-        <div className="self-stretch inline-flex justify-start items-start gap-15">
-          <div className="flex-1 inline-flex flex-col justify-start items-start gap-6">
-            <div className="self-stretch text-white text-[18px] leading-[27px] font-['Figtree'] font-normal">
-              Bien plus qu’un simple installateur, SOLITEK incarne un partenaire engagé, humain et fiable, à vos côtés dans
+        {/* Footer columns */}
+        <div className="grid w-full grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 lg:gap-12">
+          {/* Description */}
+          <div className="flex flex-col items-start justify-start gap-4 sm:gap-6">
+            <p className="self-stretch font-['Figtree'] text-base font-normal leading-relaxed text-white sm:text-lg sm:leading-[27px]">
+              Bien plus qu&apos;un simple installateur, SOLITEK incarne un partenaire engagé, humain et fiable, à vos côtés dans
               chaque étape de votre transition énergétique.
-            </div>
+            </p>
           </div>
 
-          <div className="flex-1 inline-flex flex-col justify-start items-start gap-6">
-            <div className="text-white text-[24px] leading-[28.8px] font-['Figtree'] font-bold">Explorer</div>
-            <div className="self-stretch flex flex-col justify-start items-start">
-              {exploreLinks.map((label) => (
-                <div
-                  key={label}
-                  className="self-stretch py-3 border-b border-b-white/30 inline-flex items-center justify-between"
+          {/* Explorer links */}
+          <div className="flex flex-col items-start justify-start gap-4 sm:gap-6">
+            <h3 className="font-['Figtree'] text-xl font-bold text-white sm:text-2xl sm:leading-[28.8px]">Explorer</h3>
+            <nav className="flex w-full flex-col items-start justify-start">
+              {exploreLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="group inline-flex w-full items-center justify-between border-b border-b-white/30 py-3 transition-all duration-300 hover:border-b-[#2DB180]"
+                  style={{ color: '#ffffff' }}
                 >
-                  <div className="text-white text-[14px] leading-[19.6px] font-['Figtree'] font-bold">{label}</div>
-                  <img
-                    src="/images/01%20align%20center.svg"
-                    alt=""
+                  <span className="font-['Figtree'] text-sm font-bold text-white transition-colors duration-300 group-hover:text-[#2DB180] sm:text-[14px] sm:leading-[19.6px]">
+                    {link.label}
+                  </span>
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 20 20"
+                    fill="none"
+                    className="h-5 w-5 text-white transition-all duration-300 group-hover:translate-x-1 group-hover:text-[#2DB180]"
                     aria-hidden="true"
-                    className="h-5 w-5 object-contain"
-                  />
-                </div>
+                  >
+                    <path d="M4 10H16M16 10L10 4M16 10L10 16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </Link>
               ))}
-            </div>
+            </nav>
           </div>
 
-          <div className="flex-1 inline-flex flex-col justify-start items-start gap-6">
-            <div className="text-white text-[24px] leading-[28.8px] font-['Figtree'] font-bold">Nous retrouver</div>
-            <div className="self-stretch flex flex-col justify-start items-start">
-              {socialLinks.map((label) => (
-                <div
-                  key={label}
-                  className="self-stretch py-3 border-b border-b-white/30 inline-flex items-center justify-between"
+          {/* Social links */}
+          <div className="flex flex-col items-start justify-start gap-4 sm:gap-6">
+            <h3 className="font-['Figtree'] text-xl font-bold text-white sm:text-2xl sm:leading-[28.8px]">Nous retrouver</h3>
+            <nav className="flex w-full flex-col items-start justify-start">
+              {socialLinks.map((link) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group inline-flex w-full items-center justify-between border-b border-b-white/30 py-3 transition-all duration-300 hover:border-b-[#2DB180]"
+                  style={{ color: '#ffffff' }}
                 >
-                  <div className="text-white text-[14px] leading-[19.6px] font-['Figtree'] font-bold">{label}</div>
-                  <img
-                    src="/images/01%20align%20center.svg"
-                    alt=""
+                  <span className="font-['Figtree'] text-sm font-bold text-white transition-colors duration-300 group-hover:text-[#2DB180] sm:text-[14px] sm:leading-[19.6px]">
+                    {link.label}
+                  </span>
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 20 20"
+                    fill="none"
+                    className="h-5 w-5 text-white transition-all duration-300 group-hover:translate-x-1 group-hover:text-[#2DB180]"
                     aria-hidden="true"
-                    className="h-5 w-5 object-contain"
-                  />
-                </div>
+                  >
+                    <path d="M4 10H16M16 10L10 4M16 10L10 16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </a>
               ))}
-            </div>
+            </nav>
           </div>
         </div>
       </div>
 
-      <div className="self-stretch px-[60px] py-4 bg-[#161A1E] border-t border-t-white/15 inline-flex items-center justify-between">
-        <div className="flex items-center justify-start gap-6">
+      {/* Footer bottom bar */}
+      <div className="inline-flex w-full flex-col items-center justify-between gap-4 border-t border-t-white/15 bg-[#161A1E] px-4 py-4 sm:flex-row sm:px-8 lg:px-[60px]">
+        <nav className="flex flex-wrap items-center justify-center gap-4 sm:justify-start sm:gap-6">
           <Link
             href="/mentions-legales"
-            className="text-white text-[13px] leading-[13px] font-['Figtree'] font-normal hover:text-white"
+            className="font-['Figtree'] text-xs font-normal text-white transition-colors duration-300 hover:text-[#2DB180] sm:text-[13px] sm:leading-[13px]"
+            style={{ color: '#ffffff' }}
           >
             Mentions légales
           </Link>
           <Link
             href="/politique-de-confidentialite"
-            className="text-white text-[13px] leading-[13px] font-['Figtree'] font-normal hover:text-white"
+            className="font-['Figtree'] text-xs font-normal text-white transition-colors duration-300 hover:text-[#2DB180] sm:text-[13px] sm:leading-[13px]"
+            style={{ color: '#ffffff' }}
           >
             Politique de confidentialité
           </Link>
-        </div>
-        <div className="flex items-center justify-end gap-3">
-          <img src="/images/Made%20by.svg" alt="Made by" className="h-[40px] w-auto object-contain" />
-          <img src="/images/Footer%20Made%20By%20Logo.svg" alt="Fief logo" className="h-[40px] w-auto object-contain" />
+        </nav>
+        <div className="flex items-center justify-end gap-2 sm:gap-3">
+          <img src="/images/Made%20by.svg" alt="Made by" className="h-[30px] w-auto object-contain sm:h-[40px]" />
+          <img src="/images/Footer%20Made%20By%20Logo.svg" alt="Fief logo" className="h-[30px] w-auto object-contain sm:h-[40px]" />
         </div>
       </div>
-    </section>
+    </footer>
   );
 }
 

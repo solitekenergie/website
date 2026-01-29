@@ -3,35 +3,35 @@ import Link from "next/link";
 export function HighlightSection() {
   return (
     <section
-      className="w-full h-full px-20 pt-[100px] pb-[100px] inline-flex flex-col justify-center items-start gap-2 bg-cover bg-center"
+      className="inline-flex h-full w-full flex-col items-start justify-center gap-2 bg-cover bg-center px-4 pb-12 pt-12 sm:px-8 sm:pb-16 sm:pt-16 lg:px-20 lg:pb-[100px] lg:pt-[100px]"
       style={{
         backgroundImage:
           "linear-gradient(0deg, rgba(0, 0, 0, 0.30) 0%, rgba(0, 0, 0, 0.30) 100%), url('/images/cta-background.jpg')",
       }}
     >
-      <div className="p-12 bg-[#D5EFE6] overflow-hidden rounded-[12px] flex flex-col justify-start items-start gap-6">
-        <div className="flex flex-col justify-end items-start gap-[18px]">
-          <div className="flex flex-col justify-start items-start gap-6">
-            <div className="inline-flex justify-center items-center gap-1">
-              <div className="flex flex-col justify-end text-[#5D6B6C] text-[11px] leading-[22px] font-['Outfit'] font-medium uppercase">
+      <div className="flex flex-col items-start justify-start gap-6 overflow-hidden rounded-lg bg-[#D5EFE6] p-6 sm:rounded-xl sm:p-8 lg:p-12">
+        <div className="flex flex-col items-start justify-end gap-4 sm:gap-[18px]">
+          <div className="flex flex-col items-start justify-start gap-4 sm:gap-6">
+            <div className="inline-flex items-center justify-center gap-1">
+              <div className="flex flex-col justify-end font-['Outfit'] text-[11px] font-medium uppercase leading-[22px] text-[#5D6B6C]">
                 Sous titre
               </div>
             </div>
-            <div className="text-black text-[48px] leading-[52px] font-title font-black uppercase">
+            <h2 className="font-title text-3xl font-black uppercase leading-tight text-black sm:text-4xl sm:leading-tight lg:text-[48px] lg:leading-[52px]">
               Titre
-            </div>
+            </h2>
           </div>
-          <div className="flex flex-col justify-start items-start gap-[10px]">
-            <div className="w-[524px] text-[#5D6B6C] text-[15px] leading-[22.5px] font-['Elza'] font-normal">
+          <div className="flex flex-col items-start justify-start gap-2 sm:gap-[10px]">
+            <p className="max-w-[524px] font-['Elza'] text-sm font-normal leading-relaxed text-[#5D6B6C] sm:text-[15px] sm:leading-[22.5px]">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nec elit nec diam efficitur auctor. Praesent
               eros est, laoreet in ornare vitae, volutpat quis velit. Quisque condimentum finibus nisl vel viverra. Nunc sed lectus
               sem. Aenean non lacus ac lacus dictum tincidunt. Duis risus ligula, porttitor a orci vel, consequat feugiat nibh.
               Phasellus blandit aliquet lacus, lobortis facilisis tellus viverra quis.
-            </div>
+            </p>
           </div>
           <Link
             href="/estimateur"
-            className="inline-flex h-14 items-center justify-center gap-2 rounded-[4px] bg-[#161A1E] px-6 py-2 text-white text-[16px] leading-[22.4px] font-['Figtree'] font-bold"
+            className="inline-flex h-12 items-center justify-center gap-2 rounded bg-[#161A1E] px-6 py-2 font-['Figtree'] text-sm font-bold leading-tight text-white sm:h-14 sm:text-base sm:leading-[22.4px]"
           >
             Mon estimation
           </Link>

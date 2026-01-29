@@ -22,19 +22,19 @@ const logos: Logo[] = [
 export function SuppliersSection() {
   return (
     /* eslint-disable @next/next/no-img-element */
-    <section className="w-full h-full pt-[40px] pb-[100px] px-[100px] inline-flex flex-col justify-center items-center gap-10">
-      <div className="self-stretch h-14 text-center text-black text-[56px] leading-[56px] font-title font-black uppercase">
+    <section className="inline-flex h-full w-full flex-col items-center justify-center gap-8 px-4 pb-12 pt-8 sm:gap-10 sm:px-8 sm:pb-16 sm:pt-10 lg:gap-10 lg:px-[100px] lg:pb-[100px] lg:pt-[40px]">
+      <h2 className="h-auto self-stretch text-center font-title text-3xl font-black uppercase leading-tight text-black sm:text-4xl sm:leading-tight lg:h-14 lg:text-[56px] lg:leading-[56px]">
         Nos FournisseurS
-      </div>
+      </h2>
 
-      <div className="self-stretch p-[44px] overflow-hidden rounded-[12px] flex flex-col justify-center items-center gap-20">
-        <div className="self-stretch inline-flex flex-wrap items-center justify-center gap-6 content-center">
+      <div className="flex flex-col items-center justify-center gap-12 overflow-hidden rounded-lg p-6 self-stretch sm:gap-16 sm:rounded-xl sm:p-8 lg:gap-20 lg:p-[44px]">
+        <div className="content-center inline-flex flex-wrap items-center justify-center gap-4 self-stretch sm:gap-6">
           {logos.map((logo, idx) => (
             <div key={`${logo.alt}-${idx}`} className={`${logo.width} ${logo.height} flex items-center justify-center`}>
               <img
                 src={logo.src}
                 alt={logo.alt}
-                className="h-full w-full rounded-[4px] object-contain"
+                className="h-full w-full rounded object-contain"
               />
             </div>
           ))}
