@@ -1,0 +1,29 @@
+{
+  "collectionName": "components_content_blocks_videos",
+  "info": {
+    "displayName": "Vidéo",
+    "icon": "play",
+    "description": "Vidéo Mux ou externe"
+  },
+  "options": {},
+  "attributes": {
+    "urlVideo": {
+      "type": "string",
+      "required": true
+    },
+    "playbackId": {
+      "type": "string"
+    },
+    "afficherControles": {
+      "type": "boolean",
+      "default": true
+    },
+    "legendeVideo": {
+      "type": "string"
+    },
+    "autoplay": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}

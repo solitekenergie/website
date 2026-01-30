@@ -1,0 +1,55 @@
+{
+  "collectionName": "components_content_blocks_images",
+  "info": {
+    "displayName": "Image",
+    "icon": "picture",
+    "description": "Image avec options de taille et alignement"
+  },
+  "options": {},
+  "attributes": {
+    "media": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": ["images"]
+    },
+    "legende": {
+      "type": "string"
+    },
+    "alt": {
+      "type": "string"
+    },
+    "typeTaille": {
+      "type": "enumeration",
+      "enum": [
+        "auto",
+        "petit",
+        "moyen",
+        "grand",
+        "pleineLargeur",
+        "personnalise"
+      ],
+      "default": "auto"
+    },
+    "largeurPersonnalisee": {
+      "type": "integer",
+      "min": 100,
+      "max": 2000
+    },
+    "hauteurPersonnalisee": {
+      "type": "integer",
+      "min": 100,
+      "max": 2000
+    },
+    "alignement": {
+      "type": "enumeration",
+      "enum": ["gauche", "centre", "droite"],
+      "default": "centre"
+    },
+    "bordureArrondie": {
+      "type": "enumeration",
+      "enum": ["aucune", "petit", "moyen", "grand"],
+      "default": "aucune"
+    }
+  }
+}

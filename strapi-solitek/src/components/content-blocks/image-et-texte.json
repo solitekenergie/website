@@ -1,0 +1,37 @@
+{
+  "collectionName": "components_content_blocks_image_textes",
+  "info": {
+    "displayName": "Image et Texte",
+    "icon": "layer-group",
+    "description": "Image combinée avec du texte"
+  },
+  "options": {},
+  "attributes": {
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": ["images"]
+    },
+    "texte": {
+      "type": "blocks",
+      "required": true
+    },
+    "positionImage": {
+      "type": "enumeration",
+      "enum": ["gauche", "droite", "haut", "bas"],
+      "default": "gauche"
+    },
+    "hauteurImage": {
+      "type": "integer",
+      "min": 200,
+      "max": 1000,
+      "default": 400
+    },
+    "largeurImage": {
+      "type": "integer",
+      "min": 200,
+      "max": 2000
+    }
+  }
+}

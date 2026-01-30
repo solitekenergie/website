@@ -1,0 +1,94 @@
+{
+  "kind": "collectionType",
+  "collectionName": "realisations_all",
+  "info": {
+    "singularName": "realisations",
+    "pluralName": "realisations-all",
+    "displayName": "Réalisations",
+    "description": "Réalisations de Solitek"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "titre": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "required": true
+    },
+    "resume": {
+      "type": "text",
+      "required": true
+    },
+    "slug": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "contenu": {
+      "type": "dynamiczone",
+      "components": [
+        "content-blocks.paragraphe",
+        "content-blocks.image",
+        "content-blocks.video",
+        "content-blocks.image-et-texte",
+        "content-blocks.deux-colonnes",
+        "content-blocks.galerie",
+        "content-blocks.citation",
+        "content-blocks.callout",
+        "content-blocks.tech-stack"
+      ],
+      "required": true
+    },
+    "imageCouverture": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "videoCouverture": {
+      "type": "string"
+    },
+    "afficherControlesVideo": {
+      "type": "boolean",
+      "default": false
+    },
+    "images": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "technologies": {
+      "type": "text"
+    },
+    "urlProjet": {
+      "type": "string"
+    },
+    "urlGithub": {
+      "type": "string"
+    },
+    "misEnAvant": {
+      "type": "boolean",
+      "default": false
+    },
+    "datePublication": {
+      "type": "datetime",
+      "required": true
+    },
+    "TagsProjet": {
+      "type": "enumeration",
+      "enum": [
+        "WEBDESIGN",
+        "RESPONSIVE",
+        "PHOTOGRAPHIE"
+      ]
+    }
+  }
+}

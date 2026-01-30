@@ -1,0 +1,33 @@
+{
+  "collectionName": "components_content_blocks_galeries",
+  "info": {
+    "displayName": "Galerie",
+    "icon": "images",
+    "description": "Galerie d'images"
+  },
+  "options": {},
+  "attributes": {
+    "images": {
+      "type": "media",
+      "multiple": true,
+      "required": true,
+      "allowedTypes": ["images"]
+    },
+    "disposition": {
+      "type": "enumeration",
+      "enum": ["grille2", "grille3", "ligne"],
+      "default": "grille2"
+    },
+    "hauteur": {
+      "type": "integer",
+      "min": 200,
+      "max": 1000,
+      "default": 500
+    },
+    "largeur": {
+      "type": "integer",
+      "min": 200,
+      "max": 2000
+    }
+  }
+}

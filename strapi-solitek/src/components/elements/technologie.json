@@ -1,0 +1,28 @@
+{
+  "collectionName": "components_elements_technologies",
+  "info": {
+    "displayName": "Technologie",
+    "icon": "cog",
+    "description": "Une technologie avec icône"
+  },
+  "options": {},
+  "attributes": {
+    "nom": {
+      "type": "string",
+      "required": true
+    },
+    "icone": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    },
+    "tailleIcone": {
+      "type": "enumeration",
+      "enum": ["petit", "moyen", "grand"],
+      "default": "moyen"
+    },
+    "description": {
+      "type": "text"
+    }
+  }
+}

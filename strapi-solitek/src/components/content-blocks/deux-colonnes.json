@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_content_blocks_deux_colonnes",
+  "info": {
+    "displayName": "Deux Colonnes",
+    "icon": "columns",
+    "description": "Contenu sur deux colonnes"
+  },
+  "options": {},
+  "attributes": {
+    "colonneGauche": {
+      "type": "blocks",
+      "required": true
+    },
+    "colonneDroite": {
+      "type": "blocks",
+      "required": true
+    }
+  }
+}

@@ -430,6 +430,68 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiRealisationsRealisations
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'realisations_all';
+  info: {
+    description: 'R\u00E9alisations de Solitek';
+    displayName: 'R\u00E9alisations';
+    pluralName: 'realisations-all';
+    singularName: 'realisations';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    afficherControlesVideo: Schema.Attribute.Boolean &
+      Schema.Attribute.DefaultTo<false>;
+    contenu: Schema.Attribute.DynamicZone<
+      [
+        'content-blocks.paragraphe',
+        'content-blocks.image',
+        'content-blocks.video',
+        'content-blocks.image-et-texte',
+        'content-blocks.deux-colonnes',
+        'content-blocks.galerie',
+        'content-blocks.citation',
+        'content-blocks.callout',
+        'content-blocks.tech-stack',
+      ]
+    > &
+      Schema.Attribute.Required;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    datePublication: Schema.Attribute.DateTime & Schema.Attribute.Required;
+    description: Schema.Attribute.Text & Schema.Attribute.Required;
+    imageCouverture: Schema.Attribute.Media<'images'>;
+    images: Schema.Attribute.Media<'images', true>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::realisations.realisations'
+    > &
+      Schema.Attribute.Private;
+    misEnAvant: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    publishedAt: Schema.Attribute.DateTime;
+    resume: Schema.Attribute.Text & Schema.Attribute.Required;
+    slug: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    TagsProjet: Schema.Attribute.Enumeration<
+      ['WEBDESIGN', 'RESPONSIVE', 'PHOTOGRAPHIE']
+    >;
+    technologies: Schema.Attribute.Text;
+    titre: Schema.Attribute.String & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    urlGithub: Schema.Attribute.String;
+    urlProjet: Schema.Attribute.String;
+    videoCouverture: Schema.Attribute.String;
+  };
+}
+
 export interface PluginContentReleasesRelease
   extends Struct.CollectionTypeSchema {
   collectionName: 'strapi_releases';
@@ -940,6 +1002,7 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::realisations.realisations': ApiRealisationsRealisations;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

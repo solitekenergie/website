@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_content_blocks_callouts",
+  "info": {
+    "displayName": "Callout",
+    "icon": "exclamation-circle",
+    "description": "Boîte d'information mise en évidence"
+  },
+  "options": {},
+  "attributes": {
+    "texte": {
+      "type": "blocks",
+      "required": true
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": ["info", "avertissement", "succes", "citation", "technique"],
+      "default": "info",
+      "required": true
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_content_blocks_paragraphes",
+  "info": {
+    "displayName": "Paragraphe",
+    "icon": "align-left",
+    "description": "Bloc de texte riche"
+  },
+  "options": {},
+  "attributes": {
+    "texte": {
+      "type": "blocks",
+      "required": true
+    }
+  }
+}
