@@ -10,13 +10,32 @@ interface EstimatorResultsProps {
   onBack: () => void;
 }
 
+interface GoogleSolarData {
+  maxPanelsCount: number;
+  maxAreaMeters2: number;
+  maxSunshineHoursPerYear: number;
+  panelCapacityWatts: number;
+  panelLifetimeYears: number;
+  optimalPanelsCount: number;
+  optimalYearlyEnergyKwh: number;
+  roofSegments: Array<{
+    pitchDegrees: number;
+    azimuthDegrees: number;
+    panelsCount: number;
+    yearlyEnergyDcKwh: number;
+  }>;
+}
+
 interface SolarPotential {
+  panelsCount: number;
   annualProductionKwh: number;
   recommendedKwc: number;
   installationCost: number;
   annualSavings: number;
   totalSavings: number;
   paybackYears: number;
+  usedGoogleSolar: boolean;
+  roofAreaMeters2?: number;
 }
 
 export default function EstimatorResults({ formData, onBack }: EstimatorResultsProps) {
@@ -52,31 +71,76 @@ export default function EstimatorResults({ formData, onBack }: EstimatorResultsP
         adjustedConsumption += 1000; // Average AC consumption
       }
 
-      // Use PVGIS API to get solar irradiation data
-      let irradiation = 1200; // Default for France
+      let usedGoogleSolar = false;
+      let panelsCount = 0;
+      let annualProductionKwh = 0;
+      let recommendedKwc = 0;
+      let roofAreaMeters2: number | undefined;
 
+      // Try Google Solar API first
       if (formData.coordinates) {
         try {
-          const pvgisResponse = await fetch(
-            `https://re.jrc.ec.europa.eu/api/v5_2/PVcalc?lat=${formData.coordinates.lat}&lon=${formData.coordinates.lng}&peakpower=1&loss=14&outputformat=json`
-          );
-          const pvgisData = await pvgisResponse.json();
+          const solarResponse = await fetch("/api/solar", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              latitude: formData.coordinates.lat,
+              longitude: formData.coordinates.lng,
+            }),
+          });
 
-          if (pvgisData.outputs?.totals?.fixed) {
-            irradiation = pvgisData.outputs.totals.fixed["E_y"];
+          if (solarResponse.ok) {
+            const googleSolarData: GoogleSolarData = await solarResponse.json();
+
+            usedGoogleSolar = true;
+            panelsCount = googleSolarData.optimalPanelsCount;
+            annualProductionKwh = Math.round(googleSolarData.optimalYearlyEnergyKwh);
+            roofAreaMeters2 = googleSolarData.maxAreaMeters2;
+
+            // Calculate kWc from panels count and panel capacity
+            recommendedKwc = Math.round((panelsCount * googleSolarData.panelCapacityWatts) / 1000 * 10) / 10;
+
+            console.log("Google Solar API data retrieved successfully");
+          } else {
+            console.log("Google Solar API not available, falling back to PVGIS estimation");
           }
         } catch (error) {
-          console.error("Error fetching PVGIS data:", error);
+          console.error("Error fetching Google Solar data:", error);
         }
       }
 
-      // Calculate recommended system size (kWc)
-      // Target 70% coverage for optimal ROI
-      const coverageTarget = 0.7;
-      const recommendedKwc = Math.round((adjustedConsumption * coverageTarget) / irradiation * 10) / 10;
+      // Fallback to PVGIS + estimation if Google Solar failed
+      if (!usedGoogleSolar) {
+        let irradiation = 1200; // Default for France
 
-      // Calculate expected production
-      const annualProductionKwh = Math.round(recommendedKwc * irradiation);
+        if (formData.coordinates) {
+          try {
+            const pvgisResponse = await fetch(
+              `https://re.jrc.ec.europa.eu/api/v5_2/PVcalc?lat=${formData.coordinates.lat}&lon=${formData.coordinates.lng}&peakpower=1&loss=14&outputformat=json`
+            );
+            const pvgisData = await pvgisResponse.json();
+
+            if (pvgisData.outputs?.totals?.fixed) {
+              irradiation = pvgisData.outputs.totals.fixed["E_y"];
+            }
+          } catch (error) {
+            console.error("Error fetching PVGIS data:", error);
+          }
+        }
+
+        // Calculate recommended system size (kWc)
+        // Target 70% coverage for optimal ROI
+        const coverageTarget = 0.7;
+        recommendedKwc = Math.round((adjustedConsumption * coverageTarget) / irradiation * 10) / 10;
+
+        // Calculate expected production
+        annualProductionKwh = Math.round(recommendedKwc * irradiation);
+
+        // Estimate panels count (average panel is 400W)
+        panelsCount = Math.round((recommendedKwc * 1000) / 400);
+      }
 
       // Calculate savings (assuming 0.20€/kWh average price)
       const electricityPrice = formData.electricityPrice || 0.20;
@@ -90,12 +154,15 @@ export default function EstimatorResults({ formData, onBack }: EstimatorResultsP
       const paybackYears = annualSavings > 0 ? Math.round((installationCost / annualSavings) * 10) / 10 : 0;
 
       setResults({
+        panelsCount,
         annualProductionKwh,
         recommendedKwc,
         installationCost,
         annualSavings,
         totalSavings,
         paybackYears,
+        usedGoogleSolar,
+        roofAreaMeters2,
       });
     } catch (error) {
       console.error("Error calculating solar potential:", error);
@@ -198,6 +265,43 @@ export default function EstimatorResults({ formData, onBack }: EstimatorResultsP
             <div className="space-y-8">
               {/* Results cards */}
               <div className="space-y-4">
+                {/* Number of solar panels - Primary metric */}
+                <div className="rounded-2xl border-2 border-[#5CB88F] bg-[#5CB88F] p-6 text-white">
+                  <div className="flex items-start gap-4">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white text-[#5CB88F]">
+                      <svg
+                        className="h-6 w-6"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M4 5a1 1 0 011-1h4a1 1 0 011 1v7a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM14 5a1 1 0 011-1h4a1 1 0 011 1v7a1 1 0 01-1 1h-4a1 1 0 01-1-1V5zM4 16a1 1 0 011-1h4a1 1 0 011 1v3a1 1 0 01-1 1H5a1 1 0 01-1-1v-3zM14 16a1 1 0 011-1h4a1 1 0 011 1v3a1 1 0 01-1 1h-4a1 1 0 01-1-1v-3z"
+                        />
+                      </svg>
+                    </div>
+                    <div className="flex-1">
+                      <p className="text-5xl font-bold">{results.panelsCount}</p>
+                      <p className="mt-2 text-lg">
+                        Panneaux solaires installables
+                        {results.usedGoogleSolar && (
+                          <span className="ml-2 rounded-full bg-white/20 px-2 py-1 text-xs">
+                            Données Google Solar
+                          </span>
+                        )}
+                      </p>
+                      {results.roofAreaMeters2 && (
+                        <p className="mt-1 text-sm opacity-90">
+                          Surface de toit: {Math.round(results.roofAreaMeters2)} m²
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                </div>
+
                 <div className="rounded-2xl border-2 border-slate-900 bg-slate-900 p-6 text-white">
                   <div className="flex items-start gap-4">
                   <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white text-slate-900">
