@@ -81,14 +81,6 @@
     "datePublication": {
       "type": "datetime",
       "required": true
-    },
-    "TagsProjet": {
-      "type": "enumeration",
-      "enum": [
-        "WEBDESIGN",
-        "RESPONSIVE",
-        "PHOTOGRAPHIE"
-      ]
     }
   }
 }

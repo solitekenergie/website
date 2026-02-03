@@ -478,9 +478,6 @@ export interface ApiRealisationsRealisations
     slug: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.Unique;
-    TagsProjet: Schema.Attribute.Enumeration<
-      ['WEBDESIGN', 'RESPONSIVE', 'PHOTOGRAPHIE']
-    >;
     technologies: Schema.Attribute.Text;
     titre: Schema.Attribute.String & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
