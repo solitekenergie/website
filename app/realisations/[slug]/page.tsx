@@ -34,7 +34,7 @@ function RichText({ content }: { content: string | RichTextNode[] | undefined })
           </p>
         );
       case "heading":
-        const HeadingTag = `h${node.level || 1}` as keyof JSX.IntrinsicElements;
+        const HeadingTag = `h${node.level || 1}` as React.ElementType;
         return (
           <HeadingTag key={index} className="text-[24px] font-title font-black uppercase text-[#161A1E] mb-4">
             {children}
