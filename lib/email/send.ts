@@ -31,7 +31,7 @@ export async function sendEmail(payload: EmailPayload): Promise<EmailSendResult>
       const resend = new Resend(apiKey);
 
       const result = await resend.emails.send({
-        from: "contact@solitekenergie.fr",
+        from: "onboarding@resend.dev",
         to: payload.to,
         subject: payload.subject,
         text: payload.text,

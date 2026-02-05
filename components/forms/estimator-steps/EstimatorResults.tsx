@@ -5,6 +5,12 @@ import type { EstimatorFormData } from "../MultiStepEstimatorForm";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 
+interface ContactFormData {
+  name: string;
+  email: string;
+  phone: string;
+}
+
 interface EstimatorResultsProps {
   formData: EstimatorFormData;
   onBack: () => void;
@@ -41,6 +47,14 @@ interface SolarPotential {
 export default function EstimatorResults({ formData, onBack }: EstimatorResultsProps) {
   const [loading, setLoading] = useState(true);
   const [results, setResults] = useState<SolarPotential | null>(null);
+  const [showContactForm, setShowContactForm] = useState(false);
+  const [contactData, setContactData] = useState<ContactFormData>({
+    name: "",
+    email: "",
+    phone: "",
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitMessage, setSubmitMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
 
   useEffect(() => {
     calculateSolarPotential();
@@ -172,8 +186,57 @@ export default function EstimatorResults({ formData, onBack }: EstimatorResultsP
   };
 
   const handleQuoteRequest = () => {
-    // Redirect to contact form or open modal
-    window.location.href = "/contact";
+    setShowContactForm(true);
+  };
+
+  const handleContactSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!contactData.name || !contactData.email) {
+      setSubmitMessage({ type: "error", text: "Veuillez remplir tous les champs obligatoires." });
+      return;
+    }
+
+    setIsSubmitting(true);
+    setSubmitMessage(null);
+
+    try {
+      const payload = {
+        ...contactData,
+        ...formData,
+        ...(results || {}),
+      };
+
+      const response = await fetch("/api/estimator", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.delivered) {
+        setSubmitMessage({
+          type: "success",
+          text: "Votre demande a été envoyée avec succès ! Nous vous recontacterons rapidement.",
+        });
+      } else {
+        setSubmitMessage({
+          type: "error",
+          text: data.message || "Une erreur s'est produite. Veuillez réessayer.",
+        });
+      }
+    } catch (error) {
+      console.error("Error submitting estimator:", error);
+      setSubmitMessage({
+        type: "error",
+        text: "Impossible d'envoyer votre demande pour le moment.",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   if (loading) {
@@ -399,13 +462,93 @@ export default function EstimatorResults({ formData, onBack }: EstimatorResultsP
                 </div>
               </div>
 
-              <button
-                type="button"
-                onClick={handleQuoteRequest}
-                className="w-full rounded-lg bg-[#5CB88F] px-8 py-4 text-lg font-semibold text-white transition-colors hover:bg-[#4da77e]"
-              >
-                Faire un devis
-              </button>
+              {!showContactForm ? (
+                <button
+                  type="button"
+                  onClick={handleQuoteRequest}
+                  className="w-full rounded-lg bg-[#5CB88F] px-8 py-4 text-lg font-semibold text-white transition-colors hover:bg-[#4da77e]"
+                >
+                  Faire un devis
+                </button>
+              ) : (
+                <div className="space-y-6">
+                  <div className="rounded-lg border-2 border-slate-200 bg-slate-50 p-6">
+                    <h2 className="mb-4 text-xl font-bold text-slate-900">
+                      Finaliser votre demande
+                    </h2>
+                    <form onSubmit={handleContactSubmit} className="space-y-4">
+                      <div>
+                        <label htmlFor="name" className="mb-2 block text-sm font-medium text-slate-700">
+                          Nom complet *
+                        </label>
+                        <input
+                          type="text"
+                          id="name"
+                          value={contactData.name}
+                          onChange={(e) => setContactData({ ...contactData, name: e.target.value })}
+                          className="w-full rounded-lg border-2 border-slate-300 px-4 py-3 text-slate-900 focus:border-[#5CB88F] focus:outline-none"
+                          required
+                        />
+                      </div>
+                      <div>
+                        <label htmlFor="email" className="mb-2 block text-sm font-medium text-slate-700">
+                          Email *
+                        </label>
+                        <input
+                          type="email"
+                          id="email"
+                          value={contactData.email}
+                          onChange={(e) => setContactData({ ...contactData, email: e.target.value })}
+                          className="w-full rounded-lg border-2 border-slate-300 px-4 py-3 text-slate-900 focus:border-[#5CB88F] focus:outline-none"
+                          required
+                        />
+                      </div>
+                      <div>
+                        <label htmlFor="phone" className="mb-2 block text-sm font-medium text-slate-700">
+                          Téléphone
+                        </label>
+                        <input
+                          type="tel"
+                          id="phone"
+                          value={contactData.phone}
+                          onChange={(e) => setContactData({ ...contactData, phone: e.target.value })}
+                          className="w-full rounded-lg border-2 border-slate-300 px-4 py-3 text-slate-900 focus:border-[#5CB88F] focus:outline-none"
+                        />
+                      </div>
+
+                      {submitMessage && (
+                        <div
+                          className={`rounded-lg p-4 ${
+                            submitMessage.type === "success"
+                              ? "bg-green-50 text-green-800"
+                              : "bg-red-50 text-red-800"
+                          }`}
+                        >
+                          {submitMessage.text}
+                        </div>
+                      )}
+
+                      <div className="flex gap-3">
+                        <button
+                          type="button"
+                          onClick={() => setShowContactForm(false)}
+                          className="flex-1 rounded-lg border-2 border-slate-300 px-6 py-3 font-semibold text-slate-700 transition-colors hover:bg-slate-100"
+                          disabled={isSubmitting}
+                        >
+                          Retour
+                        </button>
+                        <button
+                          type="submit"
+                          className="flex-1 rounded-lg bg-[#5CB88F] px-6 py-3 font-semibold text-white transition-colors hover:bg-[#4da77e] disabled:opacity-50"
+                          disabled={isSubmitting}
+                        >
+                          {isSubmitting ? "Envoi en cours..." : "Envoyer ma demande"}
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              )}
             </div>
         </div>
       </div>
