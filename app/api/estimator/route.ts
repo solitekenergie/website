@@ -97,6 +97,8 @@ Production annuelle estimée: ${data.annualProductionKwh.toLocaleString("fr-FR")
 
 Coût d'installation estimé: ${data.installationCost.toLocaleString("fr-FR")} €
 Retour sur investissement: ${data.paybackYears} ans
+${data.maxSunshineHoursPerYear ? `Heures d'ensoleillement: ${data.maxSunshineHoursPerYear} h/an` : ""}
+${data.irrPercent ? `Taux de rentabilité interne: ${data.irrPercent}% (vs Livret A à 1,7%)` : ""}
 
 ${data.usedGoogleSolar ? "✓ Estimation basée sur Google Solar API" : "⚠ Estimation basée sur PVGIS (données moyennes)"}
 

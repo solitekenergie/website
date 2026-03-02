@@ -46,6 +46,8 @@ export const estimatorSchema = z.object({
   paybackYears: z.number().nonnegative(),
   usedGoogleSolar: z.boolean(),
   roofAreaMeters2: z.number().positive().optional(),
+  maxSunshineHoursPerYear: z.number().positive().optional(),
+  irrPercent: z.number().optional().nullable(),
 });
 
 export type EstimatorData = z.infer<typeof estimatorSchema>;

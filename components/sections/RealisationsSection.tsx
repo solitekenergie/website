@@ -96,7 +96,7 @@ export function RealisationsSection() {
   return (
     <section className="inline-flex h-full w-full flex-col items-start justify-start gap-12 p-4 sm:gap-16 sm:p-8 lg:gap-20 lg:p-[100px]">
       <h2 className="self-stretch text-center font-title text-3xl font-black uppercase leading-tight text-black sm:text-4xl sm:leading-tight lg:text-[56px] lg:leading-[56px]">
-        Nos réalisation
+        Nos réalisations
       </h2>
 
       <div className="w-full overflow-hidden">

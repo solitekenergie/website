@@ -96,7 +96,7 @@ export default async function Home({
 
       <SuppliersSection />
 
-      <TestimonialsSection />
+      {/* <TestimonialsSection /> */}
     </div>
   );
 }

@@ -2,8 +2,10 @@
 
 import { useState, useEffect } from "react";
 import type { EstimatorFormData } from "../MultiStepEstimatorForm";
+import { calculateSolarIRR } from "@/lib/pv/irr";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import SolarHeatMap from "@/components/solar/SolarHeatMap";
 
 interface ContactFormData {
   name: string;
@@ -42,6 +44,8 @@ interface SolarPotential {
   paybackYears: number;
   usedGoogleSolar: boolean;
   roofAreaMeters2?: number;
+  maxSunshineHoursPerYear?: number;
+  irrPercent: number | null;
 }
 
 export default function EstimatorResults({ formData, onBack }: EstimatorResultsProps) {
@@ -71,18 +75,16 @@ export default function EstimatorResults({ formData, onBack }: EstimatorResultsP
         annualConsumptionKwh = formData.consumptionValue / formData.electricityPrice;
       }
 
-      // Adjust consumption based on household size, equipment, etc.
+      // Adjust consumption based on equipment
       let adjustedConsumption = annualConsumptionKwh;
-
-      // Add consumption for equipment
       if (formData.otherEquipment.includes("electric-vehicle")) {
-        adjustedConsumption += 2500; // Average EV consumption
+        adjustedConsumption += 2500;
       }
       if (formData.otherEquipment.includes("pool")) {
-        adjustedConsumption += 1500; // Average pool consumption
+        adjustedConsumption += 1500;
       }
       if (formData.otherEquipment.includes("air-conditioning")) {
-        adjustedConsumption += 1000; // Average AC consumption
+        adjustedConsumption += 1000;
       }
 
       let usedGoogleSolar = false;
@@ -90,15 +92,14 @@ export default function EstimatorResults({ formData, onBack }: EstimatorResultsP
       let annualProductionKwh = 0;
       let recommendedKwc = 0;
       let roofAreaMeters2: number | undefined;
+      let maxSunshineHoursPerYear: number | undefined;
 
       // Try Google Solar API first
       if (formData.coordinates) {
         try {
           const solarResponse = await fetch("/api/solar", {
             method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
               latitude: formData.coordinates.lat,
               longitude: formData.coordinates.lng,
@@ -112,13 +113,8 @@ export default function EstimatorResults({ formData, onBack }: EstimatorResultsP
             panelsCount = googleSolarData.optimalPanelsCount;
             annualProductionKwh = Math.round(googleSolarData.optimalYearlyEnergyKwh);
             roofAreaMeters2 = googleSolarData.maxAreaMeters2;
-
-            // Calculate kWc from panels count and panel capacity
+            maxSunshineHoursPerYear = Math.round(googleSolarData.maxSunshineHoursPerYear);
             recommendedKwc = Math.round((panelsCount * googleSolarData.panelCapacityWatts) / 1000 * 10) / 10;
-
-            console.log("Google Solar API data retrieved successfully");
-          } else {
-            console.log("Google Solar API not available, falling back to PVGIS estimation");
           }
         } catch (error) {
           console.error("Error fetching Google Solar data:", error);
@@ -132,7 +128,7 @@ export default function EstimatorResults({ formData, onBack }: EstimatorResultsP
         if (formData.coordinates) {
           try {
             const pvgisResponse = await fetch(
-              `https://re.jrc.ec.europa.eu/api/v5_2/PVcalc?lat=${formData.coordinates.lat}&lon=${formData.coordinates.lng}&peakpower=1&loss=14&outputformat=json`
+              `https://re.jrc.ec.europa.eu/api/v5_2/PVcalc?lat=${formData.coordinates.lat}&lon=${formData.coordinates.lng}&peakpower=1&loss=14&outputformat=json`,
             );
             const pvgisData = await pvgisResponse.json();
 
@@ -144,28 +140,24 @@ export default function EstimatorResults({ formData, onBack }: EstimatorResultsP
           }
         }
 
-        // Calculate recommended system size (kWc)
-        // Target 70% coverage for optimal ROI
+        // Use PVGIS irradiation as approximation of sunshine hours
+        maxSunshineHoursPerYear = Math.round(irradiation);
+
         const coverageTarget = 0.7;
         recommendedKwc = Math.round((adjustedConsumption * coverageTarget) / irradiation * 10) / 10;
-
-        // Calculate expected production
         annualProductionKwh = Math.round(recommendedKwc * irradiation);
-
-        // Estimate panels count (average panel is 400W)
         panelsCount = Math.round((recommendedKwc * 1000) / 400);
       }
 
-      // Calculate savings (assuming 0.20€/kWh average price)
+      // Financial calculations
       const electricityPrice = formData.electricityPrice || 0.20;
       const annualSavings = Math.round(annualProductionKwh * electricityPrice);
-      const totalSavings = Math.round(annualSavings * 25); // 25 year lifespan
-
-      // Calculate installation cost (average 2500€/kWc in France)
+      const totalSavings = Math.round(annualSavings * 25);
       const installationCost = Math.round(recommendedKwc * 2500);
-
-      // Calculate payback period
       const paybackYears = annualSavings > 0 ? Math.round((installationCost / annualSavings) * 10) / 10 : 0;
+
+      // Calculate IRR (Taux de Rentabilité Interne)
+      const irrPercent = calculateSolarIRR(installationCost, annualSavings, 25);
 
       setResults({
         panelsCount,
@@ -177,6 +169,8 @@ export default function EstimatorResults({ formData, onBack }: EstimatorResultsP
         paybackYears,
         usedGoogleSolar,
         roofAreaMeters2,
+        maxSunshineHoursPerYear,
+        irrPercent,
       });
     } catch (error) {
       console.error("Error calculating solar potential:", error);
@@ -209,9 +203,7 @@ export default function EstimatorResults({ formData, onBack }: EstimatorResultsP
 
       const response = await fetch("/api/estimator", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
 
@@ -272,287 +264,209 @@ export default function EstimatorResults({ formData, onBack }: EstimatorResultsP
       <Header />
       <div className="min-h-screen w-full bg-white">
         <div className="mx-auto max-w-[1400px] px-4 py-16">
-          {/* Centered Title */}
+          {/* Title */}
           <div className="mb-12 text-center">
-            <h1 className="font-[900] text-[48px] leading-tight tracking-tight text-slate-900">
+            <h1 className="font-[900] text-[36px] leading-tight tracking-tight text-slate-900 md:text-[48px]">
               VOTRE LOGEMENT PRÉSENTE UN FORT POTENTIEL SOLAIRE !
             </h1>
           </div>
 
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-16">
-            {/* Left side - Image */}
-            <div className="relative hidden lg:block">
-              <div className="relative">
-                <img
-                  src="/images/solar-thermal-map.jpg"
-                  alt="Carte thermique du bâtiment"
-                  className="h-[650px] w-full rounded-2xl object-cover"
-                />
-                <div className="absolute bottom-4 left-4 right-4 rounded-lg bg-white/90 p-4 backdrop-blur-sm">
-                  <div className="flex items-center gap-2">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-900">
-                      <svg
-                        className="h-5 w-5 text-white"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                        />
-                      </svg>
-                    </div>
-                    <select className="flex-1 rounded-lg border-2 border-slate-300 px-3 py-2 text-sm">
-                      <option>Jan</option>
-                      <option>Fév</option>
-                      <option>Mar</option>
-                      <option>Avr</option>
-                      <option>Mai</option>
-                      <option>Juin</option>
-                      <option>Juil</option>
-                      <option>Août</option>
-                      <option>Sep</option>
-                      <option>Oct</option>
-                      <option>Nov</option>
-                      <option>Déc</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Right side - Results */}
-            <div className="space-y-8">
-              {/* Results cards */}
-              <div className="space-y-4">
-                {/* Number of solar panels - Primary metric */}
-                <div className="rounded-2xl border-2 border-[#5CB88F] bg-[#5CB88F] p-6 text-white">
-                  <div className="flex items-start gap-4">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white text-[#5CB88F]">
-                      <svg
-                        className="h-6 w-6"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M4 5a1 1 0 011-1h4a1 1 0 011 1v7a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM14 5a1 1 0 011-1h4a1 1 0 011 1v7a1 1 0 01-1 1h-4a1 1 0 01-1-1V5zM4 16a1 1 0 011-1h4a1 1 0 011 1v3a1 1 0 01-1 1H5a1 1 0 01-1-1v-3zM14 16a1 1 0 011-1h4a1 1 0 011 1v3a1 1 0 01-1 1h-4a1 1 0 01-1-1v-3z"
-                        />
-                      </svg>
-                    </div>
-                    <div className="flex-1">
-                      <p className="text-5xl font-bold">{results.panelsCount}</p>
-                      <p className="mt-2 text-lg">
-                        Panneaux solaires installables
-                        {results.usedGoogleSolar && (
-                          <span className="ml-2 rounded-full bg-white/20 px-2 py-1 text-xs">
-                            Données Google Solar
-                          </span>
-                        )}
-                      </p>
-                      {results.roofAreaMeters2 && (
-                        <p className="mt-1 text-sm opacity-90">
-                          Surface de toit: {Math.round(results.roofAreaMeters2)} m²
-                        </p>
-                      )}
-                    </div>
-                  </div>
-                </div>
-
-                <div className="rounded-2xl border-2 border-slate-900 bg-slate-900 p-6 text-white">
-                  <div className="flex items-start gap-4">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white text-slate-900">
-                    <svg
-                      className="h-6 w-6"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M13 10V3L4 14h7v7l9-11h-7z"
-                      />
-                    </svg>
-                  </div>
-                  <div className="flex-1">
-                    <p className="text-5xl font-bold">{results.annualProductionKwh.toLocaleString()} kWh</p>
-                    <p className="mt-2 text-lg">Production estimée par an</p>
-                  </div>
-                </div>
-                </div>
-
-                <div className="rounded-2xl border-2 border-slate-200 bg-white p-6">
-                  <div className="flex items-start gap-4">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-slate-900 text-white">
-                    <svg
-                      className="h-6 w-6"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                      />
-                    </svg>
-                  </div>
-                  <div className="flex-1">
-                    <p className="text-5xl font-bold text-slate-900">{results.annualSavings.toLocaleString()} €</p>
-                    <p className="mt-2 text-lg text-slate-600">Économies annuelles</p>
-                  </div>
-                </div>
-                </div>
-
-                <div className="rounded-2xl border-2 border-slate-200 bg-white p-6">
-                  <div className="flex items-start gap-4">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-slate-900 text-white">
-                    <svg
-                      className="h-6 w-6"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                      />
-                    </svg>
-                  </div>
-                  <div className="flex-1">
-                    <p className="text-5xl font-bold text-slate-900">{results.paybackYears} ans</p>
-                    <p className="mt-2 text-lg text-slate-600">Temps de retour sur investissement</p>
-                  </div>
-                </div>
-                </div>
-
-                <div className="rounded-2xl border-2 border-slate-200 bg-white p-6">
-                  <div className="flex items-start gap-4">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-slate-900 text-white">
-                    <svg
-                      className="h-6 w-6"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"
-                      />
-                    </svg>
-                  </div>
-                  <div className="flex-1">
-                    <p className="text-5xl font-bold text-slate-900">{results.totalSavings.toLocaleString()} €</p>
-                    <p className="mt-2 text-lg text-slate-600">Économies totales sur 25 ans</p>
-                  </div>
-                </div>
-                </div>
-              </div>
-
-              {!showContactForm ? (
-                <button
-                  type="button"
-                  onClick={handleQuoteRequest}
-                  className="w-full rounded-lg bg-[#5CB88F] px-8 py-4 text-lg font-semibold text-white transition-colors hover:bg-[#4da77e]"
-                >
-                  Faire un devis
-                </button>
+            {/* Left side - Solar Heat Map */}
+            <div className="hidden lg:block">
+              {formData.coordinates ? (
+                <SolarHeatMap coordinates={formData.coordinates} />
               ) : (
-                <div className="space-y-6">
-                  <div className="rounded-lg border-2 border-slate-200 bg-slate-50 p-6">
-                    <h2 className="mb-4 text-xl font-bold text-slate-900">
-                      Finaliser votre demande
-                    </h2>
-                    <form onSubmit={handleContactSubmit} className="space-y-4">
-                      <div>
-                        <label htmlFor="name" className="mb-2 block text-sm font-medium text-slate-700">
-                          Nom complet *
-                        </label>
-                        <input
-                          type="text"
-                          id="name"
-                          value={contactData.name}
-                          onChange={(e) => setContactData({ ...contactData, name: e.target.value })}
-                          className="w-full rounded-lg border-2 border-slate-300 px-4 py-3 text-slate-900 focus:border-[#5CB88F] focus:outline-none"
-                          required
-                        />
-                      </div>
-                      <div>
-                        <label htmlFor="email" className="mb-2 block text-sm font-medium text-slate-700">
-                          Email *
-                        </label>
-                        <input
-                          type="email"
-                          id="email"
-                          value={contactData.email}
-                          onChange={(e) => setContactData({ ...contactData, email: e.target.value })}
-                          className="w-full rounded-lg border-2 border-slate-300 px-4 py-3 text-slate-900 focus:border-[#5CB88F] focus:outline-none"
-                          required
-                        />
-                      </div>
-                      <div>
-                        <label htmlFor="phone" className="mb-2 block text-sm font-medium text-slate-700">
-                          Téléphone
-                        </label>
-                        <input
-                          type="tel"
-                          id="phone"
-                          value={contactData.phone}
-                          onChange={(e) => setContactData({ ...contactData, phone: e.target.value })}
-                          className="w-full rounded-lg border-2 border-slate-300 px-4 py-3 text-slate-900 focus:border-[#5CB88F] focus:outline-none"
-                        />
-                      </div>
-
-                      {submitMessage && (
-                        <div
-                          className={`rounded-lg p-4 ${
-                            submitMessage.type === "success"
-                              ? "bg-green-50 text-green-800"
-                              : "bg-red-50 text-red-800"
-                          }`}
-                        >
-                          {submitMessage.text}
-                        </div>
-                      )}
-
-                      <div className="flex gap-3">
-                        <button
-                          type="button"
-                          onClick={() => setShowContactForm(false)}
-                          className="flex-1 rounded-lg border-2 border-slate-300 px-6 py-3 font-semibold text-slate-700 transition-colors hover:bg-slate-100"
-                          disabled={isSubmitting}
-                        >
-                          Retour
-                        </button>
-                        <button
-                          type="submit"
-                          className="flex-1 rounded-lg bg-[#5CB88F] px-6 py-3 font-semibold text-white transition-colors hover:bg-[#4da77e] disabled:opacity-50"
-                          disabled={isSubmitting}
-                        >
-                          {isSubmitting ? "Envoi en cours..." : "Envoyer ma demande"}
-                        </button>
-                      </div>
-                    </form>
-                  </div>
+                <div className="flex h-[650px] items-center justify-center rounded-2xl bg-slate-100">
+                  <p className="text-slate-500">Carte thermique non disponible</p>
                 </div>
               )}
             </div>
+
+            {/* Right side - VOTRE POTENTIEL SOLAIRE */}
+            <div className="space-y-6">
+              <div className="rounded-2xl border-2 border-[#5CB88F]/30 bg-white p-8">
+                <h2 className="mb-8 text-center font-[900] text-[28px] tracking-tight text-slate-900">
+                  VOTRE POTENTIEL SOLAIRE
+                </h2>
+
+                <div className="space-y-4">
+                  {/* Metric 1: Sunshine hours (dark bg) */}
+                  <div className="flex items-center gap-4 rounded-xl bg-slate-900 p-5 text-white">
+                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-white/10">
+                      <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <p className="text-2xl font-bold">
+                        {results.maxSunshineHoursPerYear?.toLocaleString("fr-FR") ?? "~1 200"} h
+                      </p>
+                      <p className="text-sm text-white/70">d&apos;ensoleillement par an</p>
+                    </div>
+                  </div>
+
+                  {/* Metric 2: Number of panels */}
+                  <div className="flex items-center gap-4 rounded-xl border-2 border-slate-200 p-5">
+                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-slate-100">
+                      <svg className="h-6 w-6 text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 5a1 1 0 011-1h4a1 1 0 011 1v5a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM14 5a1 1 0 011-1h4a1 1 0 011 1v5a1 1 0 01-1 1h-4a1 1 0 01-1-1V5zM4 16a1 1 0 011-1h4a1 1 0 011 1v3a1 1 0 01-1 1H5a1 1 0 01-1-1v-3zM14 16a1 1 0 011-1h4a1 1 0 011 1v3a1 1 0 01-1 1h-4a1 1 0 01-1-1v-3z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <p className="text-2xl font-bold text-slate-900">
+                        {results.panelsCount} panneaux
+                      </p>
+                      <p className="text-sm text-slate-500">
+                        installables sur votre toit
+                        {results.maxSunshineHoursPerYear && results.panelsCount > 0 && (
+                          <span className="ml-1 text-slate-400">
+                            ({Math.round(results.annualProductionKwh / results.panelsCount / results.maxSunshineHoursPerYear * 100) / 100} kWh/panneau/h)
+                          </span>
+                        )}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Metric 3: Annual kWh production */}
+                  <div className="flex items-center gap-4 rounded-xl border-2 border-slate-200 p-5">
+                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-slate-100">
+                      <svg className="h-6 w-6 text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <p className="text-2xl font-bold text-slate-900">
+                        {results.annualProductionKwh.toLocaleString("fr-FR")} kWh
+                      </p>
+                      <p className="text-sm text-slate-500">produits par an</p>
+                    </div>
+                  </div>
+
+                  {/* Metric 4: Annual savings */}
+                  <div className="flex items-center gap-4 rounded-xl border-2 border-slate-200 p-5">
+                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-slate-100">
+                      <svg className="h-6 w-6 text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <p className="text-2xl font-bold text-slate-900">
+                        {results.annualSavings.toLocaleString("fr-FR")} &euro;
+                      </p>
+                      <p className="text-sm text-slate-500">économisés par an</p>
+                    </div>
+                  </div>
+
+                  {/* Metric 5: Payback period */}
+                  <div className="flex items-center gap-4 rounded-xl border-2 border-slate-200 p-5">
+                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-slate-100">
+                      <svg className="h-6 w-6 text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <p className="text-2xl font-bold text-slate-900">
+                        {results.paybackYears} ans
+                      </p>
+                      <p className="text-sm text-slate-500">avant rentabilité</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* CTA / Contact form */}
+                <div className="mt-8">
+                  {!showContactForm ? (
+                    <button
+                      type="button"
+                      onClick={handleQuoteRequest}
+                      className="w-full rounded-lg bg-[#5CB88F] px-8 py-4 text-lg font-semibold text-white transition-colors hover:bg-[#4da77e]"
+                    >
+                      Faire un devis
+                    </button>
+                  ) : (
+                    <div className="space-y-4">
+                      <h3 className="text-lg font-bold text-slate-900">
+                        Finaliser votre demande
+                      </h3>
+                      <form onSubmit={handleContactSubmit} className="space-y-4">
+                        <div>
+                          <label htmlFor="name" className="mb-2 block text-sm font-medium text-slate-700">
+                            Nom complet *
+                          </label>
+                          <input
+                            type="text"
+                            id="name"
+                            value={contactData.name}
+                            onChange={(e) => setContactData({ ...contactData, name: e.target.value })}
+                            className="w-full rounded-lg border-2 border-slate-300 px-4 py-3 text-slate-900 focus:border-[#5CB88F] focus:outline-none"
+                            required
+                          />
+                        </div>
+                        <div>
+                          <label htmlFor="email" className="mb-2 block text-sm font-medium text-slate-700">
+                            Email *
+                          </label>
+                          <input
+                            type="email"
+                            id="email"
+                            value={contactData.email}
+                            onChange={(e) => setContactData({ ...contactData, email: e.target.value })}
+                            className="w-full rounded-lg border-2 border-slate-300 px-4 py-3 text-slate-900 focus:border-[#5CB88F] focus:outline-none"
+                            required
+                          />
+                        </div>
+                        <div>
+                          <label htmlFor="phone" className="mb-2 block text-sm font-medium text-slate-700">
+                            Téléphone
+                          </label>
+                          <input
+                            type="tel"
+                            id="phone"
+                            value={contactData.phone}
+                            onChange={(e) => setContactData({ ...contactData, phone: e.target.value })}
+                            className="w-full rounded-lg border-2 border-slate-300 px-4 py-3 text-slate-900 focus:border-[#5CB88F] focus:outline-none"
+                          />
+                        </div>
+
+                        {submitMessage && (
+                          <div
+                            className={`rounded-lg p-4 ${
+                              submitMessage.type === "success"
+                                ? "bg-green-50 text-green-800"
+                                : "bg-red-50 text-red-800"
+                            }`}
+                          >
+                            {submitMessage.text}
+                          </div>
+                        )}
+
+                        <div className="flex gap-3">
+                          <button
+                            type="button"
+                            onClick={() => setShowContactForm(false)}
+                            className="flex-1 rounded-lg border-2 border-slate-300 px-6 py-3 font-semibold text-slate-700 transition-colors hover:bg-slate-100"
+                            disabled={isSubmitting}
+                          >
+                            Retour
+                          </button>
+                          <button
+                            type="submit"
+                            className="flex-1 rounded-lg bg-[#5CB88F] px-6 py-3 font-semibold text-white transition-colors hover:bg-[#4da77e] disabled:opacity-50"
+                            disabled={isSubmitting}
+                          >
+                            {isSubmitting ? "Envoi en cours..." : "Envoyer ma demande"}
+                          </button>
+                        </div>
+                      </form>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
       <Footer />
     </>
   );

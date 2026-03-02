@@ -4,7 +4,7 @@ export function TestimonialsSection() {
   return (
     <section className="inline-flex h-full w-full flex-col items-center justify-center gap-8 px-4 pb-12 pt-12 sm:gap-10 sm:px-8 sm:pb-[60px] sm:pt-[60px] lg:px-[100px]">
       <h2 className="h-auto self-stretch font-title text-3xl font-bold uppercase leading-tight text-[#161A1E] sm:text-4xl sm:leading-tight lg:h-14 lg:text-[56px] lg:leading-[56px]">
-        Ce qu&apos;on dis de nous
+        Ce qu&apos;on dit de nous
       </h2>
 
       <div className="flex flex-col items-end justify-center gap-12 overflow-hidden rounded-lg bg-[rgba(45,177,128,0.20)] p-6 self-stretch sm:gap-16 sm:rounded-xl sm:p-8 lg:gap-20 lg:p-[44px]">
