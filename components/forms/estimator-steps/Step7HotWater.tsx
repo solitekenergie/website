@@ -12,16 +12,23 @@ interface Step7Props {
 
 export default function Step7HotWater({ formData, updateFormData, onNext, onBack }: Step7Props) {
   const [selected, setSelected] = useState<string>(formData.hotWater || "");
+  const [otherText, setOtherText] = useState<string>(formData.hotWaterOther || "");
 
   const handleSelect = (hotWater: string) => {
     setSelected(hotWater);
     updateFormData({
-      hotWater: hotWater as "electric" | "thermodynamic" | "heat-pump" | "non-electric",
+      hotWater: hotWater as EstimatorFormData["hotWater"],
+      hotWaterOther: hotWater === "other" ? otherText : undefined,
     });
   };
 
+  const handleOtherText = (text: string) => {
+    setOtherText(text);
+    updateFormData({ hotWaterOther: text });
+  };
+
   const handleNext = () => {
-    if (selected) {
+    if (selected && (selected !== "other" || otherText.trim())) {
       onNext();
     }
   };
@@ -31,7 +38,11 @@ export default function Step7HotWater({ formData, updateFormData, onNext, onBack
     { value: "thermodynamic", label: "Ballon thermodynamique" },
     { value: "heat-pump", label: "Pompe à chaleur" },
     { value: "non-electric", label: "Chauffe-eau non-électrique" },
+    { value: "unknown", label: "Je ne sais pas" },
+    { value: "other", label: "Autre" },
   ];
+
+  const isValid = selected && (selected !== "other" || otherText.trim());
 
   return (
     <div className="space-y-8">
@@ -58,6 +69,16 @@ export default function Step7HotWater({ formData, updateFormData, onNext, onBack
             </button>
           );
         })}
+
+        {selected === "other" && (
+          <input
+            type="text"
+            value={otherText}
+            onChange={(e) => handleOtherText(e.target.value)}
+            placeholder="Précisez votre type d'eau chaude..."
+            className="w-full rounded-lg border-2 border-slate-300 px-6 py-4 text-lg text-slate-700 placeholder:text-slate-400 focus:border-[#5CB88F] focus:outline-none"
+          />
+        )}
       </div>
 
       <div className="flex gap-4">
@@ -84,7 +105,7 @@ export default function Step7HotWater({ formData, updateFormData, onNext, onBack
         <button
           type="button"
           onClick={handleNext}
-          disabled={!selected}
+          disabled={!isValid}
           className="flex-1 rounded-lg bg-[#5CB88F] px-6 py-3 font-semibold text-white transition-colors hover:bg-[#4da77e] disabled:cursor-not-allowed disabled:bg-slate-300"
         >
           Suivant

@@ -12,6 +12,11 @@ interface Step8Props {
 
 export default function Step8Equipment({ formData, updateFormData, onNext, onBack }: Step8Props) {
   const [selected, setSelected] = useState<string[]>(formData.otherEquipment || []);
+  const [otherText, setOtherText] = useState<string>(() => {
+    const existing = formData.otherEquipment || [];
+    const custom = existing.find((item) => item.startsWith("other:"));
+    return custom ? custom.replace("other:", "") : "";
+  });
 
   const handleSelect = (equipment: string) => {
     setSelected((prev) => {
@@ -22,8 +27,21 @@ export default function Step8Equipment({ formData, updateFormData, onNext, onBac
     });
   };
 
+  const handleOtherToggle = () => {
+    if (selected.includes("other")) {
+      setSelected((prev) => prev.filter((item) => item !== "other"));
+      setOtherText("");
+    } else {
+      setSelected((prev) => [...prev, "other"]);
+    }
+  };
+
   const handleNext = () => {
-    updateFormData({ otherEquipment: selected });
+    const equipment = selected.filter((item) => item !== "other");
+    if (selected.includes("other") && otherText.trim()) {
+      equipment.push(`other:${otherText.trim()}`);
+    }
+    updateFormData({ otherEquipment: equipment });
     onNext();
   };
 
@@ -58,6 +76,28 @@ export default function Step8Equipment({ formData, updateFormData, onNext, onBac
             </button>
           );
         })}
+
+        <button
+          type="button"
+          onClick={handleOtherToggle}
+          className={`w-full rounded-lg border-2 px-6 py-4 text-center text-lg transition-colors ${
+            selected.includes("other")
+              ? "border-[#5CB88F] bg-[#5CB88F] text-white"
+              : "border-slate-300 bg-white text-slate-700 hover:border-[#5CB88F]"
+          }`}
+        >
+          Autre
+        </button>
+
+        {selected.includes("other") && (
+          <input
+            type="text"
+            value={otherText}
+            onChange={(e) => setOtherText(e.target.value)}
+            placeholder="Précisez vos équipements..."
+            className="w-full rounded-lg border-2 border-slate-300 px-6 py-4 text-lg text-slate-700 placeholder:text-slate-400 focus:border-[#5CB88F] focus:outline-none"
+          />
+        )}
       </div>
 
       <div className="flex gap-4">

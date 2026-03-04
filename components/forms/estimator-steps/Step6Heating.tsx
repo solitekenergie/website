@@ -12,16 +12,23 @@ interface Step6Props {
 
 export default function Step6Heating({ formData, updateFormData, onNext, onBack }: Step6Props) {
   const [selected, setSelected] = useState<string>(formData.mainHeating || "");
+  const [otherText, setOtherText] = useState<string>(formData.mainHeatingOther || "");
 
   const handleSelect = (heating: string) => {
     setSelected(heating);
     updateFormData({
-      mainHeating: heating as "heat-pump" | "electric-radiator" | "non-electric",
+      mainHeating: heating as EstimatorFormData["mainHeating"],
+      mainHeatingOther: heating === "other" ? otherText : undefined,
     });
   };
 
+  const handleOtherText = (text: string) => {
+    setOtherText(text);
+    updateFormData({ mainHeatingOther: text });
+  };
+
   const handleNext = () => {
-    if (selected) {
+    if (selected && (selected !== "other" || otherText.trim())) {
       onNext();
     }
   };
@@ -30,7 +37,11 @@ export default function Step6Heating({ formData, updateFormData, onNext, onBack 
     { value: "heat-pump", label: "Pompe à chaleur" },
     { value: "electric-radiator", label: "Radiateur électrique" },
     { value: "non-electric", label: "Chauffage non-électrique (gaz, fioul...)" },
+    { value: "unknown", label: "Je ne sais pas" },
+    { value: "other", label: "Autre" },
   ];
+
+  const isValid = selected && (selected !== "other" || otherText.trim());
 
   return (
     <div className="space-y-8">
@@ -57,6 +68,16 @@ export default function Step6Heating({ formData, updateFormData, onNext, onBack 
             </button>
           );
         })}
+
+        {selected === "other" && (
+          <input
+            type="text"
+            value={otherText}
+            onChange={(e) => handleOtherText(e.target.value)}
+            placeholder="Précisez votre type de chauffage..."
+            className="w-full rounded-lg border-2 border-slate-300 px-6 py-4 text-lg text-slate-700 placeholder:text-slate-400 focus:border-[#5CB88F] focus:outline-none"
+          />
+        )}
       </div>
 
       <div className="flex gap-4">
@@ -83,7 +104,7 @@ export default function Step6Heating({ formData, updateFormData, onNext, onBack 
         <button
           type="button"
           onClick={handleNext}
-          disabled={!selected}
+          disabled={!isValid}
           className="flex-1 rounded-lg bg-[#5CB88F] px-6 py-3 font-semibold text-white transition-colors hover:bg-[#4da77e] disabled:cursor-not-allowed disabled:bg-slate-300"
         >
           Suivant

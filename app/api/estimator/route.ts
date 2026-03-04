@@ -36,6 +36,8 @@ export async function POST(request: NextRequest) {
       "heat-pump": "Pompe à chaleur",
       "electric-radiator": "Radiateurs électriques",
       "non-electric": "Non électrique",
+      unknown: "Ne sait pas",
+      other: "Autre",
     };
 
     const hotWaterLabels: { [key: string]: string } = {
@@ -43,6 +45,8 @@ export async function POST(request: NextRequest) {
       thermodynamic: "Thermodynamique",
       "heat-pump": "Pompe à chaleur",
       "non-electric": "Non électrique",
+      unknown: "Ne sait pas",
+      other: "Autre",
     };
 
     const presenceLabels: { [key: string]: string } = {
@@ -79,8 +83,8 @@ Surface habitable: ${data.surface} m²
 
 ÉQUIPEMENTS
 -----------
-Chauffage principal: ${heatingLabels[data.mainHeating] || data.mainHeating}
-Eau chaude: ${hotWaterLabels[data.hotWater] || data.hotWater}
+Chauffage principal: ${heatingLabels[data.mainHeating] || data.mainHeating}${data.mainHeating === "other" && data.mainHeatingOther ? ` (${data.mainHeatingOther})` : ""}
+Eau chaude: ${hotWaterLabels[data.hotWater] || data.hotWater}${data.hotWater === "other" && data.hotWaterOther ? ` (${data.hotWaterOther})` : ""}
 Autres équipements: ${equipmentList}
 
 ========================================

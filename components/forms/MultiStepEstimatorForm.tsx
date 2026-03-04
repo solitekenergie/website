@@ -20,8 +20,10 @@ export interface EstimatorFormData {
   householdSize: number;
   presenceProfile: "morning-evening" | "all-day" | "school-holidays";
   surface: number;
-  mainHeating: "heat-pump" | "electric-radiator" | "non-electric";
-  hotWater: "electric" | "thermodynamic" | "heat-pump" | "non-electric";
+  mainHeating: "heat-pump" | "electric-radiator" | "non-electric" | "unknown" | "other";
+  mainHeatingOther?: string;
+  hotWater: "electric" | "thermodynamic" | "heat-pump" | "non-electric" | "unknown" | "other";
+  hotWaterOther?: string;
   otherEquipment: string[];
 }
 

@@ -30,8 +30,10 @@ export const estimatorSchema = z.object({
   surface: z.number().positive("La surface doit être positive."),
 
   // Heating and hot water
-  mainHeating: z.enum(["heat-pump", "electric-radiator", "non-electric"]),
-  hotWater: z.enum(["electric", "thermodynamic", "heat-pump", "non-electric"]),
+  mainHeating: z.enum(["heat-pump", "electric-radiator", "non-electric", "unknown", "other"]),
+  mainHeatingOther: z.string().optional(),
+  hotWater: z.enum(["electric", "thermodynamic", "heat-pump", "non-electric", "unknown", "other"]),
+  hotWaterOther: z.string().optional(),
 
   // Equipment
   otherEquipment: z.array(z.string()),
