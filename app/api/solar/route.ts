@@ -1,4 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
+import { rateLimit, getClientIp } from "@/lib/rate-limit";
+import { getBuildingInsightsCache, setBuildingInsightsCache } from "@/lib/solar/cache";
+
+const RATE_LIMIT = { limit: 2, windowMs: 60_000 }; // 2 req / 60s per IP
 
 interface SolarApiRequest {
   latitude: number;
@@ -62,6 +66,17 @@ interface GoogleSolarResponse {
 
 export async function POST(request: NextRequest) {
   try {
+    // Rate limiting by IP
+    const ip = getClientIp(request);
+    const rl = rateLimit(`solar:${ip}`, RATE_LIMIT);
+    if (!rl.success) {
+      console.warn(`Rate limited /api/solar for IP ${ip}`);
+      return NextResponse.json(
+        { error: "Trop de requêtes. Veuillez réessayer dans quelques instants." },
+        { status: 429, headers: { "Retry-After": String(rl.retryAfter) } }
+      );
+    }
+
     const { latitude, longitude }: SolarApiRequest = await request.json();
 
     if (!latitude || !longitude) {
@@ -69,6 +84,12 @@ export async function POST(request: NextRequest) {
         { error: "Latitude and longitude are required" },
         { status: 400 }
       );
+    }
+
+    // Check cache first
+    const cached = getBuildingInsightsCache<Record<string, unknown>>(latitude, longitude);
+    if (cached) {
+      return NextResponse.json(cached);
     }
 
     const apiKey = process.env.GOOGLE_SOLAR_API_KEY;
@@ -129,6 +150,9 @@ export async function POST(request: NextRequest) {
       roofSegments: optimalConfig?.roofSegmentSummaries || [],
       imageryDate: data.solarPotential.buildingInsights?.imageryDate,
     };
+
+    // Cache successful response
+    setBuildingInsightsCache(latitude, longitude, result);
 
     return NextResponse.json(result);
   } catch (error) {

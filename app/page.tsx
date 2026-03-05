@@ -1,4 +1,5 @@
 import { listPosts } from "@/lib/blog";
+import { getRealisations } from "@/lib/realisations";
 import { MissionSection } from "@/components/sections/MissionSection";
 import { ServicesSection } from "@/components/sections/ServicesSection";
 import { HighlightSection } from "@/components/sections/HighlightSection";
@@ -14,7 +15,7 @@ export default async function Home({
 }: {
   searchParams?: Promise<Record<string, string | string[]>>;
 }) {
-  await listPosts();
+  const [, realisations] = await Promise.all([listPosts(), getRealisations()]);
   const resolvedParams = (await searchParams) ?? {};
   const debugParam = Array.isArray(resolvedParams.debugAssets)
     ? resolvedParams.debugAssets[0]
@@ -66,11 +67,11 @@ export default async function Home({
 
       <ServicesSection />
 
-      <HighlightSection />
+      {/* <HighlightSection /> */}
 
       <NeedsSection />
 
-      <RealisationsSection />
+      <RealisationsSection realisations={realisations} />
 
       {debugAssets ? (
         <div className="px-4 py-8">

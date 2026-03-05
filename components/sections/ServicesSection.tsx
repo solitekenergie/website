@@ -49,7 +49,7 @@ export function ServicesSection() {
       <div className="flex flex-col items-start justify-start gap-4 self-stretch sm:gap-6">
         <ServiceCard
           title="Photovoltaïque"
-          description="Lorem ipsum dolor sit amet"
+          description=" "
           image="/images/services-photovoltaique.jpg"
           alt="Panneaux photovoltaïques en fonctionnement"
           className="h-[350px] sm:h-[400px] lg:h-[500px]"
@@ -58,14 +58,14 @@ export function ServicesSection() {
         <div className="inline-flex flex-col items-start justify-start gap-4 self-stretch sm:gap-6 lg:h-[600px] lg:flex-row">
           <ServiceCard
             title="Chauffage"
-            description="Lorem ipsum dolor sit amet"
+            description=" "
             image="/images/services-chauffage.jpg"
             alt="Système de chauffage moderne"
             className="h-[350px] flex-1 sm:h-[400px] lg:h-full"
           />
           <ServiceCard
             title="Climatisation"
-            description="Lorem ipsum dolor sit amet"
+            description=" "
             image="/images/services-climatisation.jpg"
             alt="Installation de climatisation"
             className="h-[350px] flex-1 sm:h-[400px] lg:h-full"
@@ -75,14 +75,14 @@ export function ServicesSection() {
         <div className="inline-flex flex-col items-start justify-start gap-4 self-stretch sm:gap-6 lg:h-[600px] lg:flex-row">
           <ServiceCard
             title="Ventilation"
-            description="Lorem ipsum dolor sit amet"
+            description=" "
             image="/images/services-ventilation.jpg"
             alt="Système de ventilation résidentielle"
             className="h-[350px] flex-1 sm:h-[400px] lg:h-full"
           />
           <ServiceCard
             title="Electricité"
-            description="Lorem ipsum dolor sit amet"
+            description=" "
             image="/images/services-electricite.jpg"
             alt="Travaux et installations électriques"
             className="h-[350px] flex-1 sm:h-[400px] lg:h-full"
@@ -92,7 +92,7 @@ export function ServicesSection() {
         <div className="inline-flex flex-col items-start justify-start gap-4 self-stretch sm:gap-6 lg:h-[600px] lg:flex-row">
           <ServiceCard
             title="Entretiens et nettoyage"
-            description="Lorem ipsum dolor sit amet"
+            description=" "
             image="/images/services-entretien.jpg"
             alt="Prestations d&apos;entretien et nettoyage"
             className="h-[350px] flex-1 sm:h-[400px] lg:h-full"
@@ -100,7 +100,7 @@ export function ServicesSection() {
         </div>
       </div>
 
-      <div className="inline-flex flex-col items-start justify-start gap-6 self-stretch pb-12 pt-8 sm:pb-[60px] sm:pt-12 lg:flex-row lg:gap-[300px] lg:pb-[60px] lg:pt-[60px]">
+      {/* <div className="inline-flex flex-col items-start justify-start gap-6 self-stretch pb-12 pt-8 sm:pb-[60px] sm:pt-12 lg:flex-row lg:gap-[300px] lg:pb-[60px] lg:pt-[60px]">
         <h3 className="flex flex-col justify-end font-title text-2xl font-bold uppercase leading-tight text-[#161A1E] sm:text-3xl sm:leading-[44.8px] lg:text-[32px]">
           Titre
         </h3>
@@ -114,7 +114,7 @@ export function ServicesSection() {
           convallis, malesuada lectus. Sed quis pulvinar arcu. Proin blandit libero vitae diam facilisis fringilla. Nullam
           dictum risus mauris, ullamcorper porta mauris sagittis non.
         </div>
-      </div>
+      </div> */}
     </section>
   );
 }
