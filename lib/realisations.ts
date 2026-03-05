@@ -79,9 +79,6 @@ export type ContentBlock =
 
 async function fetchAPI(endpoint: string, options: RequestInit = {}) {
   const url = `${STRAPI_URL}/api${endpoint}`;
-  console.log(`[Strapi] Fetching: ${url}`);
-  console.log(`[Strapi] STRAPI_URL=${STRAPI_URL}`);
-  console.log(`[Strapi] Token present: ${!!STRAPI_API_TOKEN}`);
 
   const headers: HeadersInit = {
     "Content-Type": "application/json",
@@ -91,27 +88,30 @@ async function fetchAPI(endpoint: string, options: RequestInit = {}) {
     headers.Authorization = `Bearer ${STRAPI_API_TOKEN}`;
   }
 
-  try {
-    const res = await fetch(url, {
-      headers,
+  const res = await fetch(url, {
+    headers,
+    ...options,
+  });
+
+  // If token auth fails, retry without token (public access)
+  if (res.status === 401 && STRAPI_API_TOKEN) {
+    const publicRes = await fetch(url, {
+      headers: { "Content-Type": "application/json" },
       ...options,
     });
 
-    console.log(`[Strapi] Response status: ${res.status} ${res.statusText}`);
-
-    if (!res.ok) {
-      const body = await res.text();
-      console.error(`[Strapi] Error body: ${body}`);
-      throw new Error(`Strapi API error: ${res.status} ${res.statusText} - ${body}`);
+    if (!publicRes.ok) {
+      throw new Error(`Strapi API error: ${publicRes.status} ${publicRes.statusText}`);
     }
 
-    const json = await res.json();
-    console.log(`[Strapi] Data received: ${json.data?.length ?? 0} items`);
-    return json;
-  } catch (error) {
-    console.error(`[Strapi] Fetch failed for ${url}:`, error);
-    throw error;
+    return publicRes.json();
   }
+
+  if (!res.ok) {
+    throw new Error(`Strapi API error: ${res.status} ${res.statusText}`);
+  }
+
+  return res.json();
 }
 
 export async function getRealisations(): Promise<Realisation[]> {
