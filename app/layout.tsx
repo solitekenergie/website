@@ -27,6 +27,10 @@ export const metadata: Metadata = {
     "installateur solaire",
     "énergie renouvelable",
   ],
+  icons: {
+    icon: "/logo.png",
+    apple: "/logo.png",
+  },
 };
 
 export default function RootLayout({
