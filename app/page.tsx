@@ -12,24 +12,25 @@ import { AssetProbe } from "@/components/debug/AssetProbe";
 import PrimaryCta from "@/components/ui/PrimaryCta";
 
 export const metadata: Metadata = {
-  title: "SOLITEK | Installateur solaire, pompe à chaleur & ENR en Alsace",
+  title: "SOLITEK | Installateur RGE – Solaire, PAC & Clim en Alsace",
   description:
-    "SOLITEK, installateur certifié RGE en Alsace : installation panneaux solaires photovoltaïques, pompe à chaleur, climatisation réversible, VMC et borne IRVE. Simulation gratuite en 2 minutes.",
+    "Installateur certifié RGE en Alsace : panneaux solaires, pompe à chaleur, climatisation, VMC et borne IRVE. Devis gratuit et simulation en ligne en 2 minutes.",
   keywords: [
-    "installateur panneaux solaires Alsace",
-    "installation photovoltaïque Alsace",
-    "pompe à chaleur Alsace",
-    "climatisation Alsace",
     "installateur RGE Alsace",
-    "devis solaire gratuit",
+    "panneaux solaires Alsace",
+    "pompe à chaleur Alsace",
+    "climatisation réversible Alsace",
+    "VMC double flux Alsace",
+    "borne IRVE Alsace",
+    "installation photovoltaïque Alsace",
     "énergie renouvelable maison Alsace",
     "autoconsommation photovoltaïque",
-    "simulation panneaux solaires",
+    "devis solaire gratuit",
   ],
   openGraph: {
-    title: "SOLITEK | Installateur solaire, pompe à chaleur & ENR en Alsace",
+    title: "SOLITEK | Installateur RGE – Solaire, PAC & Clim en Alsace",
     description:
-      "Installation panneaux solaires, pompe à chaleur, climatisation et borne IRVE en Alsace. Devis gratuit et simulation en ligne.",
+      "Panneaux solaires, pompe à chaleur, climatisation, VMC et borne IRVE en Alsace. Certifié RGE. Devis gratuit et simulation en ligne.",
     url: "/",
   },
 };

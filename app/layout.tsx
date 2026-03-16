@@ -18,11 +18,11 @@ const figtree = Figtree({
 
 export const metadata: Metadata = {
   title: {
-    default: "SOLITEK | Installateur solaire & ENR en Alsace",
+    default: "SOLITEK | Installateur RGE – Solaire, PAC & Clim en Alsace",
     template: "%s | SOLITEK",
   },
   description:
-    "SOLITEK, installateur certifié RGE en Alsace : panneaux solaires photovoltaïques, pompes à chaleur, climatisation, VMC, électricité et entretien. Devis gratuit, sans engagement.",
+    "SOLITEK, installateur certifié RGE en Alsace : panneaux solaires, pompe à chaleur, climatisation réversible, VMC, borne IRVE et électricité. Devis gratuit, sans engagement.",
   keywords: [
     // Core métier
     "installateur solaire Alsace",
@@ -56,9 +56,9 @@ export const metadata: Metadata = {
     type: "website",
     locale: "fr_FR",
     siteName: "SOLITEK",
-    title: "SOLITEK | Installateur solaire & ENR en Alsace",
+    title: "SOLITEK | Installateur RGE – Solaire, PAC & Clim en Alsace",
     description:
-      "Panneaux solaires, pompes à chaleur, climatisation, VMC et électricité en Alsace. Installateur certifié RGE. Devis gratuit et sans engagement.",
+      "Panneaux solaires, pompe à chaleur, climatisation, VMC et borne IRVE en Alsace. Certifié RGE. Devis gratuit et sans engagement.",
     images: [
       {
         url: "/hero-panels.jpg",
@@ -70,9 +70,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "SOLITEK | Installateur solaire & ENR en Alsace",
+    title: "SOLITEK | Installateur RGE – Solaire, PAC & Clim en Alsace",
     description:
-      "Panneaux solaires, pompes à chaleur, climatisation, VMC et électricité en Alsace. Installateur certifié RGE.",
+      "Panneaux solaires, pompe à chaleur, climatisation, VMC et borne IRVE en Alsace. Certifié RGE.",
     images: ["/hero-panels.jpg"],
   },
   robots: {
