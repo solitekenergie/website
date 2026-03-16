@@ -97,7 +97,7 @@ function renderContentBlock(block: ContentBlock, index: number) {
     case "content-blocks.image": {
       const mediaUrl = getStrapiImageUrl(block.media?.url);
       if (!mediaUrl) return null;
-      const radius = radiusClass[block.bordureArrondie ?? "aucune"] ?? "rounded-none";
+      const radius = radiusClass[block.bordureArrondie ?? "lg"] ?? "rounded-xl";
       const alignClass =
         block.alignement === "gauche"
           ? "items-start"
