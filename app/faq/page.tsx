@@ -82,20 +82,22 @@ export default function FaqPage() {
 
   return (
     <div className="flex flex-col">
-      <section className="mx-auto w-full max-w-[1440px] px-4 pb-16 pt-16 sm:px-8 sm:pb-20 sm:pt-20 lg:px-20 lg:pb-24 lg:pt-24">
-
-        {/* En-tête */}
-        <div className="mb-12 sm:mb-16">
-          <p className="mb-3 font-['Figtree'] text-sm font-semibold uppercase tracking-widest text-[#2DB180]">
+      {/* Hero */}
+      <section className="bg-[#161A1E] px-4 pb-16 pt-16 sm:px-8 sm:pb-20 sm:pt-20 lg:px-20 lg:pb-24 lg:pt-24">
+        <div className="mx-auto max-w-[1440px]">
+          <p className="mb-4 font-['Figtree'] text-sm font-semibold uppercase tracking-widest text-[#2DB180]">
             Questions fréquentes
           </p>
-          <h1 className="font-title text-4xl font-black uppercase leading-tight text-[#2DB180] sm:text-5xl lg:text-[64px] lg:leading-[1]">
+          <h1 className="font-title text-4xl font-black uppercase leading-tight text-white sm:text-5xl lg:text-[72px] lg:leading-[1]">
             FAQ
           </h1>
-          <p className="mt-4 max-w-[600px] font-['Figtree'] text-base leading-relaxed text-black/60 sm:text-lg">
+          <p className="mt-6 max-w-[600px] font-['Figtree'] text-base leading-relaxed text-white/70 sm:text-lg">
             Tout ce que vous devez savoir avant de vous lancer dans votre projet d&apos;installation solaire ou ENR en Alsace.
           </p>
         </div>
+      </section>
+
+      <section className="mx-auto w-full max-w-[1440px] px-4 pb-16 pt-16 sm:px-8 sm:pb-20 sm:pt-20 lg:px-20 lg:pb-24 lg:pt-24">
 
         {/* Questions */}
         <div className="flex flex-col gap-3">

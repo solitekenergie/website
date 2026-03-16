@@ -20,10 +20,23 @@ export default async function RealisationsPage() {
   const realisations = await getRealisations();
 
   return (
-    <section className="w-full h-full px-4 pb-16 pt-24 sm:px-8 sm:pb-20 sm:pt-28 lg:px-20 lg:pb-[100px] lg:pt-[120px] inline-flex flex-col justify-start items-start gap-10 sm:gap-16 lg:gap-20">
-      <div className="self-stretch text-center text-[#2DB180] font-title font-black uppercase text-3xl sm:text-4xl lg:text-[56px] lg:leading-[56px]">
-        Nos réalisations
-      </div>
+    <div className="flex flex-col">
+      {/* Hero */}
+      <section className="bg-[#161A1E] px-4 pb-16 pt-16 sm:px-8 sm:pb-20 sm:pt-20 lg:px-20 lg:pb-24 lg:pt-24">
+        <div className="mx-auto max-w-[1440px]">
+          <p className="mb-4 font-['Figtree'] text-sm font-semibold uppercase tracking-widest text-[#2DB180]">
+            Nos projets
+          </p>
+          <h1 className="font-title text-4xl font-black uppercase leading-tight text-white sm:text-5xl lg:text-[72px] lg:leading-[1]">
+            Nos réalisations
+          </h1>
+          <p className="mt-6 max-w-[600px] font-['Figtree'] text-base leading-relaxed text-white/70 sm:text-lg">
+            Découvrez les installations réalisées par SOLITEK en Alsace : photovoltaïque, chauffage, climatisation et plus.
+          </p>
+        </div>
+      </section>
+
+      <section className="w-full px-4 pb-16 pt-16 sm:px-8 sm:pb-20 sm:pt-20 lg:px-20 lg:pb-[100px] lg:pt-[100px] flex flex-col gap-10 sm:gap-16 lg:gap-20">
 
       {realisations.length === 0 ? (
         <div className="self-stretch text-center text-black/60 text-lg">
@@ -47,7 +60,8 @@ export default async function RealisationsPage() {
           ))}
         </div>
       )}
-    </section>
+      </section>
+    </div>
   );
 }
 

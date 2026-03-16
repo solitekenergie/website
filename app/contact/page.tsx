@@ -58,17 +58,24 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F5F7FA]">
-      <div className="mx-auto max-w-[1440px] px-4 py-12 sm:px-8 sm:py-16 lg:px-20 lg:py-20">
-        {/* Titre — full width */}
-        <div className="mb-10 lg:mb-12">
-          <p className="mb-3 font-['Figtree'] text-sm font-semibold uppercase tracking-widest text-[#2DB180]">
+    <div>
+      {/* Hero */}
+      <section className="bg-[#161A1E] px-4 pb-16 pt-16 sm:px-8 sm:pb-20 sm:pt-20 lg:px-20 lg:pb-24 lg:pt-24">
+        <div className="mx-auto max-w-[1440px]">
+          <p className="mb-4 font-['Figtree'] text-sm font-semibold uppercase tracking-widest text-[#2DB180]">
             Contactez-nous
           </p>
-          <h1 className="font-title text-4xl font-black uppercase leading-tight text-[#161A1E] sm:text-5xl lg:text-[56px] lg:leading-[1]">
+          <h1 className="font-title text-4xl font-black uppercase leading-tight text-white sm:text-5xl lg:text-[72px] lg:leading-[1]">
             Demandez<br />un devis
           </h1>
+          <p className="mt-6 max-w-[600px] font-['Figtree'] text-base leading-relaxed text-white/70 sm:text-lg">
+            Décrivez votre projet, nous vous rappelons sous 24h. Sans engagement.
+          </p>
         </div>
+      </section>
+
+      <div className="bg-[#F5F7FA]">
+      <div className="mx-auto max-w-[1440px] px-4 py-12 sm:px-8 sm:py-16 lg:px-20 lg:py-20">
 
         <div className="flex flex-col gap-10 lg:flex-row lg:items-start lg:gap-16 xl:gap-24">
 
@@ -193,6 +200,7 @@ export default function ContactPage() {
           </div>
 
         </div>
+      </div>
       </div>
     </div>
   );

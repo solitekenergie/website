@@ -174,7 +174,7 @@ export function MissionSection() {
               Des solutions fiables, au juste prix
             </h2>
             <p className="font-['Figtree'] text-base leading-relaxed text-black/70 sm:text-lg sm:leading-[27px]">
-              SOLITEK est née de la conviction que chaque projet mérite une réponse technique rigoureuse, un interlocuteur disponible et une transparence totale sur les coûts. Photovoltaïque, pompe à chaleur, climatisation, VMC : chaque installation est conçue sur mesure, suivie de A à Z, avec un seul objectif — que ça dure.
+              SOLITEK est née de la conviction que chaque projet mérite une réponse technique rigoureuse, un interlocuteur disponible et une transparence totale sur les coûts. Photovoltaïque, pompe à chaleur, climatisation, VMC : chaque installation est conçue sur mesure, suivie de A à Z, avec un seul objectif : que ça dure.
             </p>
           </div>
 

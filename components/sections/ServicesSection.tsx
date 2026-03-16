@@ -10,8 +10,7 @@ type ServiceCardProps = {
 };
 
 const cardBackground = (image: string) => ({
-  backgroundColor: "rgba(0, 0, 0, 0.20)",
-  backgroundImage: "linear-gradient(180deg, rgba(0, 0, 0, 0) 37%, black 89%), url('" + image + "')",
+  backgroundImage: "linear-gradient(180deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.25) 40%, rgba(0,0,0,0.75) 100%), url('" + image + "')",
   backgroundSize: "cover",
   backgroundPosition: "center",
 });
@@ -45,7 +44,7 @@ export function ServicesSection() {
   return (
     <section className="inline-flex h-full w-full flex-col items-start justify-start gap-8 px-4 pb-12 pt-12 sm:gap-10 sm:px-8 sm:pb-16 sm:pt-16 lg:gap-12 lg:px-20 lg:pb-[100px] lg:pt-[100px]">
       <div className="flex flex-col items-start justify-start gap-6 self-stretch">
-        <h2 className="flex flex-col justify-end font-title text-2xl font-bold uppercase leading-tight text-[#161A1E] sm:text-3xl sm:leading-[44.8px] lg:text-[32px]">
+        <h2 className="flex flex-col justify-end font-title text-2xl font-bold uppercase leading-tight text-[#2DB180] sm:text-3xl sm:leading-[44.8px] lg:text-[32px]">
           Nos Services
         </h2>
       </div>
