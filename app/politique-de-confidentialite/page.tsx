@@ -30,7 +30,7 @@ const sections = [
     title: "Vos droits",
     content: [
       "Accès, rectification, suppression, limitation et opposition selon les articles 15 à 21 du RGPD.",
-      "Pour exercer vos droits, contactez contact@solitek.fr en précisant l'objet de votre demande.",
+      "Pour exercer vos droits, contactez solitek@outlook.fr en précisant l'objet de votre demande.",
     ],
   },
   {
@@ -42,7 +42,7 @@ const sections = [
   {
     title: "Contact DPO",
     content: [
-      "Email : contact@solitek.fr",
+      "Email : solitek@outlook.fr",
       "Adresse postale : [à compléter]",
     ],
   },

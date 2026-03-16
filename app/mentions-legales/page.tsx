@@ -5,7 +5,7 @@ const sections = [
       "Solitek - [raison sociale à compléter]",
       "Adresse du siège : [à compléter]",
       "SIRET : [à compléter]",
-      "Email : contact@solitek.fr",
+      "Email : solitek@outlook.fr",
       "Téléphone : [à compléter]",
     ],
   },
@@ -27,7 +27,7 @@ const sections = [
     title: "Données personnelles",
     content: [
       "Les informations collectées via le formulaire de contact sont utilisées pour répondre aux demandes. Elles ne sont pas vendues à des tiers.",
-      "Pour exercer vos droits (accès, rectification, suppression), contactez contact@solitek.fr.",
+      "Pour exercer vos droits (accès, rectification, suppression), contactez solitek@outlook.fr.",
     ],
   },
   {
