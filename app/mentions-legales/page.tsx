@@ -38,6 +38,15 @@ const sections = [
   },
 ];
 
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Mentions Légales | SOLITEK",
+  description:
+    "Mentions légales du site SOLITEK, installateur certifié RGE en Alsace : éditeur, hébergeur et informations légales.",
+  robots: { index: false, follow: false },
+};
+
 export default function MentionsLegalesPage() {
   return (
     <section className="w-full px-4 pb-16 pt-24 sm:px-8 sm:pb-20 sm:pt-28 lg:px-20 lg:pb-[80px] lg:pt-[120px]">
