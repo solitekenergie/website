@@ -121,7 +121,7 @@ export function BrandPanelSection() {
           </Link>
         </nav>
         <a
-          href="https://studiofief.com"
+          href="https://www.studiofief.com"
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center gap-2 transition-opacity hover:opacity-70 sm:gap-3"
