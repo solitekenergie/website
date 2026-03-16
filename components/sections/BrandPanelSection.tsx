@@ -120,10 +120,15 @@ export function BrandPanelSection() {
             <AnimatedLink>Politique de confidentialité</AnimatedLink>
           </Link>
         </nav>
-        <div className="flex items-center justify-end gap-2 sm:gap-3">
+        <a
+          href="https://studiofief.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center gap-2 transition-opacity hover:opacity-70 sm:gap-3"
+        >
           <img src="/images/Made%20by.svg" alt="Made by" className="h-[30px] w-auto object-contain sm:h-[40px]" />
           <img src="/images/Footer%20Made%20By%20Logo.svg" alt="Fief logo" className="h-[30px] w-auto object-contain sm:h-[40px]" />
-        </div>
+        </a>
       </div>
     </footer>
   );

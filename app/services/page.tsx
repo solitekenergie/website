@@ -121,18 +121,6 @@ export default function ServicesPage() {
           <p className="mt-6 max-w-[600px] font-['Figtree'] text-base leading-relaxed text-white/70 sm:text-lg">
                SOLITEK couvre l&apos;ensemble de vos besoins énergétiques avec une expertise locale et des partenaires de confiance.
           </p>
-          {/* Liens rapides */}
-          <div className="mt-10 flex flex-wrap gap-3">
-            {services.map((s) => (
-              <a
-                key={s.id}
-                href={`#${s.id}`}
-                className="rounded-full border border-white/50 px-4 py-2 font-['Figtree'] text-sm font-semibold text-white transition-all hover:border-[#2DB180] hover:bg-[#2DB180]/10 hover:text-[#2DB180]"
-              >
-                {s.title}
-              </a>
-            ))}
-          </div>
         </div>
       </section>
 
@@ -213,7 +201,7 @@ export default function ServicesPage() {
       </div>
 
       {/* CTA bas de page */}
-      <section className="bg-[#161A1E] px-4 py-16 sm:px-8 sm:py-20 lg:px-20 lg:py-24">
+      <section className="bg-[#2DB180] px-4 py-16 sm:px-8 sm:py-20 lg:px-20 lg:py-24">
         <div className="mx-auto flex max-w-[1440px] flex-col items-center gap-6 text-center">
           <h2 className="font-title text-3xl font-black uppercase leading-tight text-white sm:text-4xl lg:text-[48px]">
             Un projet en tête ?

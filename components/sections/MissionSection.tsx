@@ -149,22 +149,35 @@ export function MissionSection() {
   return (
     <section className="inline-flex w-full flex-col items-center pb-8 sm:pb-12 lg:pb-[60px]">
       {/* Texte */}
-      <div className="flex flex-col items-center gap-6 self-stretch px-4 pb-8 pt-12 sm:px-8 sm:pb-12 sm:pt-16 lg:px-20 lg:pb-16 lg:pt-[100px]">
-        <h2 className="text-center font-title text-3xl font-black uppercase leading-tight text-[#2DB180] sm:text-4xl sm:leading-[1.4] lg:text-[56px] lg:leading-[78.40px]">
-          Notre mission
-        </h2>
-        <p className="max-w-[800px] px-4 text-center font-['Figtree'] text-base font-semibold italic leading-relaxed text-[#2DB180] sm:text-lg sm:leading-[27px]">
-          &ldquo; Plus qu&apos;un installateur : un partenaire engagé sur la durée &rdquo;
-        </p>
-        <div className="flex max-w-[700px] flex-col items-center gap-4 px-4 text-center">
-          <p className="font-['Figtree'] text-base leading-relaxed text-black sm:text-lg sm:leading-[27px]">
-            J&apos;ai travaillé pour les plus grands acteurs ENR alsaciens : ES, FranceSolar, Groupe Beyer.
-            J&apos;en ai gardé le meilleur. Et supprimé ce qui manquait à leurs clients.
-          </p>
-          <p className="font-['Figtree'] text-base leading-relaxed text-black sm:text-lg sm:leading-[27px]">
-            SOLITEK est né de cette conviction : vous méritez une solution vraiment adaptée à votre projet, au meilleur tarif.
-            Accompagnement local, suivi transparent, disponibilité réelle. Du premier conseil à la mise en service.
-          </p>
+      <div className="self-stretch px-4 pb-8 pt-12 sm:px-8 sm:pb-12 sm:pt-16 lg:px-20 lg:pb-16 lg:pt-[100px]">
+        <div className="mx-auto grid max-w-[1200px] grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-20">
+
+          {/* Qui sommes-nous */}
+          <div className="flex flex-col gap-4">
+            <p className="font-['Figtree'] text-xs font-semibold uppercase tracking-widest text-[#2DB180]">
+              Qui sommes-nous ?
+            </p>
+            <h2 className="font-title text-3xl font-black uppercase leading-tight text-[#161A1E] sm:text-4xl lg:text-[40px] lg:leading-tight">
+              Une expertise forgée sur le terrain
+            </h2>
+            <p className="font-['Figtree'] text-base leading-relaxed text-black/70 sm:text-lg sm:leading-[27px]">
+              SOLITEK a été fondée par un professionnel des énergies renouvelables formé au sein des acteurs majeurs du secteur en Alsace : ES Énergie, FranceSolar, Groupe Beyer. Ces années passées au cœur de ces structures ont permis de développer une maîtrise complète des installations ENR, des exigences techniques du terrain et des attentes réelles des clients.
+            </p>
+          </div>
+
+          {/* Notre mission */}
+          <div className="flex flex-col gap-4">
+            <p className="font-['Figtree'] text-xs font-semibold uppercase tracking-widest text-[#2DB180]">
+              Notre mission
+            </p>
+            <h2 className="font-title text-3xl font-black uppercase leading-tight text-[#161A1E] sm:text-4xl lg:text-[40px] lg:leading-tight">
+              Des solutions fiables, au juste prix
+            </h2>
+            <p className="font-['Figtree'] text-base leading-relaxed text-black/70 sm:text-lg sm:leading-[27px]">
+              SOLITEK est née de la conviction que chaque projet mérite une réponse technique rigoureuse, un interlocuteur disponible et une transparence totale sur les coûts. Photovoltaïque, pompe à chaleur, climatisation, VMC : chaque installation est conçue sur mesure, suivie de A à Z, avec un seul objectif — que ça dure.
+            </p>
+          </div>
+
         </div>
       </div>
 

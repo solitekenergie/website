@@ -81,7 +81,7 @@ export default async function Home({
                   Installateur certifié RGE en Alsace
                 </p>
                 <p className="font-title text-[18px] font-normal leading-[24px] tracking-[-0.3px] text-white/80 sm:text-[20px] lg:text-[22px]">
-                  Panneaux solaires · Pompe à chaleur · Climatisation · Électricité
+                  Panneaux solaires · Pompe à chaleur · Climatisation · Ventilation · Électricité
                 </p>
                 <PrimaryCta href="/estimateur" className="shadow-lg relative z-30">
                   Mon estimation gratuite

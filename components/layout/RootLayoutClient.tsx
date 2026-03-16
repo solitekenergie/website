@@ -24,7 +24,7 @@ export default function RootLayoutClient({ children }: { children: React.ReactNo
   return (
     <div className="flex min-h-screen flex-col">
       <Header />
-      <main className="flex w-full flex-1 flex-col pb-16">{children}</main>
+      <main className="flex w-full flex-1 flex-col">{children}</main>
       <Footer />
     </div>
   );

@@ -164,7 +164,7 @@ export default function ContactPage() {
 
           {/* Colonne visuelle — cachée sur mobile, visible à partir de lg */}
           <div className="hidden lg:flex lg:w-[420px] lg:flex-shrink-0 lg:self-stretch xl:w-[500px]">
-            <div className="sticky top-24 w-full overflow-hidden rounded-2xl shadow-xl" style={{ height: 'calc(100vh - 6rem)', maxHeight: '100%' }}>
+            <div className="w-full overflow-hidden rounded-2xl shadow-xl">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <div className="relative h-full">
                 <div className="pointer-events-none absolute inset-0 z-10 bg-black/20" />
