@@ -11,7 +11,7 @@ type CardData = {
   description: string;
 };
 
-const PAGE_SIZE = 9;
+const PAGE_SIZE = 6;
 
 function Card({ slug, image, title, date, description }: CardData) {
   return (
@@ -48,7 +48,7 @@ function Card({ slug, image, title, date, description }: CardData) {
 export function RealisationsGrid({ cards }: { cards: CardData[] }) {
   const [visible, setVisible] = useState(PAGE_SIZE);
   const shown = cards.slice(0, visible);
-  const hasMore = visible < cards.length;
+  const hasMore = visible < cards.length && cards.length > PAGE_SIZE;
 
   if (cards.length === 0) {
     return (
