@@ -22,7 +22,7 @@ const logos: Logo[] = [
 export function SuppliersSection() {
   return (
     <section className="relative w-full overflow-hidden py-10 sm:py-14 lg:py-16">
-      <h2 className="mb-8 text-center font-title text-3xl font-black uppercase leading-tight text-black sm:text-4xl sm:mb-10 lg:text-[56px] lg:leading-[56px] lg:mb-12">
+      <h2 className="mb-14 text-center font-title text-3xl font-black uppercase leading-tight text-black sm:text-4xl sm:mb-16 lg:text-[56px] lg:leading-[56px] lg:mb-20">
         Nos fournisseurs
       </h2>
       <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-slate-50 to-transparent sm:w-32 lg:w-48" />
