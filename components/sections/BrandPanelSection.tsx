@@ -10,7 +10,6 @@ const exploreLinks = [
   { label: "Estimer son besoin", href: "/estimateur" },
   { label: "FAQ", href: "/faq" },
   { label: "Contact", href: "/contact" },
-  { label: "Blog", href: "/blog" },
 ];
 
 const socialLinks = [
