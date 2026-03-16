@@ -42,7 +42,7 @@ function ProbeImage({ src, label }: { src: string; label: string }) {
         />
       </div>
       <span className="text-xs font-mono text-slate-600">
-        {label} — {status === "error" ? "ERROR" : status === "ok" ? "OK" : "pending"}
+        {label} : {status === "error" ? "ERROR" : status === "ok" ? "OK" : "pending"}
       </span>
       <span className="text-[10px] text-slate-500 break-all">{src}</span>
     </div>
