@@ -412,6 +412,21 @@ export default async function RealisationPage({
         </div>
       </section>
 
+      {/* Bouton retour */}
+      <div className="w-full px-4 pb-10 sm:px-8 sm:pb-14 lg:px-20 lg:pb-16">
+        <div className="mx-auto max-w-[1440px]">
+          <Link
+            href="/realisations"
+            className="inline-flex items-center gap-2 rounded-full border-2 border-[#161A1E] px-6 py-3 font-title text-sm font-semibold text-[#161A1E] transition-colors hover:bg-[#161A1E] hover:text-white"
+          >
+            <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+            Toutes les réalisations
+          </Link>
+        </div>
+      </div>
+
       {/* Autres projets — uniquement si 3+ autres réalisations disponibles */}
       {autresProjets.length >= 3 && (
         <section className="w-full border-t border-black/10 px-4 pb-16 pt-12 sm:px-8 sm:pb-20 sm:pt-16 lg:px-20 lg:pb-[100px] lg:pt-[80px]">
