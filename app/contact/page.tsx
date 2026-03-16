@@ -85,13 +85,13 @@ export default function ContactPage() {
             </div>
 
             {/* Processus SOLITEK */}
-            <div className="grid grid-cols-3">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-3 sm:gap-0">
               {[
                 { step: '01', title: 'Prise de contact', desc: 'Réponse sous 24h' },
                 { step: '02', title: 'Visite technique', desc: 'Devis personnalisé offert' },
                 { step: '03', title: 'Installation', desc: 'Mise en service incluse' },
               ].map((item) => (
-                <div key={item.step} className="flex flex-col gap-2 border-t-2 border-[#2DB180] pt-4 pr-4">
+                <div key={item.step} className="flex flex-col gap-2 border-l-2 border-[#2DB180] pl-4 sm:border-l-0 sm:border-t-2 sm:pl-0 sm:pt-4 sm:pr-4">
                   <span className="font-['Figtree'] text-xs font-bold text-[#2DB180]">{item.step}</span>
                   <p className="font-['Figtree'] text-sm font-semibold text-[#161A1E]">{item.title}</p>
                   <p className="font-['Figtree'] text-xs text-black/50">{item.desc}</p>

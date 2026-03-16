@@ -50,8 +50,8 @@ const sections = [
 
 export default function PrivacyPage() {
   return (
-    <section className="w-full h-full pt-[160px] pb-[80px] px-[100px] inline-flex flex-col justify-start items-center gap-10 bg-[#F5F7FA]">
-      <div className="text-center text-[#161A1E] text-[56px] leading-[56px] font-title font-black uppercase">
+    <section className="w-full h-full px-4 pb-16 pt-24 sm:px-8 sm:pb-20 sm:pt-28 lg:px-20 lg:pb-[80px] lg:pt-[120px] inline-flex flex-col justify-start items-center gap-8 sm:gap-10 bg-[#F5F7FA]">
+      <div className="text-center text-[#161A1E] font-title font-black uppercase text-3xl sm:text-4xl lg:text-[56px] lg:leading-[56px]">
         Politique de confidentialité
       </div>
 
@@ -59,12 +59,12 @@ export default function PrivacyPage() {
         {sections.map((section) => (
           <div
             key={section.title}
-            className="rounded-[12px] border border-[#CCCCCC] bg-white px-8 py-6 flex flex-col gap-3"
+            className="rounded-[12px] border border-[#CCCCCC] bg-white px-4 py-5 sm:px-6 sm:py-6 lg:px-8 flex flex-col gap-3"
           >
-            <h2 className="text-[#161A1E] text-[24px] leading-[28.8px] font-['Figtree'] font-bold uppercase">
+            <h2 className="text-[#161A1E] text-lg sm:text-xl lg:text-[24px] font-['Figtree'] font-bold uppercase">
               {section.title}
             </h2>
-            <ul className="list-disc space-y-1 pl-5 text-[16px] leading-[24px] font-['Figtree'] text-black/70">
+            <ul className="list-disc space-y-1 pl-5 text-sm sm:text-[16px] leading-[24px] font-['Figtree'] text-black/70">
               {section.content.map((line) => (
                 <li key={line}>{line}</li>
               ))}

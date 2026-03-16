@@ -40,11 +40,11 @@ export function SuppliersSection() {
       <div className="flex flex-col items-center justify-center gap-12 overflow-hidden rounded-lg p-6 self-stretch sm:gap-16 sm:rounded-xl sm:p-8 lg:gap-20 lg:p-[44px]">
         <div className="content-center inline-flex flex-wrap items-center justify-center gap-4 self-stretch sm:gap-6">
           {logos.map((logo, idx) => (
-            <div key={`${logo.alt}-${idx}`} className={`${logo.width} ${logo.height} flex items-center justify-center`}>
+            <div key={`${logo.alt}-${idx}`} className="flex items-center justify-center" style={{ width: 'clamp(80px, 20vw, 150px)', height: 'auto' }}>
               <img
                 src={logo.src}
                 alt={logo.alt}
-                className="h-full w-full rounded object-contain"
+                className="w-full h-auto rounded object-contain"
               />
             </div>
           ))}
