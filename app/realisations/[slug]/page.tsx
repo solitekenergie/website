@@ -317,7 +317,9 @@ export default async function RealisationPage({
     .filter((r) => r.slug !== resolvedParams.slug)
     .slice(0, 3);
 
-  const coverUrl = getFirstImageUrl(realisation);
+  // Section couverture uniquement si imageCouverture est définie dans le CMS
+  // (évite le doublon avec la première image des blocs de contenu)
+  const coverUrl = getStrapiImageUrl(realisation.imageCouverture?.url);
 
   return (
     <div className="flex flex-col">
