@@ -21,7 +21,9 @@ const logos: Logo[] = [
 
 export function SuppliersSection() {
   return (
-    <section className="w-full overflow-hidden py-10 sm:py-14 lg:py-16">
+    <section className="relative w-full overflow-hidden py-10 sm:py-14 lg:py-16">
+      <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-slate-50 to-transparent sm:w-32 lg:w-48" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-l from-slate-50 to-transparent sm:w-32 lg:w-48" />
       <div className="animate-marquee flex w-max items-center gap-16 sm:gap-20 lg:gap-24">
         {[...logos, ...logos].map((logo, idx) => (
           <div
