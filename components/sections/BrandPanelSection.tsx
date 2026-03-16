@@ -4,9 +4,13 @@ import { SolitekLogo } from "../layout/Header";
 import { AnimatedLink } from "../ui/AnimatedLink";
 
 const exploreLinks = [
-  { label: "Services", href: "/#services" },
-  { label: "Estimer son besoin", href: "/estimateur" },
+  { label: "Accueil", href: "/" },
+  { label: "Services", href: "/services" },
   { label: "Nos réalisations", href: "/realisations" },
+  { label: "Estimer son besoin", href: "/estimateur" },
+  { label: "FAQ", href: "/faq" },
+  { label: "Contact", href: "/contact" },
+  { label: "Blog", href: "/blog" },
 ];
 
 const socialLinks = [
