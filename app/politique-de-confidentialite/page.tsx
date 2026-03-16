@@ -50,27 +50,28 @@ const sections = [
 
 export default function PrivacyPage() {
   return (
-    <section className="w-full h-full px-4 pb-16 pt-24 sm:px-8 sm:pb-20 sm:pt-28 lg:px-20 lg:pb-[80px] lg:pt-[120px] inline-flex flex-col justify-start items-center gap-8 sm:gap-10 bg-[#F5F7FA]">
-      <div className="text-center text-[#161A1E] font-title font-black uppercase text-3xl sm:text-4xl lg:text-[56px] lg:leading-[56px]">
-        Politique de confidentialité
-      </div>
+    <section className="w-full px-4 pb-16 pt-24 sm:px-8 sm:pb-20 sm:pt-28 lg:px-20 lg:pb-[80px] lg:pt-[120px]">
+      <div className="mx-auto max-w-[720px]">
+        <h1 className="mb-12 font-title text-3xl font-black uppercase text-[#161A1E] sm:text-4xl lg:text-[48px] lg:leading-tight">
+          Politique de confidentialité
+        </h1>
 
-      <div className="w-full max-w-[1100px] flex flex-col gap-4">
-        {sections.map((section) => (
-          <div
-            key={section.title}
-            className="rounded-[12px] border border-[#CCCCCC] bg-white px-4 py-5 sm:px-6 sm:py-6 lg:px-8 flex flex-col gap-3"
-          >
-            <h2 className="text-[#161A1E] text-lg sm:text-xl lg:text-[24px] font-['Figtree'] font-bold uppercase">
-              {section.title}
-            </h2>
-            <ul className="list-disc space-y-1 pl-5 text-sm sm:text-[16px] leading-[24px] font-['Figtree'] text-black/70">
-              {section.content.map((line) => (
-                <li key={line}>{line}</li>
-              ))}
-            </ul>
-          </div>
-        ))}
+        <div className="flex flex-col divide-y divide-slate-200">
+          {sections.map((section) => (
+            <div key={section.title} className="py-8">
+              <h2 className="mb-4 font-['Figtree'] text-xs font-semibold uppercase tracking-widest text-[#2DB180]">
+                {section.title}
+              </h2>
+              <ul className="flex flex-col gap-2">
+                {section.content.map((line) => (
+                  <li key={line} className="font-['Figtree'] text-sm leading-relaxed text-black/60 sm:text-base">
+                    {line}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );
