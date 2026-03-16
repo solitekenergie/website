@@ -95,6 +95,8 @@ export default async function Home({
 
       <MissionSection />
 
+      <SuppliersSection />
+
       <ServicesSection />
 
       {/* <HighlightSection /> */}
@@ -124,8 +126,6 @@ export default async function Home({
           />
         </div>
       ) : null}
-
-      <SuppliersSection />
 
       {/* <TestimonialsSection /> */}
     </div>
