@@ -11,7 +11,7 @@ const sections = [
   },
   {
     title: "Responsable de publication",
-    content: ["[Nom et fonction à compléter]"],
+    content: ["Diwan Bougmiha Gallais, Président — Studio Fief"],
   },
   {
     title: "Hébergement",
