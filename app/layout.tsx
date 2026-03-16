@@ -48,7 +48,7 @@ export const metadata: Metadata = {
     "Bas-Rhin photovoltaïque",
     "Haut-Rhin énergie solaire",
   ],
-  metadataBase: new URL("https://solitek.fr"),
+  metadataBase: new URL("https://solitekenergie.fr"),
   authors: [{ name: "SOLITEK" }],
   creator: "SOLITEK",
   openGraph: {
@@ -138,10 +138,10 @@ export default function RootLayout({
               name: "SOLITEK",
               description:
                 "Installateur certifié RGE en Alsace : panneaux solaires photovoltaïques, pompes à chaleur, climatisation réversible, VMC double flux et électricité.",
-              url: "https://solitek.fr",
-              logo: "https://solitek.fr/logo.png",
+              url: "https://solitekenergie.fr",
+              logo: "https://solitekenergie.fr/logo.png",
               image:
-                "https://solitek.fr/images/solitek-installation-panneaux-solaires-alsace.jpg",
+                "https://solitekenergie.fr/images/solitek-installation-panneaux-solaires-alsace.jpg",
               address: {
                 "@type": "PostalAddress",
                 addressRegion: "Alsace",
