@@ -15,7 +15,7 @@ const sections = [
   },
   {
     title: "Hébergement",
-    content: ["Hébergeur : [nom de l'hébergeur]", "Adresse : [adresse complète]", "Téléphone : [à compléter]"],
+    content: ["Hébergeur : Railway (Railway Corp.)", "Adresse : 340 S Lemon Ave #4133, Walnut, CA 91789, États-Unis", "Site : railway.com"],
   },
   {
     title: "Propriété intellectuelle",
