@@ -1,6 +1,13 @@
 const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || "https://cms-production-8fb5.up.railway.app"; //"http://localhost:1337";
 const STRAPI_API_TOKEN = process.env.STRAPI_API_TOKEN;
 
+type StrapiMedia = {
+  url: string;
+  alternativeText?: string;
+  width?: number;
+  height?: number;
+};
+
 export type Realisation = {
   id: number;
   documentId: string;
@@ -9,23 +16,10 @@ export type Realisation = {
   resume: string;
   slug: string;
   contenu: ContentBlock[];
-  imageCouverture?: {
-    url: string;
-    alternativeText?: string;
-    width: number;
-    height: number;
-  };
+  imageCouverture?: StrapiMedia;
   videoCouverture?: string;
   afficherControlesVideo: boolean;
-  images?: Array<{
-    url: string;
-    alternativeText?: string;
-    width: number;
-    height: number;
-  }>;
-  technologies?: string;
-  urlProjet?: string;
-  urlGithub?: string;
+  images?: StrapiMedia[];
   misEnAvant: boolean;
   datePublication: string;
   categorie?: {
@@ -33,7 +27,6 @@ export type Realisation = {
     slug: string;
     couleur?: string;
   };
-  TagsProjet?: string[];
   createdAt: string;
   updatedAt: string;
   publishedAt: string;
@@ -48,13 +41,22 @@ type RichTextNode = {
 
 export type ContentBlock =
   | { __component: "content-blocks.paragraphe"; texte: string | RichTextNode[] }
-  | { __component: "content-blocks.image"; image: { url: string; alternativeText?: string } }
+  | {
+      __component: "content-blocks.image";
+      // Strapi retourne le champ media (pas image)
+      media?: StrapiMedia;
+      legende?: string;
+      alt?: string;
+      alignement?: "gauche" | "centre" | "droite";
+      bordureArrondie?: "aucune" | "sm" | "md" | "lg" | "full";
+    }
   | { __component: "content-blocks.video"; url: string; afficherControles: boolean }
   | {
       __component: "content-blocks.image-et-texte";
-      image: { url: string; alternativeText?: string };
+      image?: StrapiMedia;
       texte: string | RichTextNode[];
       positionImage: "gauche" | "droite";
+      hauteurImage?: number;
     }
   | {
       __component: "content-blocks.deux-colonnes";
@@ -63,7 +65,7 @@ export type ContentBlock =
     }
   | {
       __component: "content-blocks.galerie";
-      images: Array<{ url: string; alternativeText?: string }>;
+      images?: StrapiMedia[];
     }
   | { __component: "content-blocks.citation"; texte: string | RichTextNode[]; auteur?: string }
   | {
@@ -74,7 +76,7 @@ export type ContentBlock =
     }
   | {
       __component: "content-blocks.tech-stack";
-      technologies: Array<{ nom: string; icone?: { url: string }; description?: string }>;
+      technologies: Array<{ nom: string; icone?: StrapiMedia; description?: string }>;
     };
 
 async function fetchAPI(endpoint: string, options: RequestInit = {}) {
@@ -114,10 +116,11 @@ async function fetchAPI(endpoint: string, options: RequestInit = {}) {
   return res.json();
 }
 
+// Pour la liste (page /realisations) : on a besoin uniquement de l'image couverture
 export async function getRealisations(): Promise<Realisation[]> {
   try {
     const data = await fetchAPI(
-      "/realisations-all?populate=*&sort[0]=datePublication:desc&pagination[pageSize]=100",
+      "/realisations-all?populate[imageCouverture]=true&sort[0]=datePublication:desc&pagination[pageSize]=100",
       {
         next: { revalidate: 60 },
       }
@@ -129,10 +132,11 @@ export async function getRealisations(): Promise<Realisation[]> {
   }
 }
 
+// Pour la page détail : population profonde des blocs de contenu
 export async function getRealisation(slug: string): Promise<Realisation | null> {
   try {
     const data = await fetchAPI(
-      `/realisations-all?filters[slug][$eq]=${encodeURIComponent(slug)}&populate=*`,
+      `/realisations-all?filters[slug][$eq]=${encodeURIComponent(slug)}&populate[imageCouverture]=true&populate[images]=true&populate[contenu][populate]=*`,
       {
         next: { revalidate: 60 },
       }

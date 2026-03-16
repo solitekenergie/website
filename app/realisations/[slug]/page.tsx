@@ -4,9 +4,11 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import {
   getRealisation,
+  getRealisations,
   getRealisationSlugs,
   getStrapiImageUrl,
   richTextToPlainText,
+  type Realisation,
   type ContentBlock,
 } from "@/lib/realisations";
 
@@ -74,6 +76,14 @@ function RichText({ content }: { content: string | RichTextNode[] | undefined })
   return <div>{content.map((node, index) => renderNode(node, index))}</div>;
 }
 
+const radiusClass: Record<string, string> = {
+  aucune: "rounded-none",
+  sm: "rounded-sm",
+  md: "rounded-md",
+  lg: "rounded-xl",
+  full: "rounded-full",
+};
+
 function renderContentBlock(block: ContentBlock, index: number) {
   switch (block.__component) {
     case "content-blocks.paragraphe":
@@ -83,17 +93,29 @@ function renderContentBlock(block: ContentBlock, index: number) {
         </div>
       );
 
-    case "content-blocks.image":
-      if (!block.image) return null;
+    case "content-blocks.image": {
+      const mediaUrl = getStrapiImageUrl(block.media?.url);
+      if (!mediaUrl) return null;
+      const radius = radiusClass[block.bordureArrondie ?? "aucune"] ?? "rounded-none";
+      const alignClass =
+        block.alignement === "gauche"
+          ? "items-start"
+          : block.alignement === "droite"
+          ? "items-end"
+          : "items-center";
       return (
-        <div key={index} className="w-full overflow-hidden rounded-xl">
+        <div key={index} className={`flex flex-col ${alignClass}`}>
           <img
-            src={getStrapiImageUrl(block.image.url)}
-            alt={block.image.alternativeText || ""}
-            className="w-full h-auto object-cover"
+            src={mediaUrl}
+            alt={block.alt ?? block.media?.alternativeText ?? ""}
+            className={`max-w-full h-auto ${radius}`}
           />
+          {block.legende && (
+            <p className="mt-2 text-center font-['Figtree'] text-sm text-black/40">{block.legende}</p>
+          )}
         </div>
       );
+    }
 
     case "content-blocks.video":
       return (
@@ -109,8 +131,9 @@ function renderContentBlock(block: ContentBlock, index: number) {
         </div>
       );
 
-    case "content-blocks.image-et-texte":
-      if (!block.image) return null;
+    case "content-blocks.image-et-texte": {
+      const imgUrl = getStrapiImageUrl(block.image?.url);
+      if (!imgUrl) return null;
       return (
         <div
           key={index}
@@ -120,9 +143,10 @@ function renderContentBlock(block: ContentBlock, index: number) {
         >
           <div className="w-full overflow-hidden rounded-xl lg:flex-1">
             <img
-              src={getStrapiImageUrl(block.image.url)}
-              alt={block.image.alternativeText || ""}
+              src={imgUrl}
+              alt={block.image?.alternativeText ?? ""}
               className="w-full h-auto object-cover"
+              style={block.hauteurImage ? { height: block.hauteurImage } : undefined}
             />
           </div>
           <div className="lg:flex-1">
@@ -130,6 +154,7 @@ function renderContentBlock(block: ContentBlock, index: number) {
           </div>
         </div>
       );
+    }
 
     case "content-blocks.deux-colonnes":
       return (
@@ -139,28 +164,27 @@ function renderContentBlock(block: ContentBlock, index: number) {
         </div>
       );
 
-    case "content-blocks.galerie":
-      if (!block.images || block.images.length === 0) return null;
+    case "content-blocks.galerie": {
+      const images = block.images?.filter((img) => img.url) ?? [];
+      if (images.length === 0) return null;
       return (
         <div key={index} className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {block.images.map((image, imgIndex) => (
+          {images.map((image, imgIndex) => (
             <div key={imgIndex} className="aspect-[4/3] overflow-hidden rounded-xl bg-[#161A1E]">
               <img
                 src={getStrapiImageUrl(image.url)}
-                alt={image.alternativeText || ""}
-                className="w-full h-full object-cover"
+                alt={image.alternativeText ?? ""}
+                className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
               />
             </div>
           ))}
         </div>
       );
+    }
 
     case "content-blocks.citation":
       return (
-        <blockquote
-          key={index}
-          className="border-l-4 border-[#2DB180] pl-6 py-2"
-        >
+        <blockquote key={index} className="border-l-4 border-[#2DB180] pl-6 py-2">
           <p className="font-title text-lg font-semibold italic text-[#161A1E] sm:text-xl lg:text-2xl">
             {typeof block.texte === "string" ? block.texte : richTextToPlainText(block.texte)}
           </p>
@@ -170,24 +194,79 @@ function renderContentBlock(block: ContentBlock, index: number) {
         </blockquote>
       );
 
-    case "content-blocks.callout":
-      const bgColors = {
+    case "content-blocks.callout": {
+      const calloutStyles = {
         info: "bg-blue-50 border-blue-200 text-blue-900",
         warning: "bg-yellow-50 border-yellow-200 text-yellow-900",
         success: "bg-[#2DB180]/10 border-[#2DB180]/30 text-[#161A1E]",
       };
       return (
-        <div key={index} className={`rounded-xl border-2 p-6 ${bgColors[block.type]}`}>
+        <div key={index} className={`rounded-xl border-2 p-6 ${calloutStyles[block.type]}`}>
           {block.titre && (
             <h3 className="font-title font-black uppercase text-lg mb-2">{block.titre}</h3>
           )}
           <RichText content={block.texte} />
         </div>
       );
+    }
+
+    case "content-blocks.tech-stack": {
+      if (!block.technologies || block.technologies.length === 0) return null;
+      return (
+        <div key={index} className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+          {block.technologies.map((tech, techIndex) => (
+            <div key={techIndex} className="flex flex-col items-center gap-2 rounded-xl bg-slate-50 p-4">
+              {tech.icone && (
+                <img src={getStrapiImageUrl(tech.icone.url)} alt={tech.nom} className="w-10 h-10 object-contain" />
+              )}
+              <span className="font-['Figtree'] text-sm font-semibold text-center text-[#161A1E]">{tech.nom}</span>
+              {tech.description && (
+                <p className="font-['Figtree'] text-xs text-black/50 text-center">{tech.description}</p>
+              )}
+            </div>
+          ))}
+        </div>
+      );
+    }
 
     default:
       return null;
   }
+}
+
+function AutreProjetCard({ realisation }: { realisation: Realisation }) {
+  const coverUrl = getStrapiImageUrl(realisation.imageCouverture?.url);
+  return (
+    <Link
+      href={`/realisations/${realisation.slug}`}
+      className="group flex flex-col gap-4 hover:opacity-90 transition-opacity"
+    >
+      <div className="aspect-[4/3] w-full overflow-hidden rounded-xl bg-[#161A1E]">
+        {coverUrl ? (
+          <img
+            src={coverUrl}
+            alt={realisation.imageCouverture?.alternativeText ?? realisation.titre}
+            className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+          />
+        ) : (
+          <div className="h-full w-full flex items-center justify-center">
+            <span className="font-['Figtree'] text-sm text-white/30">Aucune image</span>
+          </div>
+        )}
+      </div>
+      <div className="flex flex-col gap-1">
+        {realisation.categorie && (
+          <p className="font-['Figtree'] text-xs font-semibold uppercase tracking-widest text-[#2DB180]">
+            {realisation.categorie.titre}
+          </p>
+        )}
+        <h3 className="font-title text-lg font-black uppercase text-[#161A1E] sm:text-xl">
+          {realisation.titre}
+        </h3>
+        <p className="font-['Figtree'] text-sm text-black/50">{formatDate(realisation.datePublication)}</p>
+      </div>
+    </Link>
+  );
 }
 
 export async function generateStaticParams() {
@@ -226,9 +305,16 @@ export default async function RealisationPage({
   params: Promise<{ slug: string }> | { slug: string };
 }) {
   const resolvedParams = await params;
-  const realisation = await getRealisation(resolvedParams.slug);
+  const [realisation, toutesRealisations] = await Promise.all([
+    getRealisation(resolvedParams.slug),
+    getRealisations(),
+  ]);
 
   if (!realisation) notFound();
+
+  const autresProjets = toutesRealisations
+    .filter((r) => r.slug !== resolvedParams.slug)
+    .slice(0, 3);
 
   const coverUrl = getStrapiImageUrl(realisation.imageCouverture?.url);
 
@@ -276,7 +362,7 @@ export default async function RealisationPage({
             <div className="aspect-[16/7] w-full overflow-hidden rounded-xl bg-[#161A1E]">
               <img
                 src={coverUrl}
-                alt={realisation.imageCouverture?.alternativeText || realisation.titre}
+                alt={realisation.imageCouverture?.alternativeText ?? realisation.titre}
                 className="h-full w-full object-cover"
               />
             </div>
@@ -315,7 +401,7 @@ export default async function RealisationPage({
                   <div key={imgIndex} className="aspect-[4/3] overflow-hidden rounded-xl bg-[#161A1E]">
                     <img
                       src={getStrapiImageUrl(image.url)}
-                      alt={image.alternativeText || `Photo ${imgIndex + 1} - ${realisation.titre}`}
+                      alt={image.alternativeText ?? `Photo ${imgIndex + 1} - ${realisation.titre}`}
                       className="h-full w-full object-cover transition-transform duration-300 hover:scale-105"
                     />
                   </div>
@@ -325,6 +411,22 @@ export default async function RealisationPage({
           )}
         </div>
       </section>
+
+      {/* Autres projets — uniquement si 3+ autres réalisations disponibles */}
+      {autresProjets.length >= 3 && (
+        <section className="w-full border-t border-black/10 px-4 pb-16 pt-12 sm:px-8 sm:pb-20 sm:pt-16 lg:px-20 lg:pb-[100px] lg:pt-[80px]">
+          <div className="mx-auto max-w-[1440px]">
+            <h2 className="mb-8 font-title text-2xl font-black uppercase text-[#161A1E] sm:text-3xl lg:text-[40px] sm:mb-10 lg:mb-12">
+              Autres projets
+            </h2>
+            <div className="grid grid-cols-1 gap-8 sm:grid-cols-3 sm:gap-6 lg:gap-8">
+              {autresProjets.map((projet) => (
+                <AutreProjetCard key={projet.documentId} realisation={projet} />
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* CTA */}
       <section className="bg-[#2DB180] px-4 py-12 sm:px-8 sm:py-16 lg:px-20 lg:py-20">
