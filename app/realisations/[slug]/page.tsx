@@ -346,16 +346,28 @@ export default async function RealisationPage({
         </div>
       </section>
 
-      {/* Image couverture */}
-      {coverUrl && (
+      {/* Couverture : vidéo en priorité, puis image */}
+      {(realisation.videoCouverture || coverUrl) && (
         <div className="w-full px-4 pt-8 sm:px-8 sm:pt-12 lg:px-20 lg:pt-16">
           <div className="mx-auto max-w-[1440px]">
             <div className="aspect-[16/7] w-full overflow-hidden rounded-xl bg-[#161A1E]">
-              <img
-                src={coverUrl}
-                alt={realisation.imageCouverture?.alternativeText ?? realisation.titre}
-                className="h-full w-full object-cover"
-              />
+              {realisation.videoCouverture ? (
+                <video
+                  src={realisation.videoCouverture}
+                  controls={realisation.afficherControlesVideo}
+                  autoPlay={!realisation.afficherControlesVideo}
+                  loop={!realisation.afficherControlesVideo}
+                  muted={!realisation.afficherControlesVideo}
+                  playsInline
+                  className="h-full w-full object-cover"
+                />
+              ) : (
+                <img
+                  src={coverUrl}
+                  alt={realisation.imageCouverture?.alternativeText ?? realisation.titre}
+                  className="h-full w-full object-cover"
+                />
+              )}
             </div>
           </div>
         </div>

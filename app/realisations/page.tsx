@@ -32,12 +32,19 @@ function formatDate(dateString: string): string {
 export default async function RealisationsPage() {
   const realisations = await getRealisations();
 
-  const cards = realisations.map((r) => ({
+  // misEnAvant = true → apparaît en tête de liste
+  const sorted = [
+    ...realisations.filter((r) => r.misEnAvant),
+    ...realisations.filter((r) => !r.misEnAvant),
+  ];
+
+  const cards = sorted.map((r) => ({
     slug: r.slug,
     image: getFirstImageUrl(r),
     title: r.titre,
     date: formatDate(r.datePublication),
     description: r.resume,
+    featured: r.misEnAvant,
   }));
 
   return (

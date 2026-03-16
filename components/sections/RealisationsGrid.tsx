@@ -9,17 +9,18 @@ type CardData = {
   title: string;
   date: string;
   description: string;
+  featured?: boolean;
 };
 
 const PAGE_SIZE = 6;
 
-function Card({ slug, image, title, date, description }: CardData) {
+function Card({ slug, image, title, date, description, featured }: CardData) {
   return (
     <Link
       href={`/realisations/${slug}`}
-      className="group flex flex-col gap-4 hover:opacity-80 transition-opacity"
+      className="group relative flex flex-col gap-4 hover:opacity-80 transition-opacity"
     >
-      <div className="aspect-[4/3] w-full overflow-hidden rounded-xl bg-[#161A1E]">
+      <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl bg-[#161A1E]">
         {image ? (
           <img
             className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
@@ -30,6 +31,11 @@ function Card({ slug, image, title, date, description }: CardData) {
           <div className="h-full w-full flex items-center justify-center p-8">
             <img src="/logo.png" alt="SOLITEK" className="w-20 h-auto opacity-30 object-contain" />
           </div>
+        )}
+        {featured && (
+          <span className="absolute left-3 top-3 rounded-full bg-[#2DB180] px-3 py-1 font-['Figtree'] text-xs font-semibold text-white">
+            À la une
+          </span>
         )}
       </div>
       <div className="flex flex-col gap-2">
