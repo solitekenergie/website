@@ -48,7 +48,7 @@ export const metadata: Metadata = {
     "Bas-Rhin photovoltaïque",
     "Haut-Rhin énergie solaire",
   ],
-  metadataBase: new URL("https://solitekenergie.fr"),
+  metadataBase: new URL("https://www.solitekenergie.fr"),
   authors: [{ name: "SOLITEK", url: "https://solitekenergie.fr" }],
   creator: "Studio Fief",
   publisher: "SOLITEK",
