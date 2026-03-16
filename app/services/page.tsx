@@ -44,7 +44,7 @@ const services: Service[] = [
     tagline: 'Produisez votre propre énergie',
     description:
       "Installation clé en main : de l'étude personnalisée au raccordement Enedis, SOLITEK gère tout. Micro-onduleurs AP System, suivi de production en temps réel, garantie 25 ans.",
-    image: '/images/services-photovoltaique.jpg',
+    image: '/images/solitek-installation-photovoltaique-residentiel-alsace.jpg',
     points: ['Simulation de production offerte', 'Démarches administratives & Consuel', 'Prime autoconsommation & TVA réduite', 'Suivi de rendement en temps réel'],
     imageLeft: false,
     cta: { href: '/estimateur', label: 'Simuler mon installation' },
@@ -55,7 +55,7 @@ const services: Service[] = [
     tagline: 'Confort thermique, facture réduite',
     description:
       "Pompes à chaleur air/eau et air/air Atlantic, Daikin, Airwell. Étude thermique gratuite, installation certifiée RGE, éligible MaPrimeRénov.",
-    image: '/images/services-chauffage.jpg',
+    image: '/images/solitek-installation-pompe-chaleur-air-eau-alsace.jpg',
     points: ['PAC air/eau et air/air', 'Marques Atlantic, Daikin, Airwell', 'Installateur RGE certifié', 'Éligible MaPrimeRénov\''],
     imageLeft: true,
     cta: { href: '/contact', label: 'Demander un devis' },
@@ -66,7 +66,7 @@ const services: Service[] = [
     tagline: 'Fraîcheur en été, chaleur en hiver',
     description:
       "Systèmes réversibles mono et multi-split Daikin, Atlantic, Airwell. Faible consommation, installation rapide, mise en service incluse.",
-    image: '/images/services-climatisation.jpg',
+    image: '/images/solitek-installation-climatisation-reversible-alsace.jpg',
     points: ['Climatisation réversible (chaud/froid)', 'Mono-split et multi-split', 'Haut COP, faible consommation', 'Mise en service incluse'],
     imageLeft: false,
     cta: { href: '/contact', label: 'Demander un devis' },
@@ -77,7 +77,7 @@ const services: Service[] = [
     tagline: 'Un air sain dans chaque pièce',
     description:
       "VMC double flux avec récupération de chaleur jusqu'à 90 %. Idéal pour les constructions neuves et les rénovations, pour un air sain et des économies d'énergie garanties.",
-    image: '/images/services-ventilation.jpg',
+    image: '/images/solitek-installation-vmc-double-flux-alsace.jpg',
     points: ['VMC simple flux et double flux', 'Récupération de chaleur jusqu\'à 90 %', 'Prévention humidité et moisissures', 'Norme RT2020 / RE2020'],
     imageLeft: true,
     cta: { href: '/contact', label: 'Demander un devis' },
@@ -88,7 +88,7 @@ const services: Service[] = [
     tagline: 'Installations aux normes, sans compromis',
     description:
       "Mise aux normes NF C 15-100, tableaux électriques, bornes IRVE pour véhicule électrique. Certificat de conformité fourni à chaque intervention.",
-    image: '/images/services-electricite.jpg',
+    image: '/images/solitek-electricien-rge-strasbourg-mise-aux-normes.jpg',
     points: ['Mise aux normes NF C 15-100', 'Bornes de recharge IRVE (P1/P2)', 'Tableaux et disjoncteurs', 'Certificat de conformité inclus'],
     imageLeft: false,
     cta: { href: '/contact', label: 'Demander un devis' },
@@ -99,7 +99,7 @@ const services: Service[] = [
     tagline: 'Vos installations à 100 % de leur capacité',
     description:
       "Un panneau encrassé perd jusqu'à 20 % de production. Contrat annuel : nettoyage, contrôle onduleurs, câblage et fixations. Rapport d'intervention systématique.",
-    image: '/images/services-entretien.jpg',
+    image: '/images/solitek-entretien-nettoyage-panneaux-solaires.jpg',
     points: ['Nettoyage professionnel des modules', 'Contrôle onduleurs & câblage', 'Contrat de maintenance annuel', 'Rapport d\'intervention inclus'],
     imageLeft: true,
     cta: { href: '/contact', label: 'Demander un devis' },

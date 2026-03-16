@@ -127,6 +127,47 @@ export default function RootLayout({
           strategy="beforeInteractive"
         />
 
+        <Script
+          id="json-ld-local-business"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "LocalBusiness",
+              name: "SOLITEK",
+              description:
+                "Installateur certifié RGE en Alsace : panneaux solaires photovoltaïques, pompes à chaleur, climatisation réversible, VMC double flux et électricité.",
+              url: "https://solitek.fr",
+              logo: "https://solitek.fr/logo.png",
+              image:
+                "https://solitek.fr/images/solitek-installation-panneaux-solaires-alsace.jpg",
+              address: {
+                "@type": "PostalAddress",
+                addressRegion: "Alsace",
+                addressCountry: "FR",
+              },
+              areaServed: [
+                { "@type": "State", name: "Bas-Rhin" },
+                { "@type": "State", name: "Haut-Rhin" },
+                { "@type": "City", name: "Strasbourg" },
+              ],
+              hasCredential: {
+                "@type": "EducationalOccupationalCredential",
+                credentialCategory: "RGE",
+              },
+              knowsAbout: [
+                "Panneaux solaires photovoltaïques",
+                "Pompe à chaleur",
+                "Climatisation réversible",
+                "VMC double flux",
+                "Électricité",
+                "Borne IRVE",
+              ],
+              sameAs: [],
+            }),
+          }}
+        />
+
         <RootLayoutClient>{children}</RootLayoutClient>
       </body>
     </html>

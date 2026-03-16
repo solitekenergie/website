@@ -11,7 +11,7 @@ export function TestimonialsSection() {
         <div className="inline-flex flex-col items-center justify-between gap-6 self-stretch sm:gap-8 lg:flex-row lg:items-center">
           <img
             className="relative h-[200px] w-[200px] rounded-lg object-cover sm:h-[240px] sm:w-[240px] lg:h-[249px] lg:w-[250px] lg:rounded-xl"
-            src="/images/mission-installation-01.jpg"
+            src="/images/solitek-installation-panneaux-solaires-alsace.jpg"
             alt="Portrait ou réalisation client"
           />
           <div className="inline-flex flex-col items-start justify-end gap-4 sm:gap-[18px]">

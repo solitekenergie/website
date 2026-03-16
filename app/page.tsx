@@ -108,17 +108,17 @@ export default async function Home({
           <p className="text-sm text-slate-600">Vérifie le chargement des images locales (mission + services).</p>
           <AssetProbe
             sources={[
-              { src: "/images/mission-installation-01.jpg", label: "Mission 1" },
-              { src: "/images/mission-panneaux-02.jpg", label: "Mission 2" },
-              { src: "/images/mission-detail-technique-03.jpg", label: "Mission 3" },
-              { src: "/images/mission-technicien-04.jpg", label: "Mission 4" },
-              { src: "/images/mission-toiture-05.jpg", label: "Mission 5" },
-              { src: "/images/services-photovoltaique.jpg", label: "Service Photovoltaïque" },
-              { src: "/images/services-chauffage.jpg", label: "Service Chauffage" },
-              { src: "/images/services-climatisation.jpg", label: "Service Climatisation" },
-              { src: "/images/services-ventilation.jpg", label: "Service Ventilation" },
-              { src: "/images/services-electricite.jpg", label: "Service Electricité" },
-              { src: "/images/services-entretien.jpg", label: "Service Entretien" },
+              { src: "/images/solitek-installation-panneaux-solaires-alsace.jpg", label: "Mission 1" },
+              { src: "/images/solitek-panneaux-solaires-photovoltaiques-maison.jpg", label: "Mission 2" },
+              { src: "/images/solitek-detail-technique-installation-photovoltaique.jpg", label: "Mission 3" },
+              { src: "/images/solitek-technicien-pose-panneaux-solaires-strasbourg.jpg", label: "Mission 4" },
+              { src: "/images/solitek-toiture-equipee-panneaux-solaires-alsace.jpg", label: "Mission 5" },
+              { src: "/images/solitek-installation-photovoltaique-residentiel-alsace.jpg", label: "Service Photovoltaïque" },
+              { src: "/images/solitek-installation-pompe-chaleur-air-eau-alsace.jpg", label: "Service Chauffage" },
+              { src: "/images/solitek-installation-climatisation-reversible-alsace.jpg", label: "Service Climatisation" },
+              { src: "/images/solitek-installation-vmc-double-flux-alsace.jpg", label: "Service Ventilation" },
+              { src: "/images/solitek-electricien-rge-strasbourg-mise-aux-normes.jpg", label: "Service Electricité" },
+              { src: "/images/solitek-entretien-nettoyage-panneaux-solaires.jpg", label: "Service Entretien" },
             ]}
           />
         </div>

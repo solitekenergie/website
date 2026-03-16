@@ -94,7 +94,7 @@ export function RealisationsSection({ realisations }: { realisations: Realisatio
           {realisations.map((real) => {
             const imageUrl = real.imageCouverture
               ? getStrapiImageUrl(real.imageCouverture.url)
-              : "/images/mission-installation-01.jpg";
+              : "/images/solitek-installation-panneaux-solaires-alsace.jpg";
             const altText = real.imageCouverture?.alternativeText || real.titre;
 
             return (

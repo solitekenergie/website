@@ -27,7 +27,7 @@ function ServiceCard({ title, description, image, href, className, alt }: Servic
           {title}
         </h3>
         <div className="flex flex-col items-center justify-start gap-4 sm:gap-6">
-          <p className="font-title text-lg font-normal leading-tight text-white sm:text-xl lg:text-2xl lg:leading-6">{description}</p>
+          <p className="text-center font-title text-lg font-normal leading-tight text-white sm:text-xl lg:text-2xl lg:leading-6">{description}</p>
           <div className="inline-flex h-12 items-center justify-center gap-2 rounded bg-white px-6 py-2 transition-opacity hover:opacity-90 sm:h-14">
             <span className="font-['Figtree'] text-sm font-bold leading-tight text-[#161A1E] sm:text-base sm:leading-[22.4px]">
               En savoir plus
@@ -53,7 +53,7 @@ export function ServicesSection() {
         <ServiceCard
           title="Photovoltaïque"
           description="Produisez votre propre électricité. Installation clé en main, simulation gratuite, suivi de production inclus."
-          image="/images/services-photovoltaique.jpg"
+          image="/images/solitek-installation-photovoltaique-residentiel-alsace.jpg"
           href="/services#photovoltaique"
           alt="Panneaux photovoltaïques en fonctionnement"
           className="h-[350px] sm:h-[400px] lg:h-[500px]"
@@ -63,7 +63,7 @@ export function ServicesSection() {
           <ServiceCard
             title="Chauffage"
             description="PAC air/eau et air/air jusqu'à 3× moins énergivores. Éligible MaPrimeRénov, installateur RGE certifié."
-            image="/images/services-chauffage.jpg"
+            image="/images/solitek-installation-pompe-chaleur-air-eau-alsace.jpg"
             href="/services#chauffage"
             alt="Système de chauffage moderne"
             className="h-[350px] flex-1 sm:h-[400px] lg:h-full"
@@ -71,7 +71,7 @@ export function ServicesSection() {
           <ServiceCard
             title="Climatisation"
             description="Fraîcheur en été, chaleur en hiver. Un seul appareil réversible, mise en service incluse."
-            image="/images/services-climatisation.jpg"
+            image="/images/solitek-installation-climatisation-reversible-alsace.jpg"
             href="/services#climatisation"
             alt="Installation de climatisation"
             className="h-[350px] flex-1 sm:h-[400px] lg:h-full"
@@ -82,7 +82,7 @@ export function ServicesSection() {
           <ServiceCard
             title="Ventilation"
             description="Air sain toute l'année. VMC double flux avec récupération de chaleur jusqu'à 90 %."
-            image="/images/services-ventilation.jpg"
+            image="/images/solitek-installation-vmc-double-flux-alsace.jpg"
             href="/services#ventilation"
             alt="Système de ventilation résidentielle"
             className="h-[350px] flex-1 sm:h-[400px] lg:h-full"
@@ -90,7 +90,7 @@ export function ServicesSection() {
           <ServiceCard
             title="Électricité"
             description="Mise aux normes NF C 15-100, bornes IRVE, tableaux. Certificat de conformité fourni à chaque intervention."
-            image="/images/services-electricite.jpg"
+            image="/images/solitek-electricien-rge-strasbourg-mise-aux-normes.jpg"
             href="/services#electricite"
             alt="Travaux et installations électriques"
             className="h-[350px] flex-1 sm:h-[400px] lg:h-full"
@@ -101,7 +101,7 @@ export function ServicesSection() {
           <ServiceCard
             title="Entretien & Nettoyage"
             description="Un panneau encrassé perd jusqu'à 20 % de production. Contrat annuel, rapport d'intervention inclus."
-            image="/images/services-entretien.jpg"
+            image="/images/solitek-entretien-nettoyage-panneaux-solaires.jpg"
             href="/services#entretien"
             alt="Prestations d'entretien et nettoyage"
             className="h-[350px] flex-1 sm:h-[400px] lg:h-full"

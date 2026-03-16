@@ -5,23 +5,23 @@ import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 
 const images = [
   {
-    src: '/images/mission-installation-01.jpg',
+    src: '/images/solitek-installation-panneaux-solaires-alsace.jpg',
     alt: 'Installation de panneaux solaires sur une toiture résidentielle',
   },
   {
-    src: '/images/mission-panneaux-02.jpg',
+    src: '/images/solitek-panneaux-solaires-photovoltaiques-maison.jpg',
     alt: 'Rangée de panneaux solaires captant la lumière du soleil',
   },
   {
-    src: '/images/mission-detail-technique-03.jpg',
+    src: '/images/solitek-detail-technique-installation-photovoltaique.jpg',
     alt: "Détail technique d'un panneau solaire et de son câblage",
   },
   {
-    src: '/images/mission-technicien-04.jpg',
+    src: '/images/solitek-technicien-pose-panneaux-solaires-strasbourg.jpg',
     alt: 'Technicien solaire vérifiant une installation',
   },
   {
-    src: '/images/mission-toiture-05.jpg',
+    src: '/images/solitek-toiture-equipee-panneaux-solaires-alsace.jpg',
     alt: "Vue aérienne d'une toiture équipée de panneaux solaires",
   },
 ];

@@ -3,8 +3,21 @@ import Link from "next/link";
 import { getRealisations, getStrapiImageUrl } from "@/lib/realisations";
 
 export const metadata = {
-  title: "Nos réalisations | Solitek",
-  description: "Découvrez nos projets et réalisations en énergie solaire photovoltaïque",
+  title: "Nos Réalisations | Installations Solaires & ENR en Alsace",
+  description: "Découvrez les réalisations SOLITEK en Alsace : installations photovoltaïques, pompes à chaleur, climatisation et VMC. Photos et détails de chaque chantier réalisé en Bas-Rhin et Haut-Rhin.",
+  keywords: [
+    "réalisations panneaux solaires Alsace",
+    "chantiers photovoltaïque Alsace",
+    "installation solaire maison Strasbourg",
+    "référence installateur RGE Alsace",
+    "photos installation panneaux solaires",
+    "projets pompe à chaleur Alsace",
+  ],
+  openGraph: {
+    title: "Nos Réalisations | SOLITEK Alsace",
+    description: "Installations photovoltaïques, pompes à chaleur, climatisation et VMC réalisées par SOLITEK en Alsace. Découvrez nos chantiers en photos.",
+    url: "/realisations",
+  },
 };
 
 function formatDate(dateString: string): string {

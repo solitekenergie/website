@@ -182,7 +182,7 @@ export default function ContactPage() {
                   muted
                   playsInline
                   preload="metadata"
-                  poster="/images/mission-toiture-05.jpg"
+                  poster="/images/solitek-toiture-equipee-panneaux-solaires-alsace.jpg"
                 >
                   <source src="/hero.mp4" type="video/mp4" />
                 </video>

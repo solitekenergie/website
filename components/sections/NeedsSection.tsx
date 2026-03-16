@@ -88,7 +88,7 @@ export function NeedsSection() {
           </div>
 
           <div className="relative h-12 self-stretch sm:h-14">
-            {selected ? (
+            {selected && (
               <button
                 onClick={() => router.push("/estimateur")}
                 className="absolute right-0 top-0 inline-flex h-12 items-center gap-2 rounded-full bg-[#2DB180] px-6 font-title text-sm font-semibold text-white transition-opacity hover:opacity-90 sm:h-14 sm:px-8 sm:text-base"
@@ -106,21 +106,6 @@ export function NeedsSection() {
                   <path d="M12 5L19 12L12 19" stroke="white" strokeWidth="2" strokeLinecap="round" />
                 </svg>
               </button>
-            ) : (
-              <div className="absolute left-0 top-0 inline-flex h-12 w-12 items-center justify-center gap-2 rounded-full bg-[#2DB180] sm:h-14 sm:w-14">
-                <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  aria-hidden="true"
-                  className="-rotate-180"
-                >
-                  <path d="M5 12H19" stroke="#161A1E" strokeWidth="2" strokeLinecap="round" />
-                  <path d="M12 5L19 12L12 19" stroke="#161A1E" strokeWidth="2" strokeLinecap="round" />
-                </svg>
-              </div>
             )}
           </div>
         </div>
@@ -129,7 +114,7 @@ export function NeedsSection() {
           <div className="h-full w-full rounded-lg p-6 sm:p-8 lg:p-10">
             <img
               className="h-full w-full rounded-lg object-cover"
-              src="/images/mission-technicien-04.jpg"
+              src="/images/solitek-technicien-pose-panneaux-solaires-strasbourg.jpg"
               alt="Technicien solarisé présentant une installation"
             />
           </div>
