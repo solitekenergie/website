@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
-import { getRealisations, getStrapiImageUrl } from "@/lib/realisations";
+import { getRealisations, getFirstImageUrl } from "@/lib/realisations";
 
 export const metadata = {
   title: "Nos Réalisations | Installations Solaires & ENR en Alsace",
@@ -63,7 +63,7 @@ export default async function RealisationsPage() {
                 <Card
                   key={realisation.documentId}
                   slug={realisation.slug}
-                  image={getStrapiImageUrl(realisation.imageCouverture?.url)}
+                  image={getFirstImageUrl(realisation)}
                   title={realisation.titre}
                   date={formatDate(realisation.datePublication)}
                   description={realisation.resume}
@@ -96,8 +96,8 @@ function Card({ slug, image, title, date, description }: CardProps) {
         {image ? (
           <img className="h-full w-full rounded-[6px] object-cover" src={image} alt={title} />
         ) : (
-          <div className="h-full w-full rounded-[6px] bg-gradient-to-br from-[#2DB180]/20 to-[#161A1E]/20 flex items-center justify-center">
-            <span className="text-white/40 text-sm">Aucune image</span>
+          <div className="h-full w-full rounded-[6px] bg-[#161A1E] flex items-center justify-center p-8">
+            <img src="/logo.png" alt="SOLITEK" className="w-20 h-auto opacity-30 object-contain" />
           </div>
         )}
       </div>

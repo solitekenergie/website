@@ -116,11 +116,11 @@ async function fetchAPI(endpoint: string, options: RequestInit = {}) {
   return res.json();
 }
 
-// Pour la liste (page /realisations) : on a besoin uniquement de l'image couverture
+// Pour la liste (page /realisations) : image couverture + première image des blocs contenu
 export async function getRealisations(): Promise<Realisation[]> {
   try {
     const data = await fetchAPI(
-      "/realisations-all?populate[imageCouverture]=true&sort[0]=datePublication:desc&pagination[pageSize]=100",
+      "/realisations-all?populate[imageCouverture]=true&populate[contenu][populate]=*&sort[0]=datePublication:desc&pagination[pageSize]=100",
       {
         next: { revalidate: 60 },
       }
@@ -130,6 +130,27 @@ export async function getRealisations(): Promise<Realisation[]> {
     console.error("Error fetching realisations:", error);
     return [];
   }
+}
+
+// Retourne la première URL d'image disponible : imageCouverture, puis premier bloc image du contenu
+export function getFirstImageUrl(realisation: Realisation): string {
+  if (realisation.imageCouverture?.url) {
+    return getStrapiImageUrl(realisation.imageCouverture.url);
+  }
+  if (realisation.contenu) {
+    for (const block of realisation.contenu) {
+      if (block.__component === "content-blocks.image" && block.media?.url) {
+        return getStrapiImageUrl(block.media.url);
+      }
+      if (block.__component === "content-blocks.image-et-texte" && block.image?.url) {
+        return getStrapiImageUrl(block.image.url);
+      }
+      if (block.__component === "content-blocks.galerie" && block.images?.[0]?.url) {
+        return getStrapiImageUrl(block.images[0].url);
+      }
+    }
+  }
+  return "";
 }
 
 // Pour la page détail : population profonde des blocs de contenu

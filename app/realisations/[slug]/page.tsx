@@ -7,6 +7,7 @@ import {
   getRealisations,
   getRealisationSlugs,
   getStrapiImageUrl,
+  getFirstImageUrl,
   richTextToPlainText,
   type Realisation,
   type ContentBlock,
@@ -235,7 +236,7 @@ function renderContentBlock(block: ContentBlock, index: number) {
 }
 
 function AutreProjetCard({ realisation }: { realisation: Realisation }) {
-  const coverUrl = getStrapiImageUrl(realisation.imageCouverture?.url);
+  const coverUrl = getFirstImageUrl(realisation);
   return (
     <Link
       href={`/realisations/${realisation.slug}`}
@@ -249,8 +250,8 @@ function AutreProjetCard({ realisation }: { realisation: Realisation }) {
             className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
           />
         ) : (
-          <div className="h-full w-full flex items-center justify-center">
-            <span className="font-['Figtree'] text-sm text-white/30">Aucune image</span>
+          <div className="h-full w-full flex items-center justify-center p-8">
+            <img src="/logo.png" alt="SOLITEK" className="w-24 h-auto opacity-30 object-contain" />
           </div>
         )}
       </div>
@@ -286,7 +287,7 @@ export async function generateMetadata({
     return { title: "Réalisation non trouvée | SOLITEK" };
   }
 
-  const coverUrl = getStrapiImageUrl(realisation.imageCouverture?.url);
+  const coverUrl = getFirstImageUrl(realisation);
 
   return {
     title: `${realisation.titre} | Réalisations SOLITEK`,
@@ -316,7 +317,7 @@ export default async function RealisationPage({
     .filter((r) => r.slug !== resolvedParams.slug)
     .slice(0, 3);
 
-  const coverUrl = getStrapiImageUrl(realisation.imageCouverture?.url);
+  const coverUrl = getFirstImageUrl(realisation);
 
   return (
     <div className="flex flex-col">
@@ -325,12 +326,12 @@ export default async function RealisationPage({
         <div className="mx-auto max-w-[1440px]">
           <Link
             href="/realisations"
-            className="mb-6 inline-flex items-center gap-2 font-['Figtree'] text-sm font-semibold text-[#2DB180] transition-opacity hover:opacity-80"
+            className="mb-8 inline-flex items-center gap-2 rounded-full border border-white/20 px-5 py-2.5 font-['Figtree'] text-sm font-semibold text-white transition-colors hover:border-white/60 hover:bg-white/10"
           >
             <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
-            Nos réalisations
+            Toutes les réalisations
           </Link>
 
           {realisation.categorie && (
@@ -412,22 +413,8 @@ export default async function RealisationPage({
         </div>
       </section>
 
-      {/* Bouton retour */}
-      <div className="w-full px-4 pb-10 sm:px-8 sm:pb-14 lg:px-20 lg:pb-16">
-        <div className="mx-auto max-w-[1440px]">
-          <Link
-            href="/realisations"
-            className="inline-flex items-center gap-2 rounded-full border-2 border-[#161A1E] px-6 py-3 font-title text-sm font-semibold text-[#161A1E] transition-colors hover:bg-[#161A1E] hover:text-white"
-          >
-            <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-            </svg>
-            Toutes les réalisations
-          </Link>
-        </div>
-      </div>
 
-      {/* Autres projets — uniquement si 3+ autres réalisations disponibles */}
+{/* Autres projets — uniquement si 3+ autres réalisations disponibles */}
       {autresProjets.length >= 3 && (
         <section className="w-full border-t border-black/10 px-4 pb-16 pt-12 sm:px-8 sm:pb-20 sm:pt-16 lg:px-20 lg:pb-[100px] lg:pt-[80px]">
           <div className="mx-auto max-w-[1440px]">
