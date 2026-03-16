@@ -58,15 +58,51 @@ export default function ContactPage() {
   };
 
   return (
-    <section className="w-full h-full pt-[160px] pb-20 px-[100px] inline-flex justify-start items-start gap-[120px] bg-[#F5F7FA]">
-      <div className="flex-1 overflow-hidden rounded-[8px] inline-flex flex-col justify-start items-start gap-8 p-0">
-        <div className="w-full flex flex-col justify-start items-start gap-6">
-          <div className="text-[#2DB180] text-[72px] leading-[72px] font-title font-black uppercase">
-            Demandez <br />
-            un devis
-          </div>
-          <form onSubmit={handleSubmit(onSubmit)} className="w-full flex flex-col justify-start items-start gap-4">
-            <div className="w-full inline-flex gap-4">
+    <div className="min-h-screen bg-[#F5F7FA]">
+      <div className="mx-auto max-w-[1440px] px-4 py-12 sm:px-8 sm:py-16 lg:px-20 lg:py-20">
+        {/* Titre — full width */}
+        <div className="mb-10 lg:mb-12">
+          <p className="mb-3 font-['Figtree'] text-sm font-semibold uppercase tracking-widest text-[#2DB180]">
+            Contactez-nous
+          </p>
+          <h1 className="font-title text-4xl font-black uppercase leading-tight text-[#161A1E] sm:text-5xl lg:text-[56px] lg:leading-[1]">
+            Demandez<br />un devis
+          </h1>
+        </div>
+
+        <div className="flex flex-col gap-10 lg:flex-row lg:items-start lg:gap-16 xl:gap-24">
+
+          {/* Colonne formulaire */}
+          <div className="flex w-full flex-col gap-8 lg:flex-1">
+            <div>
+              <p className="font-['Figtree'] text-base leading-relaxed text-black/60 sm:text-lg">
+                Pompe à chaleur, climatisation, VMC, électricité : décrivez votre projet ici, nous vous rappelons sous 24h. Pour le photovoltaïque, utilisez notre{' '}
+                <a href="/estimateur" className="font-semibold text-[#2DB180] underline underline-offset-2 hover:opacity-80">
+                  simulateur dédié
+                </a>
+                .
+              </p>
+            </div>
+
+            {/* Processus SOLITEK */}
+            <div className="grid grid-cols-3">
+              {[
+                { step: '01', title: 'Prise de contact', desc: 'Réponse sous 24h' },
+                { step: '02', title: 'Visite technique', desc: 'Devis personnalisé offert' },
+                { step: '03', title: 'Installation', desc: 'Mise en service incluse' },
+              ].map((item) => (
+                <div key={item.step} className="flex flex-col gap-2 border-t-2 border-[#2DB180] pt-4 pr-4">
+                  <span className="font-['Figtree'] text-xs font-bold text-[#2DB180]">{item.step}</span>
+                  <p className="font-['Figtree'] text-sm font-semibold text-[#161A1E]">{item.title}</p>
+                  <p className="font-['Figtree'] text-xs text-black/50">{item.desc}</p>
+                </div>
+              ))}
+            </div>
+
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              className="flex w-full flex-col gap-4"
+            >
               <Field
                 label="Nom complet*"
                 type="text"
@@ -74,107 +110,129 @@ export default function ContactPage() {
                 error={errors.name?.message}
                 disabled={status === "loading"}
               />
-            </div>
-            <div className="w-full inline-flex gap-4">
+
+              <div className="flex flex-col gap-4 sm:flex-row">
+                <Field
+                  label="E-mail*"
+                  type="email"
+                  register={register("email")}
+                  error={errors.email?.message}
+                  disabled={status === "loading"}
+                />
+                <Field
+                  label="Téléphone"
+                  type="tel"
+                  register={register("phone")}
+                  error={errors.phone?.message}
+                  disabled={status === "loading"}
+                />
+              </div>
+
               <Field
-                label="E-mail*"
-                type="email"
-                full
-                register={register("email")}
-                error={errors.email?.message}
+                label="Message*"
+                type="textarea"
+                register={register("message")}
+                error={errors.message?.message}
                 disabled={status === "loading"}
               />
-            </div>
-            <Field
-              label="Numéro de téléphone"
-              type="tel"
-              full
-              register={register("phone")}
-              error={errors.phone?.message}
-              disabled={status === "loading"}
-            />
-            <Field
-              label="Message*"
-              type="textarea"
-              full
-              register={register("message")}
-              error={errors.message?.message}
-              disabled={status === "loading"}
-            />
 
-            {serverMessage && (
-              <div
-                className={`w-full rounded-lg p-4 ${
-                  status === "success"
-                    ? "bg-green-50 text-green-800 border border-green-200"
-                    : "bg-red-50 text-red-800 border border-red-200"
-                }`}
-              >
-                {serverMessage}
+              {serverMessage && (
+                <div
+                  className={`w-full rounded-lg p-4 text-sm font-medium ${
+                    status === "success"
+                      ? "border border-green-200 bg-green-50 text-green-800"
+                      : "border border-red-200 bg-red-50 text-red-800"
+                  }`}
+                >
+                  {serverMessage}
+                </div>
+              )}
+
+              <div className="pt-2">
+                <button
+                  type="submit"
+                  disabled={status === "loading"}
+                  className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#2DB180] px-8 py-4 transition-colors hover:bg-[#26a072] disabled:cursor-not-allowed disabled:opacity-50"
+                >
+                  <AnimatedLink className="font-['Figtree'] text-sm font-bold uppercase leading-tight text-white sm:text-base">
+                    {status === "loading" ? "Envoi en cours…" : "Envoyer"}
+                  </AnimatedLink>
+                </button>
               </div>
-            )}
+            </form>
+          </div>
 
-            <button
-              type="submit"
-              disabled={status === "loading"}
-              className="mt-2 inline-flex items-center justify-center gap-2 rounded-[8px] bg-[#2DB180] px-6 py-4 hover:bg-[#26a072] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              <AnimatedLink className="text-white text-[14px] leading-[16.8px] font-['Figtree'] font-bold uppercase">
-                {status === "loading" ? "Envoi en cours..." : "Envoyer"}
-              </AnimatedLink>
-            </button>
-          </form>
+          {/* Colonne visuelle — cachée sur mobile, visible à partir de lg */}
+          <div className="hidden lg:flex lg:w-[420px] lg:flex-shrink-0 lg:self-stretch xl:w-[500px]">
+            <div className="sticky top-24 w-full overflow-hidden rounded-2xl shadow-xl" style={{ height: 'calc(100vh - 6rem)', maxHeight: '100%' }}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <div className="relative h-full">
+                <div className="pointer-events-none absolute inset-0 z-10 bg-black/20" />
+                <video
+                  className="h-full w-full object-cover"
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  preload="metadata"
+                  poster="/images/mission-toiture-05.jpg"
+                >
+                  <source src="/hero.mp4" type="video/mp4" />
+                </video>
+                {/* Badge superposé */}
+                <div className="absolute bottom-6 left-6 right-6 z-20 rounded-xl bg-white/10 p-5 backdrop-blur-sm">
+                  <p className="font-['Figtree'] text-sm font-semibold text-white">
+                    Florian Baret
+                  </p>
+                  <p className="font-['Figtree'] text-sm text-white/80">
+                    Responsable photovoltaïque SOLITEK
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
-
-      <div className="relative w-[536px] h-[698px] pt-10 pb-10 overflow-hidden rounded-[24px]">
-        <div className="absolute inset-0 bg-[linear-gradient(0deg,rgba(0,0,0,0.20)_0%,rgba(0,0,0,0.20)_100%)] pointer-events-none" />
-        <video
-          className="h-full w-full rounded-[24px] object-cover scale-110"
-          autoPlay
-          loop
-          muted
-          playsInline
-          preload="metadata"
-          poster="/images/mission-toiture-05.jpg"
-        >
-          <source src="/hero.mp4" type="video/mp4" />
-          Votre navigateur ne supporte pas la vidéo HTML5.
-        </video>
-      </div>
-    </section>
+    </div>
   );
 }
 
 type FieldProps = {
   label: string;
   type: string;
-  full?: boolean;
   register: any;
   error?: string;
   disabled?: boolean;
 };
 
-function Field({ label, type, full, register, error, disabled }: FieldProps) {
+function Field({ label, type, register, error, disabled }: FieldProps) {
+  const base =
+    "w-full rounded-lg border border-[rgba(128,128,128,0.40)] bg-white px-4 py-3 text-base text-[#161A1E] placeholder-transparent focus:border-[#2DB180] focus:outline-none focus:ring-2 focus:ring-[#2DB180]/20 disabled:cursor-not-allowed disabled:opacity-50 sm:px-5 sm:py-4";
+
   return (
-    <div className={`inline-flex flex-col justify-start items-start gap-2 ${full ? "flex-1" : "flex-1"}`}>
-      <div className="text-[16px] leading-[19.2px] font-title font-normal text-black/60">{label}</div>
+    <div className="flex flex-1 flex-col gap-1.5">
+      <label className="font-['Figtree'] text-sm font-medium text-black/70 sm:text-base">
+        {label}
+      </label>
       {type === "textarea" ? (
         <textarea
           {...register}
           disabled={disabled}
           rows={5}
-          className="w-full rounded-[8px] border border-[rgba(128,128,128,0.55)] px-6 py-4 text-[16px] text-[#161A1E] focus:outline-none focus:border-[#2DB180] focus:ring-2 focus:ring-[#2DB180]/20 disabled:opacity-50 disabled:cursor-not-allowed"
+          className={base}
         />
       ) : (
         <input
           type={type}
           {...register}
           disabled={disabled}
-          className="h-[50px] w-full rounded-[8px] border border-[rgba(128,128,128,0.55)] px-6 py-4 text-[16px] text-[#161A1E] focus:outline-none focus:border-[#2DB180] focus:ring-2 focus:ring-[#2DB180]/20 disabled:opacity-50 disabled:cursor-not-allowed"
+          className={`h-12 sm:h-[52px] ${base}`}
         />
       )}
-      {error && <p className="text-sm text-red-600">{error}</p>}
+      {error && (
+        <p className="text-xs font-medium text-red-600 sm:text-sm">{error}</p>
+      )}
     </div>
   );
 }

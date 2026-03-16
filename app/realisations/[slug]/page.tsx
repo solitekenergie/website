@@ -176,7 +176,7 @@ function renderContentBlock(block: ContentBlock, index: number) {
           <div className="text-[20px] leading-[30px] text-black/80">
             {typeof block.texte === "string" ? block.texte : richTextToPlainText(block.texte)}
           </div>
-          {block.auteur && <footer className="text-[16px] text-black/60 mt-2">— {block.auteur}</footer>}
+          {block.auteur && <footer className="text-[16px] text-black/60 mt-2">{block.auteur}</footer>}
         </blockquote>
       );
 

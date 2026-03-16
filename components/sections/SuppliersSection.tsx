@@ -17,6 +17,16 @@ const logos: Logo[] = [
   { width: "w-[150px]", height: "h-[58.83px]", src: "/images/supplier-09.svg", alt: "Supplier 09" },
   { width: "w-[32.4px]", height: "h-[36.68px]", src: "/images/supplier-10.svg", alt: "Supplier 10" },
   { width: "w-[150px]", height: "h-[20px]", src: "/images/supplier-11.svg", alt: "Supplier 11" },
+  { width: "w-[150px]", height: "h-[36px]", src: "/images/supplier-12.svg", alt: "POMPAC" },
+  { width: "w-[150px]", height: "h-[36px]", src: "/images/supplier-13.svg", alt: "AUBAD" },
+  { width: "w-[150px]", height: "h-[36px]", src: "/images/supplier-14.svg", alt: "SIEHR" },
+  { width: "w-[150px]", height: "h-[36px]", src: "/images/supplier-15.svg", alt: "BAYWA\u00b7RE" },
+  { width: "w-[150px]", height: "h-[36px]", src: "/images/supplier-16.svg", alt: "VOLTEC" },
+  { width: "w-[150px]", height: "h-[36px]", src: "/images/supplier-17.svg", alt: "AP SYSTEM" },
+  { width: "w-[150px]", height: "h-[36px]", src: "/images/supplier-18.svg", alt: "ATLANTIC" },
+  { width: "w-[150px]", height: "h-[36px]", src: "/images/supplier-19.svg", alt: "DAIKIN" },
+  { width: "w-[150px]", height: "h-[36px]", src: "/images/supplier-20.svg", alt: "AIRWELL" },
+  { width: "w-[180px]", height: "h-[36px]", src: "/images/supplier-21.svg", alt: "WILLY LEISSNER" },
 ];
 
 export function SuppliersSection() {

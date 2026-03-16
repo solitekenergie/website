@@ -9,8 +9,9 @@ import { AnimatedLink } from "../ui/AnimatedLink";
 
 const navItems = [
   { href: "/", label: "Accueil" },
-  { href: "/faq", label: "Faq" },
+  { href: "/services", label: "Services" },
   { href: "/realisations", label: "Réalisations" },
+  { href: "/faq", label: "FAQ" },
   { href: "/contact", label: "Contact" },
 ];
 

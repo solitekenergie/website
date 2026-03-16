@@ -82,26 +82,44 @@ export default function FaqPage() {
 
   return (
     <div className="flex flex-col">
-      <section className="w-full h-full pt-[160px] pb-20 px-[60px] inline-flex flex-col justify-start items-center gap-14">
-        <div className="text-[#2DB180] text-[72px] leading-[72px] font-title font-black uppercase">FAQ</div>
+      <section className="mx-auto w-full max-w-[1440px] px-4 pb-16 pt-16 sm:px-8 sm:pb-20 sm:pt-20 lg:px-20 lg:pb-24 lg:pt-24">
 
-        <div className="self-stretch flex flex-col justify-start items-center gap-6">
-          <div className="flex w-full max-w-[1320px] flex-col gap-[14px]">
-            {toggledFaqs.map((item, index) => (
-              <FaqCard key={`${item.question}-${index}`} item={item} onToggle={() => handleToggle(index)} />
-            ))}
-          </div>
+        {/* En-tête */}
+        <div className="mb-12 sm:mb-16">
+          <p className="mb-3 font-['Figtree'] text-sm font-semibold uppercase tracking-widest text-[#2DB180]">
+            Questions fréquentes
+          </p>
+          <h1 className="font-title text-4xl font-black uppercase leading-tight text-[#2DB180] sm:text-5xl lg:text-[64px] lg:leading-[1]">
+            FAQ
+          </h1>
+          <p className="mt-4 max-w-[600px] font-['Figtree'] text-base leading-relaxed text-black/60 sm:text-lg">
+            Tout ce que vous devez savoir avant de vous lancer dans votre projet d&apos;installation solaire ou ENR en Alsace.
+          </p>
         </div>
 
-        <div className="self-stretch inline-flex justify-center items-start">
-          <button
-            type="button"
-            className="px-12 py-6 bg-[#2DB180] rounded-[8px] inline-flex items-center justify-center gap-2"
+        {/* Questions */}
+        <div className="flex flex-col gap-3">
+          {toggledFaqs.map((item, index) => (
+            <FaqCard key={`${item.question}-${index}`} item={item} onToggle={() => handleToggle(index)} />
+          ))}
+        </div>
+
+        {/* CTA */}
+        <div className="mt-14 flex flex-col items-center gap-4 rounded-2xl bg-[#161A1E] px-6 py-10 text-center sm:px-12 sm:py-14">
+          <p className="font-title text-2xl font-black uppercase text-white sm:text-3xl">
+            Vous n&apos;avez pas trouvé votre réponse ?
+          </p>
+          <p className="max-w-[480px] font-['Figtree'] text-base text-white/70">
+            Notre équipe vous répond sous 24h, sans engagement.
+          </p>
+          <a
+            href="/contact"
+            className="mt-2 inline-flex items-center gap-2 rounded-lg bg-[#2DB180] px-8 py-4 font-['Figtree'] text-sm font-bold uppercase text-white transition-opacity hover:opacity-90 sm:text-base"
           >
-            <AnimatedLink className="text-white text-[16px] leading-[19.2px] font-['Figtree'] font-bold uppercase">
-              Obtenir de l&apos;aide
+            <AnimatedLink className="text-white">
+              Contacter SOLITEK
             </AnimatedLink>
-          </button>
+          </a>
         </div>
       </section>
 
@@ -114,9 +132,9 @@ function FaqCard({ item, onToggle }: { item: FaqItem; onToggle: () => void }) {
   const isOpen = Boolean(item.expanded);
   return (
     <div
-      className={`w-full flex flex-col gap-[18px] rounded-[12px] px-9 py-8 ${
-        isOpen ? "outline outline-1 outline-black" : "outline outline-1 outline-[#CCCCCC]"
-      }`}
+      className={`w-full cursor-pointer rounded-xl px-5 py-5 sm:px-8 sm:py-6 ${
+        isOpen ? "outline outline-1 outline-black" : "outline outline-1 outline-[#CCCCCC] hover:outline-black/30"
+      } transition-all`}
       role="button"
       tabIndex={0}
       onClick={onToggle}
@@ -127,24 +145,20 @@ function FaqCard({ item, onToggle }: { item: FaqItem; onToggle: () => void }) {
         }
       }}
     >
-      <div className="inline-flex items-center gap-4">
-        <div className="flex flex-1 items-center">
-          <div className="flex-1 text-black text-[32px] leading-[38.4px] font-['Figtree'] font-semibold">
-            {item.question}
-          </div>
-        </div>
-        <div className="flex items-center justify-center pointer-events-none">
-          <div className="w-[56px] h-[56px] rounded-[8px] bg-[#2DB180] inline-flex items-center justify-center">
-            <Chevron isOpen={isOpen} />
-          </div>
+      <div className="flex items-center gap-4">
+        <p className="flex-1 font-['Figtree'] text-base font-semibold leading-snug text-black sm:text-lg lg:text-xl">
+          {item.question}
+        </p>
+        <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-[#2DB180] sm:h-12 sm:w-12">
+          <Chevron isOpen={isOpen} />
         </div>
       </div>
 
-      {isOpen ? (
-        <div className="flex flex-col gap-4">
-          <div className="text-black/60 text-[24px] leading-[36px] font-['Figtree'] font-normal">{item.answer}</div>
-        </div>
-      ) : null}
+      {isOpen && (
+        <p className="mt-4 font-['Figtree'] text-sm leading-relaxed text-black/60 sm:text-base lg:text-lg">
+          {item.answer}
+        </p>
+      )}
     </div>
   );
 }

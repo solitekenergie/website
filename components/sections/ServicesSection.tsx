@@ -1,7 +1,10 @@
+import Link from 'next/link';
+
 type ServiceCardProps = {
   title: string;
   description: string;
   image: string;
+  href: string;
   className?: string;
   alt: string;
 };
@@ -13,9 +16,10 @@ const cardBackground = (image: string) => ({
   backgroundPosition: "center",
 });
 
-function ServiceCard({ title, description, image, className, alt }: ServiceCardProps) {
+function ServiceCard({ title, description, image, href, className, alt }: ServiceCardProps) {
   return (
-    <div
+    <Link
+      href={href}
       className={`${className ?? ""} inline-flex flex-col items-center justify-center gap-4 self-stretch overflow-hidden rounded-lg bg-cover bg-center px-6 py-8 sm:gap-6 sm:rounded-xl sm:px-12 sm:py-10 lg:px-20 lg:py-12`}
       style={cardBackground(image)}
     >
@@ -25,15 +29,15 @@ function ServiceCard({ title, description, image, className, alt }: ServiceCardP
         </h3>
         <div className="flex flex-col items-center justify-start gap-4 sm:gap-6">
           <p className="font-title text-lg font-normal leading-tight text-white sm:text-xl lg:text-2xl lg:leading-6">{description}</p>
-          <div className="inline-flex h-12 items-center justify-center gap-2 rounded bg-white px-6 py-2 sm:h-14">
-            <div className="flex flex-col justify-end font-['Figtree'] text-sm font-bold leading-tight text-[#161A1E] sm:text-base sm:leading-[22.4px]">
-              Mon estimation
-            </div>
+          <div className="inline-flex h-12 items-center justify-center gap-2 rounded bg-white px-6 py-2 transition-opacity hover:opacity-90 sm:h-14">
+            <span className="font-['Figtree'] text-sm font-bold leading-tight text-[#161A1E] sm:text-base sm:leading-[22.4px]">
+              En savoir plus
+            </span>
           </div>
         </div>
       </div>
       <span className="sr-only">{alt}</span>
-    </div>
+    </Link>
   );
 }
 
@@ -49,8 +53,9 @@ export function ServicesSection() {
       <div className="flex flex-col items-start justify-start gap-4 self-stretch sm:gap-6">
         <ServiceCard
           title="Photovoltaïque"
-          description=" "
+          description="Produisez votre propre électricité. Installation clé en main, simulation gratuite, suivi de production inclus."
           image="/images/services-photovoltaique.jpg"
+          href="/services#photovoltaique"
           alt="Panneaux photovoltaïques en fonctionnement"
           className="h-[350px] sm:h-[400px] lg:h-[500px]"
         />
@@ -58,15 +63,17 @@ export function ServicesSection() {
         <div className="inline-flex flex-col items-start justify-start gap-4 self-stretch sm:gap-6 lg:h-[600px] lg:flex-row">
           <ServiceCard
             title="Chauffage"
-            description=" "
+            description="PAC air/eau et air/air jusqu'à 3× moins énergivores. Éligible MaPrimeRénov, installateur RGE certifié."
             image="/images/services-chauffage.jpg"
+            href="/services#chauffage"
             alt="Système de chauffage moderne"
             className="h-[350px] flex-1 sm:h-[400px] lg:h-full"
           />
           <ServiceCard
             title="Climatisation"
-            description=" "
+            description="Fraîcheur en été, chaleur en hiver. Un seul appareil réversible, mise en service incluse."
             image="/images/services-climatisation.jpg"
+            href="/services#climatisation"
             alt="Installation de climatisation"
             className="h-[350px] flex-1 sm:h-[400px] lg:h-full"
           />
@@ -75,15 +82,17 @@ export function ServicesSection() {
         <div className="inline-flex flex-col items-start justify-start gap-4 self-stretch sm:gap-6 lg:h-[600px] lg:flex-row">
           <ServiceCard
             title="Ventilation"
-            description=" "
+            description="Air sain toute l'année. VMC double flux avec récupération de chaleur jusqu'à 90 %."
             image="/images/services-ventilation.jpg"
+            href="/services#ventilation"
             alt="Système de ventilation résidentielle"
             className="h-[350px] flex-1 sm:h-[400px] lg:h-full"
           />
           <ServiceCard
-            title="Electricité"
-            description=" "
+            title="Électricité"
+            description="Mise aux normes NF C 15-100, bornes IRVE, tableaux. Certificat de conformité fourni à chaque intervention."
             image="/images/services-electricite.jpg"
+            href="/services#electricite"
             alt="Travaux et installations électriques"
             className="h-[350px] flex-1 sm:h-[400px] lg:h-full"
           />
@@ -91,10 +100,11 @@ export function ServicesSection() {
 
         <div className="inline-flex flex-col items-start justify-start gap-4 self-stretch sm:gap-6 lg:h-[600px] lg:flex-row">
           <ServiceCard
-            title="Entretiens et nettoyage"
-            description=" "
+            title="Entretien & Nettoyage"
+            description="Un panneau encrassé perd jusqu'à 20 % de production. Contrat annuel, rapport d'intervention inclus."
             image="/images/services-entretien.jpg"
-            alt="Prestations d&apos;entretien et nettoyage"
+            href="/services#entretien"
+            alt="Prestations d'entretien et nettoyage"
             className="h-[350px] flex-1 sm:h-[400px] lg:h-full"
           />
         </div>

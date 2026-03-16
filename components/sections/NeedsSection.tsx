@@ -15,8 +15,8 @@ export function NeedsSection() {
 
       <div className="flex flex-col items-center justify-start gap-8 self-stretch sm:gap-10 lg:gap-12">
         <h2 className="self-stretch text-center font-title text-3xl font-black uppercase leading-tight text-white sm:text-4xl sm:leading-tight lg:text-[56px] lg:leading-[56px]">
-          Connaitre votre <br />
-          besoin
+          Votre projet, <br />
+          en 2 minutes
         </h2>
       </div>
 

@@ -17,16 +17,71 @@ const figtree = Figtree({
 });
 
 export const metadata: Metadata = {
-  title: "Solitek | Solutions solaires et photovoltaïques",
+  title: {
+    default: "SOLITEK | Installateur solaire & ENR en Alsace",
+    template: "%s | SOLITEK",
+  },
   description:
-    "Solitek vous aide à estimer votre installation photovoltaïque, à comprendre les enjeux énergétiques et à contacter nos équipes.",
+    "SOLITEK, installateur certifié RGE en Alsace : panneaux solaires photovoltaïques, pompes à chaleur, climatisation, VMC, électricité et entretien. Devis gratuit, sans engagement.",
   keywords: [
-    "solaire",
-    "photovoltaïque",
-    "estimateur solaire",
-    "installateur solaire",
-    "énergie renouvelable",
+    // Core métier
+    "installateur solaire Alsace",
+    "panneaux solaires Alsace",
+    "photovoltaïque Alsace",
+    "installation photovoltaïque",
+    "énergie solaire maison",
+    "autoconsommation solaire",
+    // Services
+    "pompe à chaleur Alsace",
+    "climatisation réversible Alsace",
+    "VMC double flux Alsace",
+    "borne IRVE Alsace",
+    "électricien RGE Alsace",
+    // Certifications et aides
+    "installateur RGE",
+    "MaPrimeRénov panneaux solaires",
+    "prime autoconsommation",
+    "devis panneaux solaires gratuit",
+    // Localisation
+    "SOLITEK",
+    "énergie renouvelable Alsace",
+    "Bas-Rhin photovoltaïque",
+    "Haut-Rhin énergie solaire",
   ],
+  authors: [{ name: "SOLITEK" }],
+  creator: "SOLITEK",
+  openGraph: {
+    type: "website",
+    locale: "fr_FR",
+    siteName: "SOLITEK",
+    title: "SOLITEK | Installateur solaire & ENR en Alsace",
+    description:
+      "Panneaux solaires, pompes à chaleur, climatisation, VMC et électricité en Alsace. Installateur certifié RGE. Devis gratuit et sans engagement.",
+    images: [
+      {
+        url: "/hero-panels.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Installation de panneaux solaires par SOLITEK en Alsace",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "SOLITEK | Installateur solaire & ENR en Alsace",
+    description:
+      "Panneaux solaires, pompes à chaleur, climatisation, VMC et électricité en Alsace. Installateur certifié RGE.",
+    images: ["/hero-panels.jpg"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+    },
+  },
   icons: {
     icon: "/logo.png",
     apple: "/logo.png",

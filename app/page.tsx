@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { listPosts } from "@/lib/blog";
 import { getRealisations } from "@/lib/realisations";
 import { MissionSection } from "@/components/sections/MissionSection";
@@ -9,6 +10,29 @@ import { SuppliersSection } from "@/components/sections/SuppliersSection";
 import { TestimonialsSection } from "@/components/sections/TestimonialsSection";
 import { AssetProbe } from "@/components/debug/AssetProbe";
 import PrimaryCta from "@/components/ui/PrimaryCta";
+
+export const metadata: Metadata = {
+  title: "SOLITEK | Installateur solaire, pompe à chaleur & ENR en Alsace",
+  description:
+    "SOLITEK, installateur certifié RGE en Alsace : installation panneaux solaires photovoltaïques, pompe à chaleur, climatisation réversible, VMC et borne IRVE. Simulation gratuite en 2 minutes.",
+  keywords: [
+    "installateur panneaux solaires Alsace",
+    "installation photovoltaïque Alsace",
+    "pompe à chaleur Alsace",
+    "climatisation Alsace",
+    "installateur RGE Alsace",
+    "devis solaire gratuit",
+    "énergie renouvelable maison Alsace",
+    "autoconsommation photovoltaïque",
+    "simulation panneaux solaires",
+  ],
+  openGraph: {
+    title: "SOLITEK | Installateur solaire, pompe à chaleur & ENR en Alsace",
+    description:
+      "Installation panneaux solaires, pompe à chaleur, climatisation et borne IRVE en Alsace. Devis gratuit et simulation en ligne.",
+    url: "/",
+  },
+};
 
 export default async function Home({
   searchParams,
@@ -26,14 +50,14 @@ export default async function Home({
     <div className="space-y-0">
       <section className="relative isolate left-1/2 w-screen -translate-x-1/2 overflow-hidden bg-black text-white">
         <div className="absolute inset-0 overflow-hidden">
+          {/* Vidéo sur tous les formats — pas de poster pour éviter le flash d'image */}
           <video
             className="h-full w-full object-cover"
             autoPlay
             loop
             muted
             playsInline
-            preload="metadata"
-            poster="/hero-panels.jpg"
+            preload="auto"
             aria-hidden="true"
           >
             <source src="/hero.mp4" type="video/mp4" />
@@ -52,10 +76,15 @@ export default async function Home({
                   Énergétique
                 </span>
               </div>
-              <div className="space-y-6 font-title text-[20px] font-normal leading-[24px] tracking-[-0.3px] text-white sm:text-[22px] lg:text-[24px] lg:tracking-[-0.48px]">
-                <p>Je souhaite réaliser une simulation</p>
+              <div className="space-y-6">
+                <p className="font-['Figtree'] text-sm font-semibold uppercase tracking-widest text-[#2DB180]">
+                  Installateur certifié RGE en Alsace
+                </p>
+                <p className="font-title text-[18px] font-normal leading-[24px] tracking-[-0.3px] text-white/80 sm:text-[20px] lg:text-[22px]">
+                  Panneaux solaires · Pompe à chaleur · Climatisation · Électricité
+                </p>
                 <PrimaryCta href="/estimateur" className="shadow-lg relative z-30">
-                  Mon estimation
+                  Mon estimation gratuite
                 </PrimaryCta>
               </div>
             </div>
