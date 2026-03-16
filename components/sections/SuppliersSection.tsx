@@ -21,7 +21,7 @@ const logos: Logo[] = [
   { width: "w-[150px]", height: "h-[36px]", src: "/images/aubade.svg", alt: "Aubade" },
   { width: "w-[150px]", height: "h-[36px]", src: "/images/siehr.svg", alt: "SIEHR" },
   { width: "w-[150px]", height: "h-[36px]", src: "/images/bayware.svg", alt: "BayWa r.e." },
-  { width: "w-[150px]", height: "h-[36px]", src: "/images/voltec.svg", alt: "Voltec" },
+  { width: "w-[48px]", height: "h-[48px]", src: "/images/voltec.svg", alt: "Voltec" },
   { width: "w-[150px]", height: "h-[36px]", src: "/images/ap-storage.svg", alt: "AP Storage" },
   { width: "w-[150px]", height: "h-[36px]", src: "/images/atlantic.svg", alt: "Atlantic" },
   { width: "w-[150px]", height: "h-[36px]", src: "/images/daikin.svg", alt: "Daikin" },
