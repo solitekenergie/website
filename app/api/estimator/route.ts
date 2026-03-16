@@ -1,8 +1,18 @@
 import { NextRequest, NextResponse } from "next/server";
 import { estimatorSchema } from "@/lib/validation/estimator";
 import { sendEmail } from "@/lib/email/send";
+import { rateLimit, getClientIp } from "@/lib/rate-limit";
 
 export async function POST(request: NextRequest) {
+  const ip = getClientIp(request);
+  const rl = rateLimit(ip, { limit: 3, windowMs: 60_000 });
+  if (!rl.success) {
+    return NextResponse.json(
+      { message: "Trop de requêtes. Réessayez dans quelques instants." },
+      { status: 429, headers: { "Retry-After": String(rl.retryAfter) } }
+    );
+  }
+
   try {
     const body = await request.json();
 
