@@ -326,17 +326,13 @@ export default async function RealisationPage({
         <div className="mx-auto max-w-[1440px]">
           <Link
             href="/realisations"
-            className="mb-6 inline-flex items-center gap-2 font-['Figtree'] text-sm font-semibold text-[#2DB180] transition-opacity hover:opacity-80"
+            className="mb-4 inline-flex items-center gap-2 font-['Figtree'] text-sm font-semibold uppercase tracking-widest text-[#2DB180] transition-opacity hover:opacity-80"
           >
             <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
-            Toutes les réalisations
+            {realisation.categorie?.titre ?? "Nos réalisations"}
           </Link>
-
-          <p className="mb-4 font-['Figtree'] text-sm font-semibold uppercase tracking-widest text-[#2DB180]">
-            {realisation.categorie?.titre ?? "Réalisation"}
-          </p>
 
           <h1 className="font-title text-4xl font-black uppercase leading-tight text-white sm:text-5xl lg:text-[72px] lg:leading-[1]">
             {realisation.titre}
