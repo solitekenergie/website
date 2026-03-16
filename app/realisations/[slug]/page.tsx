@@ -328,7 +328,7 @@ export default async function RealisationPage({
         <div className="mx-auto max-w-[1440px]">
           <Link
             href="/realisations"
-            className="mb-4 inline-flex items-center gap-2 font-['Figtree'] text-sm font-semibold uppercase tracking-widest text-[#2DB180] transition-opacity hover:opacity-80"
+            className="mb-4 inline-flex items-center gap-2 font-['Figtree'] text-sm font-semibold uppercase tracking-widest text-white transition-opacity hover:opacity-70"
           >
             <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
