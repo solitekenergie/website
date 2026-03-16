@@ -9,9 +9,6 @@ export function NeedsSection() {
 
   return (
     <section className="relative inline-flex h-full w-full flex-col items-start justify-start gap-8 overflow-hidden bg-[#161A1E] p-4 sm:gap-10 sm:p-8 lg:gap-12 lg:p-[100px]">
-      {/* Decorative background blocks */}
-      <div className="pointer-events-none absolute -left-40 -top-[500px] h-[1549px] w-[1256px] bg-black opacity-20" />
-      <div className="pointer-events-none absolute -top-[400px] right-[-500px] h-[1549px] w-[1256px] bg-black opacity-10" />
 
       <div className="flex flex-col items-center justify-start gap-8 self-stretch sm:gap-10 lg:gap-12">
         <h2 className="self-stretch text-center font-title text-3xl font-black uppercase leading-tight text-white sm:text-4xl sm:leading-tight lg:text-[56px] lg:leading-[56px]">
@@ -20,7 +17,7 @@ export function NeedsSection() {
         </h2>
       </div>
 
-      <div className="relative z-10 inline-flex flex-col items-start justify-start gap-6 self-stretch lg:flex-row">
+      <div className="relative z-10 inline-flex flex-col items-stretch justify-start gap-6 self-stretch lg:flex-row">
         <div className="inline-flex flex-1 flex-col items-center justify-start gap-6 self-stretch rounded-lg bg-white px-4 py-8 sm:gap-8 sm:rounded-xl sm:px-5 sm:py-10 lg:gap-10">
           <div className="flex flex-col items-center justify-start gap-3 self-stretch">
             <div className="inline-flex items-center justify-start gap-2 rounded-[26px] p-3 outline outline-2 outline-black">
@@ -110,14 +107,12 @@ export function NeedsSection() {
           </div>
         </div>
 
-        <div className="hidden flex-1 self-stretch lg:block">
-          <div className="h-full w-full rounded-lg p-6 sm:p-8 lg:p-10">
-            <img
-              className="h-full w-full rounded-lg object-cover"
-              src="/images/solitek-technicien-pose-panneaux-solaires-strasbourg.jpg"
-              alt="Technicien solarisé présentant une installation"
-            />
-          </div>
+        <div className="hidden flex-1 lg:flex">
+          <img
+            className="h-full w-full rounded-xl object-cover"
+            src="/images/solitek-technicien-pose-panneaux-solaires-strasbourg.jpg"
+            alt="Technicien solarisé présentant une installation"
+          />
         </div>
       </div>
     </section>
