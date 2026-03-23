@@ -2,16 +2,19 @@ const sections = [
   {
     title: "Éditeur du site",
     content: [
-      "Solitek - [raison sociale à compléter]",
-      "Adresse du siège : [à compléter]",
-      "SIRET : [à compléter]",
+      "SOLITEK — Société à responsabilité limitée (SARL)",
+      "Siège social : 7 Rue de Bucarest, 67100 Strasbourg",
+      "SIRET : 989 724 976 00018",
+      "RCS Strasbourg",
+      "Capital social : 500 €",
+      "Président : Florian Baret",
       "Email : solitek@outlook.fr",
-      "Téléphone : [à compléter]",
+      "Téléphone : +33 7 83 28 97 77",
     ],
   },
   {
     title: "Responsable de publication",
-    content: ["Diwan Bougmiha Gallais, Président, Studio Fief"],
+    content: ["Studio Fief — studiofief.com"],
   },
   {
     title: "Hébergement",

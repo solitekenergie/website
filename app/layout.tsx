@@ -152,36 +152,60 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "LocalBusiness",
+              "@id": "https://www.solitekenergie.fr/#localbusiness",
               name: "SOLITEK",
               description:
                 "Installateur certifié RGE en Alsace : panneaux solaires photovoltaïques, pompes à chaleur, climatisation réversible, VMC double flux et électricité.",
-              url: "https://solitekenergie.fr",
-              logo: "https://solitekenergie.fr/logo.png",
+              url: "https://www.solitekenergie.fr",
+              logo: "https://www.solitekenergie.fr/logo.png",
               image:
-                "https://solitekenergie.fr/images/solitek-installation-panneaux-solaires-alsace.jpg",
+                "https://www.solitekenergie.fr/images/solitek-installation-panneaux-solaires-alsace.jpg",
+              telephone: "+33783289777",
+              email: "solitek@outlook.fr",
               address: {
                 "@type": "PostalAddress",
+                streetAddress: "7 Rue de Bucarest",
+                postalCode: "67100",
+                addressLocality: "Strasbourg",
                 addressRegion: "Alsace",
                 addressCountry: "FR",
               },
+              openingHoursSpecification: [
+                {
+                  "@type": "OpeningHoursSpecification",
+                  dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+                  opens: "08:00",
+                  closes: "12:00",
+                },
+                {
+                  "@type": "OpeningHoursSpecification",
+                  dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+                  opens: "14:00",
+                  closes: "18:00",
+                },
+              ],
               areaServed: [
-                { "@type": "State", name: "Bas-Rhin" },
-                { "@type": "State", name: "Haut-Rhin" },
+                { "@type": "AdministrativeArea", name: "Bas-Rhin" },
+                { "@type": "AdministrativeArea", name: "Haut-Rhin" },
                 { "@type": "City", name: "Strasbourg" },
+                { "@type": "City", name: "Eurométropole de Strasbourg" },
               ],
               hasCredential: {
                 "@type": "EducationalOccupationalCredential",
                 credentialCategory: "RGE",
               },
-              knowsAbout: [
-                "Panneaux solaires photovoltaïques",
-                "Pompe à chaleur",
-                "Climatisation réversible",
-                "VMC double flux",
-                "Électricité",
-                "Borne IRVE",
+              makesOffer: [
+                { "@type": "Offer", itemOffered: { "@type": "Service", name: "Installation panneaux solaires photovoltaïques" } },
+                { "@type": "Offer", itemOffered: { "@type": "Service", name: "Pompe à chaleur air/eau et air/air" } },
+                { "@type": "Offer", itemOffered: { "@type": "Service", name: "Climatisation réversible" } },
+                { "@type": "Offer", itemOffered: { "@type": "Service", name: "VMC double flux" } },
+                { "@type": "Offer", itemOffered: { "@type": "Service", name: "Électricité et mise aux normes" } },
+                { "@type": "Offer", itemOffered: { "@type": "Service", name: "Borne IRVE" } },
               ],
-              sameAs: [],
+              sameAs: [
+                "https://www.linkedin.com/in/solitek-energie-82b6402a5/",
+                "https://www.instagram.com/solitek_",
+              ],
             }),
           }}
         />
