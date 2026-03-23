@@ -203,61 +203,6 @@ export default function ContactPage() {
       </div>
       </div>
 
-      {/* NAP + Infos pratiques */}
-      <section className="bg-white px-4 py-12 sm:px-8 sm:py-16 lg:px-20 lg:py-20">
-        <div className="mx-auto max-w-[1440px]">
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-
-            {/* Adresse */}
-            <div className="flex flex-col gap-3 rounded-xl border border-slate-200 p-6">
-              <span className="font-['Figtree'] text-xs font-semibold uppercase tracking-widest text-[#2DB180]">Adresse</span>
-              <p className="font-['Figtree'] text-sm leading-relaxed text-[#161A1E]">
-                7 Rue de Bucarest<br />67100 Strasbourg
-              </p>
-              <a
-                href="https://maps.google.com/?q=7+Rue+de+Bucarest+67100+Strasbourg"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-auto font-['Figtree'] text-xs font-semibold text-[#2DB180] underline underline-offset-2 hover:opacity-70"
-              >
-                Voir l&apos;itinéraire
-              </a>
-            </div>
-
-            {/* Téléphone */}
-            <div className="flex flex-col gap-3 rounded-xl border border-slate-200 p-6">
-              <span className="font-['Figtree'] text-xs font-semibold uppercase tracking-widest text-[#2DB180]">Téléphone</span>
-              <p className="font-['Figtree'] text-sm text-[#161A1E]">+33 7 83 28 97 77</p>
-              <a
-                href="tel:+33783289777"
-                className="mt-auto inline-flex items-center gap-2 rounded-lg bg-[#2DB180] px-4 py-2.5 font-['Figtree'] text-xs font-bold uppercase text-white transition-colors hover:bg-[#26a072]"
-              >
-                Appeler
-              </a>
-            </div>
-
-            {/* Horaires */}
-            <div className="flex flex-col gap-3 rounded-xl border border-slate-200 p-6">
-              <span className="font-['Figtree'] text-xs font-semibold uppercase tracking-widest text-[#2DB180]">Horaires</span>
-              <div className="flex flex-col gap-1 font-['Figtree'] text-sm text-[#161A1E]">
-                <p>Lun - Ven</p>
-                <p>08h00 - 12h00</p>
-                <p>14h00 - 18h00</p>
-              </div>
-            </div>
-
-            {/* Activité */}
-            <div className="flex flex-col gap-3 rounded-xl border border-slate-200 p-6">
-              <span className="font-['Figtree'] text-xs font-semibold uppercase tracking-widest text-[#2DB180]">Activité</span>
-              <div className="flex flex-col gap-1 font-['Figtree'] text-sm text-[#161A1E]">
-                <p>Pose et installation de systèmes photovoltaïques, chauffage, climatisation, ventilation et électricité</p>
-                <p className="mt-2 text-xs text-black/50">Code NAF 43.21A - Travaux d&apos;installation électrique dans tous locaux</p>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </section>
     </div>
   );
 }

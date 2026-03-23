@@ -7,7 +7,7 @@ export function HighlightSection() {
       className="inline-flex h-full w-full flex-col items-start justify-center gap-2 bg-cover bg-center px-4 pb-12 pt-12 sm:px-8 sm:pb-16 sm:pt-16 lg:px-20 lg:pb-[100px] lg:pt-[100px]"
       style={{
         backgroundImage:
-          "linear-gradient(0deg, rgba(0, 0, 0, 0.30) 0%, rgba(0, 0, 0, 0.30) 100%), url('/images/cta-background.jpg')",
+          "linear-gradient(0deg, rgba(0, 0, 0, 0.30) 0%, rgba(0, 0, 0, 0.30) 100%), url('/images/solitek-panneaux-solaires-fond-cta-alsace.jpg')",
       }}
     >
       <div className="flex flex-col items-start justify-start gap-6 overflow-hidden rounded-lg bg-[#D5EFE6] p-6 sm:rounded-xl sm:p-8 lg:p-12">
