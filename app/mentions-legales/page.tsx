@@ -7,9 +7,20 @@ const sections = [
       "SIRET : 989 724 976 00018",
       "RCS Strasbourg",
       "Capital social : 500 €",
+      "Objet social : Énergie renouvelable",
+      "Durée : 99 ans",
       "Président : Florian Baret",
       "Email : solitek@outlook.fr",
       "Téléphone : +33 7 83 28 97 77",
+    ],
+  },
+  {
+    title: "Publication légale de constitution",
+    content: [
+      "Support : LEFIGARO.fr",
+      "Date de parution : 10/07/2025",
+      "N° d'annonce : L0095494",
+      "URL : https://annonces-legales.lefigaro.fr/a/L0095494",
     ],
   },
   {
@@ -65,11 +76,21 @@ export default function MentionsLegalesPage() {
                 {section.title}
               </h2>
               <ul className="flex flex-col gap-2">
-                {section.content.map((line) => (
-                  <li key={line} className="font-['Figtree'] text-sm leading-relaxed text-black/60 sm:text-base">
-                    {line}
-                  </li>
-                ))}
+                {section.content.map((line) => {
+                  const urlMatch = line.match(/^(URL\s*:\s*)(https?:\/\/.+)$/);
+                  return (
+                    <li key={line} className="font-['Figtree'] text-sm leading-relaxed text-black/60 sm:text-base">
+                      {urlMatch ? (
+                        <>
+                          {urlMatch[1]}
+                          <a href={urlMatch[2]} target="_blank" rel="noopener noreferrer" className="underline hover:text-[#2DB180]">
+                            {urlMatch[2]}
+                          </a>
+                        </>
+                      ) : line}
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           ))}
