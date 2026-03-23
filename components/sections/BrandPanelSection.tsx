@@ -13,9 +13,8 @@ const exploreLinks = [
 ];
 
 const socialLinks = [
-  { label: "Facebook", href: "https://facebook.com", icon: "facebook" },
-  { label: "Instagram", href: "https://instagram.com", icon: "instagram" },
-  { label: "LinkedIn", href: "https://linkedin.com", icon: "linkedin" },
+  { label: "Instagram", href: "https://www.instagram.com/solitek_", icon: "instagram" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/solitek-energie-82b6402a5/", icon: "linkedin" },
 ];
 
 export function BrandPanelSection() {
