@@ -121,7 +121,7 @@ export default function RootLayout({
           {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-MS6ZCPX8');`}
         </Script>
 
-        {/* Default Consent Mode + GA4 config — beforeInteractive pour que le dataLayer
+        {/* Default Consent Mode + GA4 config - beforeInteractive pour que le dataLayer
             soit prêt avant le chargement de gtag.js */}
         <Script id="consent-mode-config" strategy="beforeInteractive">
           {`

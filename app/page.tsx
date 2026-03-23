@@ -51,7 +51,7 @@ export default async function Home({
     <div className="space-y-0">
       <section className="relative isolate left-1/2 w-screen -translate-x-1/2 overflow-hidden bg-black text-white">
         <div className="absolute inset-0 overflow-hidden">
-          {/* Vidéo sur tous les formats — pas de poster pour éviter le flash d'image */}
+          {/* Vidéo sur tous les formats - pas de poster pour éviter le flash d'image */}
           <video
             className="h-full w-full object-cover"
             autoPlay

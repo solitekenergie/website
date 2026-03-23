@@ -416,7 +416,7 @@ export default async function RealisationPage({
       </section>
 
 
-{/* Autres projets — uniquement si 3+ autres réalisations disponibles */}
+{/* Autres projets - uniquement si 3+ autres réalisations disponibles */}
       {autresProjets.length >= 3 && (
         <section className="w-full border-t border-black/10 px-4 pb-16 pt-12 sm:px-8 sm:pb-20 sm:pt-16 lg:px-20 lg:pb-[100px] lg:pt-[80px]">
           <div className="mx-auto max-w-[1440px]">

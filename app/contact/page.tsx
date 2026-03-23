@@ -169,7 +169,7 @@ export default function ContactPage() {
             </form>
           </div>
 
-          {/* Colonne visuelle — cachée sur mobile, visible à partir de lg */}
+          {/* Colonne visuelle - cachée sur mobile, visible à partir de lg */}
           <div className="hidden lg:flex lg:w-[420px] lg:flex-shrink-0 lg:self-stretch xl:w-[500px]">
             <div className="w-full overflow-hidden rounded-2xl shadow-xl">
               {/* eslint-disable-next-line @next/next/no-img-element */}

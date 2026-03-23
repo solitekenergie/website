@@ -79,7 +79,7 @@ export default function MultiStepEstimatorForm() {
 
   return (
     <div className="flex min-h-screen w-full items-center bg-white">
-      {/* Bouton quitter — coin supérieur gauche */}
+      {/* Bouton quitter - coin supérieur gauche */}
       <button
         onClick={() => setShowExitModal(true)}
         className="absolute left-4 top-4 z-10 flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-600 sm:left-6 sm:top-6"
@@ -165,7 +165,7 @@ export default function MultiStepEstimatorForm() {
                 Terminer ma simulation →
               </button>
 
-              {/* Lien quitter — volontairement discret */}
+              {/* Lien quitter - volontairement discret */}
               <button
                 onClick={() => router.push("/")}
                 className="mt-3 w-full text-center font-['Figtree'] text-xs text-slate-400 underline-offset-2 hover:underline"

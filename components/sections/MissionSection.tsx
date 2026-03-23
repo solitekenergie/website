@@ -27,7 +27,7 @@ const images = [
 ];
 
 const N = images.length;
-// Triple-clone : [copy, original, copy] — index N pointe sur le 1er slide réel
+// Triple-clone : [copy, original, copy] - index N pointe sur le 1er slide réel
 const SLIDE_RATIO = 0.72; // 72 % de largeur de container par slide
 const GAP = 16; // px
 
@@ -183,7 +183,7 @@ export function MissionSection() {
 
       {/* Carousel */}
       <div className="relative w-full select-none">
-        {/* Wrapper clippant — aucun overflow, aucune scrollbar */}
+        {/* Wrapper clippant - aucun overflow, aucune scrollbar */}
         <div
           ref={containerRef}
           className="relative overflow-hidden cursor-grab active:cursor-grabbing"
@@ -193,7 +193,7 @@ export function MissionSection() {
           onMouseUp={onMouseUp}
           onMouseLeave={onMouseLeave}
         >
-          {/* Boutons flèches — dans le wrapper clippant, centrés sur la zone image fixe */}
+          {/* Boutons flèches - dans le wrapper clippant, centrés sur la zone image fixe */}
           <button
             onClick={goPrev}
             className="absolute left-3 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white/90 p-2.5 backdrop-blur-sm transition-all hover:scale-110 hover:bg-white sm:left-5 lg:left-8"
@@ -213,7 +213,7 @@ export function MissionSection() {
             </svg>
           </button>
 
-          {/* Track — déplacé par translateX, jamais scrollé */}
+          {/* Track - déplacé par translateX, jamais scrollé */}
           <div
             className="flex py-6 lg:py-10"
             style={{

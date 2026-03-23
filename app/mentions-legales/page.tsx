@@ -2,7 +2,7 @@ const sections = [
   {
     title: "Éditeur du site",
     content: [
-      "SOLITEK — Société à responsabilité limitée (SARL)",
+      "SOLITEK - Société à responsabilité limitée (SARL)",
       "Siège social : 7 Rue de Bucarest, 67100 Strasbourg",
       "SIRET : 989 724 976 00018",
       "RCS Strasbourg",
@@ -14,7 +14,7 @@ const sections = [
   },
   {
     title: "Responsable de publication",
-    content: ["Studio Fief — studiofief.com"],
+    content: ["Studio Fief - studiofief.com"],
   },
   {
     title: "Hébergement",
