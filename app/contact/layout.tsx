@@ -1,21 +1,22 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Devis Gratuit | Contactez SOLITEK, Installateur ENR en Alsace",
+  title: "Devis Gratuit | Contactez SOLITEK à Strasbourg, Installateur ENR",
   description:
-    "Demandez un devis gratuit à SOLITEK, votre installateur certifié RGE en Alsace. Installation panneaux solaires, pompe à chaleur, climatisation, borne IRVE. Réponse sous 24h, sans engagement.",
+    "Demandez un devis gratuit à SOLITEK, votre installateur certifié RGE à Strasbourg et en Alsace. Installation panneaux solaires, pompe à chaleur, climatisation, borne IRVE. Réponse sous 24h, sans engagement.",
   keywords: [
+    "devis panneaux solaires Strasbourg",
+    "devis pompe à chaleur Strasbourg",
+    "devis installation solaire gratuit",
+    "contact installateur RGE Strasbourg",
+    "devis climatisation Strasbourg",
     "devis panneaux solaires Alsace",
     "devis pompe à chaleur Alsace",
-    "devis installation solaire gratuit",
-    "contact installateur RGE Alsace",
-    "devis climatisation Alsace",
-    "devis borne IRVE Alsace",
   ],
   openGraph: {
-    title: "Demandez un Devis Gratuit | SOLITEK Alsace",
+    title: "Demandez un Devis Gratuit | SOLITEK Strasbourg",
     description:
-      "Contactez SOLITEK pour un devis gratuit : panneaux solaires, pompe à chaleur, climatisation en Alsace. Réponse sous 24h.",
+      "Contactez SOLITEK pour un devis gratuit : panneaux solaires, pompe à chaleur, climatisation à Strasbourg et en Alsace. Réponse sous 24h.",
     url: "/contact",
   },
 };

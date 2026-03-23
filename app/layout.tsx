@@ -18,25 +18,30 @@ const figtree = Figtree({
 
 export const metadata: Metadata = {
   title: {
-    default: "SOLITEK | Installateur RGE – Solaire, PAC & Clim en Alsace",
-    template: "%s | SOLITEK",
+    default: "SOLITEK | Installateur RGE à Strasbourg – Solaire, PAC & Clim",
+    template: "%s | SOLITEK Strasbourg",
   },
   description:
-    "SOLITEK, installateur certifié RGE en Alsace : panneaux solaires, pompe à chaleur, climatisation réversible, VMC, borne IRVE et électricité. Devis gratuit, sans engagement.",
+    "SOLITEK, installateur certifié RGE à Strasbourg et en Alsace : panneaux solaires, pompe à chaleur, climatisation réversible, VMC, borne IRVE et électricité. Devis gratuit, sans engagement.",
   keywords: [
-    // Core métier
+    // Core métier + Strasbourg
+    "installateur solaire Strasbourg",
+    "panneaux solaires Strasbourg",
+    "photovoltaïque Strasbourg",
+    "installation photovoltaïque Strasbourg",
     "installateur solaire Alsace",
     "panneaux solaires Alsace",
-    "photovoltaïque Alsace",
-    "installation photovoltaïque",
     "énergie solaire maison",
     "autoconsommation solaire",
-    // Services
+    // Services + Strasbourg
+    "pompe à chaleur Strasbourg",
+    "climatisation réversible Strasbourg",
+    "VMC double flux Strasbourg",
+    "électricien RGE Strasbourg",
     "pompe à chaleur Alsace",
     "climatisation réversible Alsace",
-    "VMC double flux Alsace",
+    "borne IRVE Strasbourg",
     "borne IRVE Alsace",
-    "électricien RGE Alsace",
     // Certifications et aides
     "installateur RGE",
     "MaPrimeRénov panneaux solaires",
@@ -44,9 +49,10 @@ export const metadata: Metadata = {
     "devis panneaux solaires gratuit",
     // Localisation
     "SOLITEK",
+    "énergie renouvelable Strasbourg",
     "énergie renouvelable Alsace",
+    "Eurométropole Strasbourg solaire",
     "Bas-Rhin photovoltaïque",
-    "Haut-Rhin énergie solaire",
   ],
   metadataBase: new URL("https://www.solitekenergie.fr"),
   authors: [{ name: "SOLITEK", url: "https://solitekenergie.fr" }],
@@ -56,9 +62,9 @@ export const metadata: Metadata = {
     type: "website",
     locale: "fr_FR",
     siteName: "SOLITEK",
-    title: "SOLITEK | Installateur RGE – Solaire, PAC & Clim en Alsace",
+    title: "SOLITEK | Installateur RGE à Strasbourg – Solaire, PAC & Clim",
     description:
-      "Panneaux solaires, pompe à chaleur, climatisation, VMC et borne IRVE en Alsace. Certifié RGE. Devis gratuit et sans engagement.",
+      "Panneaux solaires, pompe à chaleur, climatisation, VMC et borne IRVE à Strasbourg et en Alsace. Certifié RGE. Devis gratuit et sans engagement.",
     images: [
       {
         url: "/hero-panels.jpg",
@@ -70,9 +76,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "SOLITEK | Installateur RGE – Solaire, PAC & Clim en Alsace",
+    title: "SOLITEK | Installateur RGE à Strasbourg – Solaire, PAC & Clim",
     description:
-      "Panneaux solaires, pompe à chaleur, climatisation, VMC et borne IRVE en Alsace. Certifié RGE.",
+      "Panneaux solaires, pompe à chaleur, climatisation, VMC et borne IRVE à Strasbourg et en Alsace. Certifié RGE.",
     images: ["/hero-panels.jpg"],
   },
   robots: {

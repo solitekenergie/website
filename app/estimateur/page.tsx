@@ -2,15 +2,15 @@ import type { Metadata } from "next";
 import MultiStepEstimatorForm from "@/components/forms/MultiStepEstimatorForm";
 
 export const metadata: Metadata = {
-  title: "Simulateur Solaire Gratuit | Estimez vos Économies en 2 min",
+  title: "Simulateur Solaire Gratuit à Strasbourg | Estimez vos Économies en 2 min",
   description:
-    "Calculez votre production solaire et vos économies en 2 minutes. Simulateur photovoltaïque gratuit, personnalisé selon votre adresse en Alsace. Sans engagement.",
+    "Calculez votre production solaire et vos économies en 2 minutes. Simulateur photovoltaïque gratuit pour Strasbourg et l'Alsace, personnalisé selon votre adresse. Sans engagement.",
   keywords: [
-    "simulateur panneaux solaires",
-    "estimation solaire gratuite",
+    "simulateur panneaux solaires Strasbourg",
+    "estimation solaire gratuite Strasbourg",
     "calcul économies photovoltaïque",
     "simulation production solaire Alsace",
-    "devis solaire en ligne",
+    "devis solaire en ligne Strasbourg",
   ],
   openGraph: {
     title: "Simulateur Solaire Gratuit | SOLITEK Alsace",

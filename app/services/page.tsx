@@ -3,20 +3,20 @@ import Link from 'next/link';
 import PrimaryCta from '@/components/ui/PrimaryCta';
 
 export const metadata: Metadata = {
-  title: "Nos Services | Photovoltaïque, PAC, Climatisation, VMC, Électricité en Alsace",
+  title: "Nos Services à Strasbourg | Photovoltaïque, PAC, Climatisation, VMC, Électricité",
   description:
-    "Découvrez tous les services SOLITEK en Alsace : installation panneaux solaires photovoltaïques, pompe à chaleur, climatisation réversible, VMC double flux, électricité NF C 15-100 et borne IRVE. Installateur certifié RGE.",
+    "Découvrez tous les services SOLITEK à Strasbourg et en Alsace : panneaux solaires photovoltaïques, pompe à chaleur, climatisation réversible, VMC double flux, électricité et borne IRVE. Installateur certifié RGE.",
   keywords: [
+    "installation panneaux solaires Strasbourg",
+    "photovoltaïque maison Strasbourg",
+    "pompe à chaleur Strasbourg",
+    "climatisation réversible Strasbourg",
+    "VMC double flux Strasbourg",
+    "électricien RGE Strasbourg",
     "installation panneaux solaires Alsace",
-    "photovoltaïque maison Alsace",
-    "pompe à chaleur air eau Alsace",
-    "climatisation réversible Alsace",
-    "VMC double flux Alsace",
-    "borne recharge IRVE Alsace",
-    "électricien RGE Alsace",
-    "entretien panneaux solaires Alsace",
-    "MaPrimeRénov pompe à chaleur",
-    "autoconsommation solaire Alsace",
+    "pompe à chaleur Alsace",
+    "borne recharge IRVE Strasbourg",
+    "autoconsommation solaire Strasbourg",
   ],
   openGraph: {
     title: "Nos Services | SOLITEK Alsace",
