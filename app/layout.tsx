@@ -145,6 +145,15 @@ export default function RootLayout({
           strategy="beforeInteractive"
         />
 
+        {/* Google Analytics 4 */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-BQWM1TP12T"
+          strategy="afterInteractive"
+        />
+        <Script id="ga4-config" strategy="afterInteractive">
+          {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-BQWM1TP12T');`}
+        </Script>
+
         <Script
           id="json-ld-local-business"
           type="application/ld+json"
