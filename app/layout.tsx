@@ -100,7 +100,8 @@ export default function RootLayout({
       <body
         className={`${montserrat.variable} ${figtree.variable} antialiased bg-slate-50 text-slate-900 font-title`}
       >
-        {/* Default Consent Mode config */}
+        {/* Default Consent Mode + GA4 config — beforeInteractive pour que le dataLayer
+            soit prêt avant le chargement de gtag.js */}
         <Script id="consent-mode-config" strategy="beforeInteractive">
           {`
             window.dataLayer = window.dataLayer || [];
@@ -120,6 +121,8 @@ export default function RootLayout({
             (function(){
                 const s={adStorage:{storageName:"ad_storage",serialNumber:0},analyticsStorage:{storageName:"analytics_storage",serialNumber:1},functionalityStorage:{storageName:"functionality_storage",serialNumber:2},personalizationStorage:{storageName:"personalization_storage",serialNumber:3},securityStorage:{storageName:"security_storage",serialNumber:4},adUserData:{storageName:"ad_user_data",serialNumber:5},adPersonalization:{storageName:"ad_personalization",serialNumber:6}};let c=localStorage.getItem("__lxG__consent__v2");if(c){c=JSON.parse(c);if(c&&c.cls_val)c=c.cls_val;if(c)c=c.split("|");if(c&&c.length&&typeof c[14]!==undefined){c=c[14].split("").map(e=>e-0);if(c.length){let t={};Object.values(s).sort((e,t)=>e.serialNumber-t.serialNumber).forEach(e=>{t[e.storageName]=c[e.serialNumber]?"granted":"denied"});gtag("consent","update",t)}}}
             })();
+            gtag('js', new Date());
+            gtag('config', 'G-BQWM1TP12T');
           `}
         </Script>
 
@@ -129,14 +132,11 @@ export default function RootLayout({
           strategy="beforeInteractive"
         />
 
-        {/* Google Analytics 4 */}
+        {/* Google Analytics 4 — charge gtag.js après hydratation, traite la file dataLayer */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-BQWM1TP12T"
           strategy="afterInteractive"
         />
-        <Script id="ga4-config" strategy="afterInteractive">
-          {`gtag('js', new Date()); gtag('config', 'G-BQWM1TP12T');`}
-        </Script>
 
         <Script
           id="json-ld-local-business"
