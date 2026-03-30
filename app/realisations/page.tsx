@@ -1,10 +1,13 @@
-/* eslint-disable @next/next/no-img-element */
+import type { Metadata } from "next";
 import { getRealisations, getFirstImageUrl } from "@/lib/realisations";
 import { RealisationsGrid } from "@/components/sections/RealisationsGrid";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Nos Réalisations à Strasbourg | Installations Solaires & ENR en Alsace",
   description: "Découvrez les réalisations SOLITEK à Strasbourg et en Alsace : installations photovoltaïques, pompes à chaleur, climatisation et VMC. Photos et détails de chaque chantier.",
+  alternates: {
+    canonical: "/realisations",
+  },
   keywords: [
     "réalisations panneaux solaires Strasbourg",
     "chantiers photovoltaïque Strasbourg",

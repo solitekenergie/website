@@ -3,19 +3,22 @@ import { listPosts } from "@/lib/blog";
 import { getRealisations } from "@/lib/realisations";
 import { MissionSection } from "@/components/sections/MissionSection";
 import { ServicesSection } from "@/components/sections/ServicesSection";
-import { HighlightSection } from "@/components/sections/HighlightSection";
 import { NeedsSection } from "@/components/sections/NeedsSection";
 import { RealisationsSection } from "@/components/sections/RealisationsSection";
 import { SuppliersSection } from "@/components/sections/SuppliersSection";
-import { TestimonialsSection } from "@/components/sections/TestimonialsSection";
 import { AssetProbe } from "@/components/debug/AssetProbe";
 import PrimaryCta from "@/components/ui/PrimaryCta";
 
 export const metadata: Metadata = {
-  title: "SOLITEK | Installateur RGE – Solaire, PAC & Clim en Alsace",
+  title: "SOLITEK | Installateur RGE à Strasbourg – Solaire, PAC & Clim en Alsace",
   description:
-    "Installateur certifié RGE en Alsace : panneaux solaires, pompe à chaleur, climatisation, VMC et borne IRVE. Devis gratuit et simulation en ligne en 2 minutes.",
+    "Installateur certifié RGE à Strasbourg et en Alsace : panneaux solaires, pompe à chaleur, climatisation, VMC et borne IRVE. Devis gratuit et simulation en ligne en 2 minutes.",
+  alternates: {
+    canonical: "/",
+  },
   keywords: [
+    "installateur RGE Strasbourg",
+    "panneaux solaires Strasbourg",
     "installateur RGE Alsace",
     "panneaux solaires Alsace",
     "pompe à chaleur Alsace",
@@ -28,9 +31,9 @@ export const metadata: Metadata = {
     "devis solaire gratuit",
   ],
   openGraph: {
-    title: "SOLITEK | Installateur RGE – Solaire, PAC & Clim en Alsace",
+    title: "SOLITEK | Installateur RGE à Strasbourg – Solaire, PAC & Clim en Alsace",
     description:
-      "Panneaux solaires, pompe à chaleur, climatisation, VMC et borne IRVE en Alsace. Certifié RGE. Devis gratuit et simulation en ligne.",
+      "Panneaux solaires, pompe à chaleur, climatisation, VMC et borne IRVE à Strasbourg et en Alsace. Certifié RGE. Devis gratuit et simulation en ligne.",
     url: "/",
   },
 };
@@ -79,7 +82,7 @@ export default async function Home({
               </div>
               <div className="space-y-6">
                 <p className="font-['Figtree'] text-sm font-semibold uppercase tracking-widest text-[#2DB180]">
-                  Installateur certifié RGE en Alsace
+                  Installateur certifié RGE à Strasbourg et en Alsace
                 </p>
                 <p className="font-title text-[18px] font-normal leading-[24px] tracking-[-0.3px] text-white/80 sm:text-[20px] lg:text-[22px]">
                   Panneaux solaires · Pompe à chaleur · Climatisation · Ventilation · Électricité

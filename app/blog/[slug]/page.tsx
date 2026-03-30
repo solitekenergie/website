@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getPost, getPostSlugs } from "@/lib/blog";
+import { absoluteUrl } from "@/lib/site";
 
 const formatDate = (value: string) => {
   if (!value) return "Date à préciser";
@@ -69,6 +70,20 @@ export async function generateMetadata({
   return {
     title: `${post.title} | Solitek`,
     description: post.excerpt,
+    alternates: {
+      canonical: `/blog/${post.slug}`,
+    },
+    openGraph: {
+      title: `${post.title} | Solitek`,
+      description: post.excerpt,
+      url: `/blog/${post.slug}`,
+      images: [
+        {
+          url: absoluteUrl("/hero-panels.jpg"),
+          alt: post.title,
+        },
+      ],
+    },
   };
 }
 
@@ -84,15 +99,63 @@ export default async function BlogPostPage({
     notFound();
   }
 
-  return (
-    <article className="space-y-6">
-      <div className="space-y-2 border-b border-slate-200 pb-6">
-        <p className="text-sm text-slate-500">{formatDate(post.date)}</p>
-        <h1 className="text-3xl font-semibold text-slate-900">{post.title}</h1>
-        <p className="text-slate-600">{post.excerpt}</p>
-      </div>
+  const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.title,
+    description: post.excerpt,
+    datePublished: post.date || undefined,
+    dateModified: post.date || undefined,
+    mainEntityOfPage: absoluteUrl(`/blog/${post.slug}`),
+    author: {
+      "@type": "Organization",
+      name: "SOLITEK",
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "SOLITEK",
+      logo: {
+        "@type": "ImageObject",
+        url: absoluteUrl("/logo.png"),
+      },
+    },
+    image: [absoluteUrl("/hero-panels.jpg")],
+    articleBody: post.content,
+  };
 
-      <div className="space-y-4 text-base">{renderContent(post.content)}</div>
-    </article>
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Accueil",
+        item: absoluteUrl("/"),
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: post.title,
+        item: absoluteUrl(`/blog/${post.slug}`),
+      },
+    ],
+  };
+
+  return (
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+
+      <article className="space-y-6">
+        <div className="space-y-2 border-b border-slate-200 pb-6">
+          <p className="text-sm text-slate-500">{formatDate(post.date)}</p>
+          <h1 className="text-3xl font-semibold text-slate-900">{post.title}</h1>
+          <p className="text-slate-600">{post.excerpt}</p>
+        </div>
+
+        <div className="space-y-4 text-base">{renderContent(post.content)}</div>
+      </article>
+    </>
   );
 }

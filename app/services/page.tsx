@@ -1,11 +1,13 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import PrimaryCta from '@/components/ui/PrimaryCta';
 
 export const metadata: Metadata = {
   title: "Nos Services à Strasbourg | Photovoltaïque, PAC, Climatisation, VMC, Électricité",
   description:
     "Découvrez tous les services SOLITEK à Strasbourg et en Alsace : panneaux solaires photovoltaïques, pompe à chaleur, climatisation réversible, VMC double flux, électricité et borne IRVE. Installateur certifié RGE.",
+  alternates: {
+    canonical: "/services",
+  },
   keywords: [
     "installation panneaux solaires Strasbourg",
     "photovoltaïque maison Strasbourg",
@@ -139,9 +141,9 @@ export default function ServicesPage() {
                 } lg:items-center`}
               >
                 {/* Image */}
-                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <div className="lg:flex-1">
                   <div className="overflow-hidden rounded-2xl shadow-xl">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={service.image}
                       alt={service.title}

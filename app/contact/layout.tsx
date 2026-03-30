@@ -4,6 +4,9 @@ export const metadata: Metadata = {
   title: "Devis Gratuit | Contactez SOLITEK à Strasbourg, Installateur ENR",
   description:
     "Demandez un devis gratuit à SOLITEK, votre installateur certifié RGE à Strasbourg et en Alsace. Installation panneaux solaires, pompe à chaleur, climatisation, borne IRVE. Réponse sous 24h, sans engagement.",
+  alternates: {
+    canonical: "/contact",
+  },
   keywords: [
     "devis panneaux solaires Strasbourg",
     "devis pompe à chaleur Strasbourg",

@@ -4,12 +4,15 @@ export const metadata: Metadata = {
   title: "FAQ | Questions sur l'Énergie Solaire & ENR à Strasbourg",
   description:
     "Toutes les réponses à vos questions sur l'installation de panneaux solaires, pompe à chaleur et climatisation à Strasbourg et en Alsace. Aides financières, délais, entretien.",
+  alternates: {
+    canonical: "/faq",
+  },
   keywords: [
     "FAQ panneaux solaires",
     "questions installation photovoltaïque",
     "aides financières panneaux solaires",
     "MaPrimeRénov photovoltaïque",
-    "prime autoconsommation 2024",
+    "prime autoconsommation photovoltaïque",
     "délai installation solaire",
     "Consuel photovoltaïque",
     "kWc dimensionnement solaire",

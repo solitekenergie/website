@@ -1,8 +1,10 @@
 "use client";
 
+import Script from "next/script";
 import { useMemo, useState } from "react";
 import { SuppliersSection } from "@/components/sections/SuppliersSection";
 import { AnimatedLink } from "@/components/ui/AnimatedLink";
+import { absoluteUrl } from "@/lib/site";
 
 type FaqItem = {
   question: string;
@@ -64,6 +66,38 @@ const faqs: FaqItem[] = [
   },
 ];
 
+const faqPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((item) => ({
+    "@type": "Question",
+    name: item.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: item.answer,
+    },
+  })),
+};
+
+const faqBreadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Accueil",
+      item: absoluteUrl("/"),
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "FAQ",
+      item: absoluteUrl("/faq"),
+    },
+  ],
+};
+
 export default function FaqPage() {
   const [openStates, setOpenStates] = useState<boolean[]>(() => faqs.map((item) => Boolean(item.expanded)));
 
@@ -81,86 +115,101 @@ export default function FaqPage() {
   };
 
   return (
-    <div className="flex flex-col">
-      {/* Hero */}
-      <section className="bg-[#161A1E] px-4 pb-16 pt-16 sm:px-8 sm:pb-20 sm:pt-20 lg:px-20 lg:pb-24 lg:pt-24">
-        <div className="mx-auto max-w-[1440px]">
-          <p className="mb-4 font-['Figtree'] text-sm font-semibold uppercase tracking-widest text-[#2DB180]">
-            Questions fréquentes
-          </p>
-          <h1 className="font-title text-4xl font-black uppercase leading-tight text-white sm:text-5xl lg:text-[72px] lg:leading-[1]">
-            FAQ
-          </h1>
-          <p className="mt-6 max-w-[600px] font-['Figtree'] text-base leading-relaxed text-white/70 sm:text-lg">
-            Tout ce que vous devez savoir avant de vous lancer dans votre projet d&apos;installation solaire ou ENR en Alsace.
-          </p>
-        </div>
-      </section>
+    <>
+      <Script id="faq-page-schema" type="application/ld+json">
+        {JSON.stringify(faqPageSchema)}
+      </Script>
+      <Script id="faq-breadcrumb-schema" type="application/ld+json">
+        {JSON.stringify(faqBreadcrumbSchema)}
+      </Script>
 
-      <section className="mx-auto w-full max-w-[1440px] px-4 pb-16 pt-16 sm:px-8 sm:pb-20 sm:pt-20 lg:px-20 lg:pb-24 lg:pt-24">
+      <div className="flex flex-col">
+        {/* Hero */}
+        <section className="bg-[#161A1E] px-4 pb-16 pt-16 sm:px-8 sm:pb-20 sm:pt-20 lg:px-20 lg:pb-24 lg:pt-24">
+          <div className="mx-auto max-w-[1440px]">
+            <p className="mb-4 font-['Figtree'] text-sm font-semibold uppercase tracking-widest text-[#2DB180]">
+              Questions fréquentes
+            </p>
+            <h1 className="font-title text-4xl font-black uppercase leading-tight text-white sm:text-5xl lg:text-[72px] lg:leading-[1]">
+              FAQ
+            </h1>
+            <p className="mt-6 max-w-[600px] font-['Figtree'] text-base leading-relaxed text-white/70 sm:text-lg">
+              Tout ce que vous devez savoir avant de vous lancer dans votre projet d&apos;installation solaire ou ENR en Alsace.
+            </p>
+          </div>
+        </section>
 
-        {/* Questions */}
-        <div className="flex flex-col gap-3">
-          {toggledFaqs.map((item, index) => (
-            <FaqCard key={`${item.question}-${index}`} item={item} onToggle={() => handleToggle(index)} />
-          ))}
-        </div>
+        <section className="mx-auto w-full max-w-[1440px] px-4 pb-16 pt-16 sm:px-8 sm:pb-20 sm:pt-20 lg:px-20 lg:pb-24 lg:pt-24">
 
-        {/* CTA */}
-        <div className="mt-14 flex flex-col items-center gap-4 rounded-2xl bg-[#161A1E] px-6 py-10 text-center sm:px-12 sm:py-14">
-          <p className="font-title text-2xl font-black uppercase text-white sm:text-3xl">
-            Vous n&apos;avez pas trouvé votre réponse ?
-          </p>
-          <p className="max-w-[480px] font-['Figtree'] text-base text-white/70">
-            Notre équipe vous répond sous 24h, sans engagement.
-          </p>
-          <a
-            href="/contact"
-            className="mt-2 inline-flex items-center gap-2 rounded-lg bg-[#2DB180] px-8 py-4 font-['Figtree'] text-sm font-bold uppercase text-white transition-opacity hover:opacity-90 sm:text-base"
-          >
-            <AnimatedLink className="text-white">
-              Contacter SOLITEK
-            </AnimatedLink>
-          </a>
-        </div>
-      </section>
+          {/* Questions */}
+          <div className="flex flex-col gap-3">
+            {toggledFaqs.map((item, index) => (
+              <FaqCard key={`${item.question}-${index}`} index={index} item={item} onToggle={() => handleToggle(index)} />
+            ))}
+          </div>
 
-      <SuppliersSection />
-    </div>
+          {/* CTA */}
+          <div className="mt-14 flex flex-col items-center gap-4 rounded-2xl bg-[#161A1E] px-6 py-10 text-center sm:px-12 sm:py-14">
+            <p className="font-title text-2xl font-black uppercase text-white sm:text-3xl">
+              Vous n&apos;avez pas trouvé votre réponse ?
+            </p>
+            <p className="max-w-[480px] font-['Figtree'] text-base text-white/70">
+              Notre équipe vous répond sous 24h, sans engagement.
+            </p>
+            <a
+              href="/contact"
+              className="mt-2 inline-flex items-center gap-2 rounded-lg bg-[#2DB180] px-8 py-4 font-['Figtree'] text-sm font-bold uppercase text-white transition-opacity hover:opacity-90 sm:text-base"
+            >
+              <AnimatedLink className="text-white">
+                Contacter SOLITEK
+              </AnimatedLink>
+            </a>
+          </div>
+        </section>
+
+        <SuppliersSection />
+      </div>
+    </>
   );
 }
 
-function FaqCard({ item, onToggle }: { item: FaqItem; onToggle: () => void }) {
+function FaqCard({ index, item, onToggle }: { index: number; item: FaqItem; onToggle: () => void }) {
   const isOpen = Boolean(item.expanded);
+  const answerId = `faq-answer-${index}`;
+
   return (
     <div
-      className={`w-full cursor-pointer rounded-xl px-5 py-5 sm:px-8 sm:py-6 ${
+      className={`w-full rounded-xl px-5 py-5 sm:px-8 sm:py-6 ${
         isOpen ? "outline outline-1 outline-black" : "outline outline-1 outline-[#CCCCCC] hover:outline-black/30"
       } transition-all`}
-      role="button"
-      tabIndex={0}
-      onClick={onToggle}
-      onKeyDown={(e) => {
-        if (e.key === "Enter" || e.key === " ") {
-          e.preventDefault();
-          onToggle();
-        }
-      }}
     >
-      <div className="flex items-center gap-4">
-        <p className="flex-1 font-['Figtree'] text-base font-semibold leading-snug text-black sm:text-lg lg:text-xl">
+      <button
+        type="button"
+        className="flex w-full items-center gap-4 text-left"
+        aria-expanded={isOpen}
+        aria-controls={answerId}
+        onClick={onToggle}
+      >
+        <span className="flex-1 font-['Figtree'] text-base font-semibold leading-snug text-black sm:text-lg lg:text-xl">
           {item.question}
-        </p>
-        <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-[#2DB180] sm:h-12 sm:w-12">
+        </span>
+        <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-[#2DB180] sm:h-12 sm:w-12">
           <Chevron isOpen={isOpen} />
+        </span>
+      </button>
+
+      <div
+        id={answerId}
+        className={`grid transition-all duration-300 ease-out ${
+          isOpen ? "mt-4 grid-rows-[1fr] opacity-100" : "mt-4 grid-rows-[0fr] opacity-100"
+        }`}
+      >
+        <div className="overflow-hidden">
+          <p className="font-['Figtree'] text-sm leading-relaxed text-black/60 sm:text-base lg:text-lg">
+            {item.answer}
+          </p>
         </div>
       </div>
-
-      {isOpen && (
-        <p className="mt-4 font-['Figtree'] text-sm leading-relaxed text-black/60 sm:text-base lg:text-lg">
-          {item.answer}
-        </p>
-      )}
     </div>
   );
 }

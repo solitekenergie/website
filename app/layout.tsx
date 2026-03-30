@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Figtree, Montserrat } from "next/font/google";
 import Script from "next/script";
 import RootLayoutClient from "@/components/layout/RootLayoutClient";
+import { SITE_URL } from "@/lib/site";
 import "./globals.css";
 
 const montserrat = Montserrat({
@@ -54,8 +55,8 @@ export const metadata: Metadata = {
     "Eurométropole Strasbourg solaire",
     "Bas-Rhin photovoltaïque",
   ],
-  metadataBase: new URL("https://www.solitekenergie.fr"),
-  authors: [{ name: "SOLITEK", url: "https://solitekenergie.fr" }],
+  metadataBase: new URL(SITE_URL),
+  authors: [{ name: "SOLITEK", url: SITE_URL }],
   creator: "Studio Fief",
   publisher: "SOLITEK",
   openGraph: {
@@ -167,14 +168,14 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "LocalBusiness",
-              "@id": "https://www.solitekenergie.fr/#localbusiness",
+              "@id": `${SITE_URL}/#localbusiness`,
               name: "SOLITEK",
               description:
                 "Installateur certifié RGE en Alsace : panneaux solaires photovoltaïques, pompes à chaleur, climatisation réversible, VMC double flux et électricité.",
-              url: "https://www.solitekenergie.fr",
-              logo: "https://www.solitekenergie.fr/logo.png",
+              url: SITE_URL,
+              logo: `${SITE_URL}/logo.png`,
               image:
-                "https://www.solitekenergie.fr/images/solitek-installation-panneaux-solaires-alsace.jpg",
+                `${SITE_URL}/images/solitek-installation-panneaux-solaires-alsace.jpg`,
               telephone: "+33783289777",
               email: "solitek@outlook.fr",
               address: {

@@ -12,6 +12,7 @@ import {
   type Realisation,
   type ContentBlock,
 } from "@/lib/realisations";
+import { absoluteUrl } from "@/lib/site";
 
 type RichTextNode = {
   type: string;
@@ -292,9 +293,13 @@ export async function generateMetadata({
   return {
     title: `${realisation.titre} | Réalisations SOLITEK`,
     description: realisation.resume || realisation.description,
+    alternates: {
+      canonical: `/realisations/${realisation.slug}`,
+    },
     openGraph: {
       title: `${realisation.titre} | SOLITEK`,
       description: realisation.resume || realisation.description,
+      url: `/realisations/${realisation.slug}`,
       images: coverUrl ? [{ url: coverUrl, alt: realisation.titre }] : [],
     },
   };
@@ -320,138 +325,192 @@ export default async function RealisationPage({
   // Section couverture uniquement si imageCouverture est définie dans le CMS
   // (évite le doublon avec la première image des blocs de contenu)
   const coverUrl = getStrapiImageUrl(realisation.imageCouverture?.url);
+  const schemaImage = getFirstImageUrl(realisation);
+
+  const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: realisation.titre,
+    description: realisation.resume || realisation.description,
+    datePublished: realisation.datePublication || realisation.publishedAt,
+    dateModified: realisation.updatedAt || realisation.publishedAt || realisation.datePublication,
+    mainEntityOfPage: absoluteUrl(`/realisations/${realisation.slug}`),
+    image: schemaImage ? [schemaImage] : undefined,
+    articleSection: realisation.categorie?.titre,
+    author: {
+      "@type": "Organization",
+      name: "SOLITEK",
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "SOLITEK",
+      logo: {
+        "@type": "ImageObject",
+        url: absoluteUrl("/logo.png"),
+      },
+    },
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Accueil",
+        item: absoluteUrl("/"),
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Réalisations",
+        item: absoluteUrl("/realisations"),
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: realisation.titre,
+        item: absoluteUrl(`/realisations/${realisation.slug}`),
+      },
+    ],
+  };
 
   return (
-    <div className="flex flex-col">
-      {/* Hero */}
-      <section className="relative bg-[#161A1E] px-4 pb-16 pt-16 sm:px-8 sm:pb-20 sm:pt-20 lg:px-20 lg:pb-24 lg:pt-24">
-        <div className="mx-auto max-w-[1440px]">
-          <Link
-            href="/realisations"
-            className="mb-4 inline-flex items-center gap-2 font-['Figtree'] text-sm font-semibold uppercase tracking-widest text-white transition-opacity hover:opacity-70"
-          >
-            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-            </svg>
-            {realisation.categorie?.titre ?? "Nos réalisations"}
-          </Link>
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
 
-          <h1 className="font-title text-4xl font-black uppercase leading-tight text-white sm:text-5xl lg:text-[72px] lg:leading-[1]">
-            {realisation.titre}
-          </h1>
-
-          <p className="mt-6 max-w-[700px] font-['Figtree'] text-base leading-relaxed text-white/70 sm:text-lg">
-            {realisation.resume || realisation.description}
-          </p>
-        </div>
-      </section>
-
-      {/* Couverture : vidéo en priorité, puis image */}
-      {(realisation.videoCouverture || coverUrl) && (
-        <div className="w-full px-4 pt-8 sm:px-8 sm:pt-12 lg:px-20 lg:pt-16">
+      <div className="flex flex-col">
+        {/* Hero */}
+        <section className="relative bg-[#161A1E] px-4 pb-16 pt-16 sm:px-8 sm:pb-20 sm:pt-20 lg:px-20 lg:pb-24 lg:pt-24">
           <div className="mx-auto max-w-[1440px]">
-            <div className="aspect-[16/7] w-full overflow-hidden rounded-xl bg-[#161A1E]">
-              {realisation.videoCouverture ? (
-                <video
-                  src={realisation.videoCouverture}
-                  controls={realisation.afficherControlesVideo}
-                  autoPlay={!realisation.afficherControlesVideo}
-                  loop={!realisation.afficherControlesVideo}
-                  muted={!realisation.afficherControlesVideo}
-                  playsInline
-                  className="h-full w-full object-cover"
-                />
-              ) : (
-                <img
-                  src={coverUrl}
-                  alt={realisation.imageCouverture?.alternativeText ?? realisation.titre}
-                  className="h-full w-full object-cover"
-                />
-              )}
+            <Link
+              href="/realisations"
+              className="mb-4 inline-flex items-center gap-2 font-['Figtree'] text-sm font-semibold uppercase tracking-widest text-white transition-opacity hover:opacity-70"
+            >
+              <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+              {realisation.categorie?.titre ?? "Nos réalisations"}
+            </Link>
+
+            <h1 className="font-title text-4xl font-black uppercase leading-tight text-white sm:text-5xl lg:text-[72px] lg:leading-[1]">
+              {realisation.titre}
+            </h1>
+
+            <p className="mt-6 max-w-[700px] font-['Figtree'] text-base leading-relaxed text-white/70 sm:text-lg">
+              {realisation.resume || realisation.description}
+            </p>
+          </div>
+        </section>
+
+        {/* Couverture : vidéo en priorité, puis image */}
+        {(realisation.videoCouverture || coverUrl) && (
+          <div className="w-full px-4 pt-8 sm:px-8 sm:pt-12 lg:px-20 lg:pt-16">
+            <div className="mx-auto max-w-[1440px]">
+              <div className="aspect-[16/7] w-full overflow-hidden rounded-xl bg-[#161A1E]">
+                {realisation.videoCouverture ? (
+                  <video
+                    src={realisation.videoCouverture}
+                    controls={realisation.afficherControlesVideo}
+                    autoPlay={!realisation.afficherControlesVideo}
+                    loop={!realisation.afficherControlesVideo}
+                    muted={!realisation.afficherControlesVideo}
+                    playsInline
+                    className="h-full w-full object-cover"
+                  />
+                ) : (
+                  <img
+                    src={coverUrl}
+                    alt={realisation.imageCouverture?.alternativeText ?? realisation.titre}
+                    className="h-full w-full object-cover"
+                  />
+                )}
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
 
-      {/* Contenu */}
-      <section className="w-full px-4 pb-16 pt-10 sm:px-8 sm:pb-20 sm:pt-14 lg:px-20 lg:pb-[100px] lg:pt-16">
-        <div className="mx-auto max-w-[900px]">
+        {/* Contenu */}
+        <section className="w-full px-4 pb-16 pt-10 sm:px-8 sm:pb-20 sm:pt-14 lg:px-20 lg:pb-[100px] lg:pt-16">
+          <div className="mx-auto max-w-[900px]">
 
-          {/* Description longue */}
-          {realisation.description && realisation.description !== realisation.resume && (
-            <div className="mb-10 sm:mb-14">
-              <p className="font-['Figtree'] text-base leading-relaxed text-black/70 sm:text-lg sm:leading-[27px]">
-                {realisation.description}
-              </p>
-            </div>
-          )}
+            {/* Description longue */}
+            {realisation.description && realisation.description !== realisation.resume && (
+              <div className="mb-10 sm:mb-14">
+                <p className="font-['Figtree'] text-base leading-relaxed text-black/70 sm:text-lg sm:leading-[27px]">
+                  {realisation.description}
+                </p>
+              </div>
+            )}
 
-          {/* Blocs de contenu Strapi */}
-          {realisation.contenu && realisation.contenu.length > 0 && (
-            <div className="flex flex-col gap-8 sm:gap-12">
-              {realisation.contenu.map((block, index) => renderContentBlock(block, index))}
-            </div>
-          )}
+            {/* Blocs de contenu Strapi */}
+            {realisation.contenu && realisation.contenu.length > 0 && (
+              <div className="flex flex-col gap-8 sm:gap-12">
+                {realisation.contenu.map((block, index) => renderContentBlock(block, index))}
+              </div>
+            )}
 
-          {/* Galerie d'images supplémentaires */}
-          {realisation.images && realisation.images.length > 0 && (
-            <div className="mt-10 sm:mt-14">
-              <h2 className="mb-6 font-title text-xl font-black uppercase text-[#161A1E] sm:text-2xl">
-                Photos du chantier
+            {/* Galerie d'images supplémentaires */}
+            {realisation.images && realisation.images.length > 0 && (
+              <div className="mt-10 sm:mt-14">
+                <h2 className="mb-6 font-title text-xl font-black uppercase text-[#161A1E] sm:text-2xl">
+                  Photos du chantier
+                </h2>
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                  {realisation.images.map((image, imgIndex) => (
+                    <div key={imgIndex} className="aspect-[4/3] overflow-hidden rounded-xl bg-[#161A1E]">
+                      <img
+                        src={getStrapiImageUrl(image.url)}
+                        alt={image.alternativeText ?? `Photo ${imgIndex + 1} - ${realisation.titre}`}
+                        className="h-full w-full object-cover transition-transform duration-300 hover:scale-105"
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        </section>
+
+        {/* Autres projets - uniquement si 3+ autres réalisations disponibles */}
+        {autresProjets.length >= 3 && (
+          <section className="w-full border-t border-black/10 px-4 pb-16 pt-12 sm:px-8 sm:pb-20 sm:pt-16 lg:px-20 lg:pb-[100px] lg:pt-[80px]">
+            <div className="mx-auto max-w-[1440px]">
+              <h2 className="mb-8 font-title text-2xl font-black uppercase text-[#161A1E] sm:text-3xl lg:text-[40px] sm:mb-10 lg:mb-12">
+                Autres projets
               </h2>
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                {realisation.images.map((image, imgIndex) => (
-                  <div key={imgIndex} className="aspect-[4/3] overflow-hidden rounded-xl bg-[#161A1E]">
-                    <img
-                      src={getStrapiImageUrl(image.url)}
-                      alt={image.alternativeText ?? `Photo ${imgIndex + 1} - ${realisation.titre}`}
-                      className="h-full w-full object-cover transition-transform duration-300 hover:scale-105"
-                    />
-                  </div>
+              <div className="grid grid-cols-1 gap-8 sm:grid-cols-3 sm:gap-6 lg:gap-8">
+                {autresProjets.map((projet) => (
+                  <AutreProjetCard key={projet.documentId} realisation={projet} />
                 ))}
               </div>
             </div>
-          )}
-        </div>
-      </section>
+          </section>
+        )}
 
-
-{/* Autres projets - uniquement si 3+ autres réalisations disponibles */}
-      {autresProjets.length >= 3 && (
-        <section className="w-full border-t border-black/10 px-4 pb-16 pt-12 sm:px-8 sm:pb-20 sm:pt-16 lg:px-20 lg:pb-[100px] lg:pt-[80px]">
-          <div className="mx-auto max-w-[1440px]">
-            <h2 className="mb-8 font-title text-2xl font-black uppercase text-[#161A1E] sm:text-3xl lg:text-[40px] sm:mb-10 lg:mb-12">
-              Autres projets
+        {/* CTA */}
+        <section className="bg-[#2DB180] px-4 py-12 sm:px-8 sm:py-16 lg:px-20 lg:py-20">
+          <div className="mx-auto flex max-w-[1440px] flex-col items-center gap-6 text-center sm:gap-8">
+            <h2 className="font-title text-3xl font-black uppercase leading-tight text-white sm:text-4xl lg:text-[56px] lg:leading-[56px]">
+              Un projet similaire ?
             </h2>
-            <div className="grid grid-cols-1 gap-8 sm:grid-cols-3 sm:gap-6 lg:gap-8">
-              {autresProjets.map((projet) => (
-                <AutreProjetCard key={projet.documentId} realisation={projet} />
-              ))}
-            </div>
+            <p className="max-w-[560px] font-['Figtree'] text-base leading-relaxed text-white/80 sm:text-lg">
+              Décrivez votre installation, nous vous recontactons sous 24h. Devis gratuit, sans engagement.
+            </p>
+            <Link
+              href="/contact"
+              className="inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 font-title text-sm font-semibold text-[#161A1E] transition-opacity hover:opacity-90 sm:text-base"
+            >
+              Demander un devis
+              <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </Link>
           </div>
         </section>
-      )}
-
-      {/* CTA */}
-      <section className="bg-[#2DB180] px-4 py-12 sm:px-8 sm:py-16 lg:px-20 lg:py-20">
-        <div className="mx-auto flex max-w-[1440px] flex-col items-center gap-6 text-center sm:gap-8">
-          <h2 className="font-title text-3xl font-black uppercase leading-tight text-white sm:text-4xl lg:text-[56px] lg:leading-[56px]">
-            Un projet similaire ?
-          </h2>
-          <p className="max-w-[560px] font-['Figtree'] text-base leading-relaxed text-white/80 sm:text-lg">
-            Décrivez votre installation, nous vous recontactons sous 24h. Devis gratuit, sans engagement.
-          </p>
-          <Link
-            href="/contact"
-            className="inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 font-title text-sm font-semibold text-[#161A1E] transition-opacity hover:opacity-90 sm:text-base"
-          >
-            Demander un devis
-            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 12h14M12 5l7 7-7 7" />
-            </svg>
-          </Link>
-        </div>
-      </section>
-    </div>
+      </div>
+    </>
   );
 }

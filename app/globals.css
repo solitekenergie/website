@@ -12,6 +12,12 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+p {
+  text-align: justify;
+  text-align-last: left;
+  text-justify: inter-word;
+}
+
 a {
   color: inherit;
 }
