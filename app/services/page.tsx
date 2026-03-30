@@ -108,6 +108,9 @@ const services: Service[] = [
   },
 ];
 
+const serviceCtaClassName =
+  "h-[58px] rounded-full !border-transparent !bg-[#2DB180] px-8 text-[17px] !text-white shadow-[0_18px_40px_rgba(45,177,128,0.32)] transition-all hover:-translate-y-0.5 hover:!bg-[#26A072] focus-visible:outline-[#2DB180]";
+
 export default function ServicesPage() {
   return (
     <div className="relative">
@@ -184,7 +187,7 @@ export default function ServicesPage() {
                   </ul>
 
                   <div className="pt-2">
-                    <PrimaryCta href={service.cta.href}>
+                    <PrimaryCta href={service.cta.href} className={serviceCtaClassName}>
                       {service.cta.label}
                     </PrimaryCta>
                   </div>
