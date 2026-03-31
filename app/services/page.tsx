@@ -46,7 +46,7 @@ const services: Service[] = [
     tagline: 'Produisez votre propre énergie',
     description:
       "Installation clé en main : de l'étude personnalisée au raccordement Enedis, SOLITEK gère tout. Micro-onduleurs AP System, suivi de production en temps réel, garantie 25 ans.",
-    image: '/images/solitek-installation-photovoltaique-residentiel-alsace.jpg',
+    image: '/images/solitek-installation-photovoltaique-carport-solaire-alsace.jpg',
     points: ['Simulation de production offerte', 'Démarches administratives & Consuel', 'Prime autoconsommation & TVA réduite', 'Suivi de rendement en temps réel'],
     imageLeft: false,
     cta: { href: '/estimateur', label: 'Simuler mon installation' },
@@ -57,7 +57,7 @@ const services: Service[] = [
     tagline: 'Confort thermique, facture réduite',
     description:
       "Pompes à chaleur air/eau et air/air Atlantic, Daikin, Airwell. Étude thermique gratuite, installation certifiée RGE, éligible MaPrimeRénov.",
-    image: '/images/solitek-installation-pompe-chaleur-air-eau-alsace.jpg',
+    image: '/images/solitek-pompe-chaleur-air-eau-atlantic-terrasse.jpg',
     points: ['PAC air/eau et air/air', 'Marques Atlantic, Daikin, Airwell', 'Installateur RGE certifié', 'Éligible MaPrimeRénov\''],
     imageLeft: true,
     cta: { href: '/contact', label: 'Demander un devis' },
@@ -68,7 +68,7 @@ const services: Service[] = [
     tagline: 'Fraîcheur en été, chaleur en hiver',
     description:
       "Systèmes réversibles mono et multi-split Daikin, Atlantic, Airwell. Faible consommation, installation rapide, mise en service incluse.",
-    image: '/images/solitek-installation-climatisation-reversible-alsace.jpg',
+    image: '/images/solitek-climatisation-reversible-split-mural-interieur.jpg',
     points: ['Climatisation réversible (chaud/froid)', 'Mono-split et multi-split', 'Haut COP, faible consommation', 'Mise en service incluse'],
     imageLeft: false,
     cta: { href: '/contact', label: 'Demander un devis' },
@@ -90,7 +90,7 @@ const services: Service[] = [
     tagline: 'Installations aux normes, sans compromis',
     description:
       "Mise aux normes NF C 15-100, tableaux électriques, bornes IRVE pour véhicule électrique. Certificat de conformité fourni à chaque intervention.",
-    image: '/images/solitek-electricien-rge-strasbourg-mise-aux-normes.jpg',
+    image: '/images/solitek-electricien-tableau-electrique-mise-aux-normes.jpg',
     points: ['Mise aux normes NF C 15-100', 'Bornes de recharge IRVE (P1/P2)', 'Tableaux et disjoncteurs', 'Certificat de conformité inclus'],
     imageLeft: false,
     cta: { href: '/contact', label: 'Demander un devis' },

@@ -22,8 +22,8 @@ export function BrandPanelSection() {
     <footer className="inline-flex h-full w-full flex-col items-start justify-start">
 
       {/* NAP bar */}
-      <div className="w-full bg-[#161A1E] px-4 sm:px-8 lg:px-[60px]">
-        <div className="grid grid-cols-1 divide-y divide-white/10 text-white sm:grid-cols-2 sm:divide-x sm:divide-y-0 lg:grid-cols-4 lg:items-stretch">
+      <div className="w-full bg-[#161A1E] px-4 sm:px-8 lg:px-[60px]" style={{ color: '#FFFFFF' }}>
+        <div className="grid grid-cols-1 divide-y divide-white/10 sm:grid-cols-2 sm:divide-x sm:divide-y-0 lg:grid-cols-4 lg:items-stretch" style={{ color: '#FFFFFF' }}>
 
           {/* Téléphone */}
           <div className="flex flex-col items-center gap-4 py-8 text-center sm:px-8 lg:px-10">
@@ -115,7 +115,7 @@ export function BrandPanelSection() {
           {/* Description */}
           <div className="flex flex-col items-start justify-start gap-4 sm:gap-6">
             <p className="self-stretch font-['Figtree'] text-base font-normal leading-relaxed text-white sm:text-lg sm:leading-[27px]">
-              Bien plus qu&apos;un simple installateur, SOLITEK incarne un partenaire engagé, humain et fiable, à vos côtés dans
+              Installateur RGE à Strasbourg et en Alsace, SOLITEK est un partenaire engagé, humain et fiable, à vos côtés dans
               chaque étape de votre transition énergétique.
             </p>
           </div>

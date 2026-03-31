@@ -9,12 +9,12 @@ const images = [
     alt: 'Installation de panneaux solaires sur une toiture résidentielle',
   },
   {
-    src: '/images/solitek-panneaux-solaires-photovoltaiques-maison.jpg',
-    alt: 'Rangée de panneaux solaires captant la lumière du soleil',
+    src: '/images/solitek-panneaux-solaires-toiture-maison-alsacienne.jpg',
+    alt: 'Maison alsacienne équipée de panneaux solaires sur toiture',
   },
   {
-    src: '/images/solitek-detail-technique-installation-photovoltaique.jpg',
-    alt: "Détail technique d'un panneau solaire et de son câblage",
+    src: '/images/solitek-installation-solaire-toiture-maison-alsace.jpg',
+    alt: 'Installation solaire sur toiture résidentielle en Alsace',
   },
   {
     src: '/images/solitek-technicien-pose-panneaux-solaires-strasbourg.jpg',
@@ -161,7 +161,7 @@ export function MissionSection() {
               Une expertise forgée sur le terrain
             </h2>
             <p className="font-['Figtree'] text-base leading-relaxed text-black/70 sm:text-lg sm:leading-[27px]">
-              SOLITEK a été fondée par un professionnel des énergies renouvelables formé au sein des acteurs majeurs du secteur en Alsace : ES Énergie, FranceSolar, Groupe Beyer. Ces années passées au cœur de ces structures ont permis de développer une maîtrise complète des installations ENR, des exigences techniques du terrain et des attentes réelles des clients.
+              SOLITEK a été fondée à Strasbourg par un professionnel des énergies renouvelables formé au sein des acteurs majeurs du secteur en Alsace : ES Énergie, FranceSolar, Groupe Beyer. Ces années passées au cœur de ces structures ont permis de développer une maîtrise complète des installations ENR, des exigences techniques du terrain et des attentes réelles des clients.
             </p>
           </div>
 
@@ -174,7 +174,7 @@ export function MissionSection() {
               Des solutions fiables, au juste prix
             </h2>
             <p className="font-['Figtree'] text-base leading-relaxed text-black/70 sm:text-lg sm:leading-[27px]">
-              SOLITEK est née de la conviction que chaque projet mérite une réponse technique rigoureuse, un interlocuteur disponible et une transparence totale sur les coûts. Photovoltaïque, pompe à chaleur, climatisation, VMC : chaque installation est conçue sur mesure, suivie de A à Z, avec un seul objectif : que ça dure.
+              Basée à Strasbourg, SOLITEK est née de la conviction que chaque projet mérite une réponse technique rigoureuse, un interlocuteur disponible et une transparence totale sur les coûts. Photovoltaïque, pompe à chaleur, climatisation, VMC : chaque installation est conçue sur mesure, suivie de A à Z, avec un seul objectif : que ça dure.
             </p>
           </div>
 

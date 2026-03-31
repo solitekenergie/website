@@ -115,15 +115,15 @@ export default async function Home({
           <AssetProbe
             sources={[
               { src: "/images/solitek-installation-panneaux-solaires-alsace.jpg", label: "Mission 1" },
-              { src: "/images/solitek-panneaux-solaires-photovoltaiques-maison.jpg", label: "Mission 2" },
-              { src: "/images/solitek-detail-technique-installation-photovoltaique.jpg", label: "Mission 3" },
+              { src: "/images/solitek-panneaux-solaires-toiture-maison-alsacienne.jpg", label: "Mission 2" },
+              { src: "/images/solitek-installation-solaire-toiture-maison-alsace.jpg", label: "Mission 3" },
               { src: "/images/solitek-technicien-pose-panneaux-solaires-strasbourg.jpg", label: "Mission 4" },
               { src: "/images/solitek-toiture-equipee-panneaux-solaires-alsace.jpg", label: "Mission 5" },
-              { src: "/images/solitek-installation-photovoltaique-residentiel-alsace.jpg", label: "Service Photovoltaïque" },
-              { src: "/images/solitek-installation-pompe-chaleur-air-eau-alsace.jpg", label: "Service Chauffage" },
-              { src: "/images/solitek-installation-climatisation-reversible-alsace.jpg", label: "Service Climatisation" },
+              { src: "/images/solitek-installation-photovoltaique-carport-solaire-alsace.jpg", label: "Service Photovoltaïque" },
+              { src: "/images/solitek-pompe-chaleur-air-eau-atlantic-terrasse.jpg", label: "Service Chauffage" },
+              { src: "/images/solitek-climatisation-reversible-split-mural-interieur.jpg", label: "Service Climatisation" },
               { src: "/images/solitek-installation-vmc-double-flux-alsace.jpg", label: "Service Ventilation" },
-              { src: "/images/solitek-electricien-rge-strasbourg-mise-aux-normes.jpg", label: "Service Electricité" },
+              { src: "/images/solitek-electricien-tableau-electrique-mise-aux-normes.jpg", label: "Service Electricité" },
               { src: "/images/solitek-entretien-nettoyage-panneaux-solaires.jpg", label: "Service Entretien" },
             ]}
           />

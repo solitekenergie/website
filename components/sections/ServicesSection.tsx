@@ -53,9 +53,9 @@ export function ServicesSection() {
         <ServiceCard
           title="Photovoltaïque"
           description="Produisez votre propre électricité. Installation clé en main, simulation gratuite, suivi de production inclus."
-          image="/images/solitek-installation-photovoltaique-residentiel-alsace.jpg"
+          image="/images/solitek-installation-photovoltaique-carport-solaire-alsace.jpg"
           href="/services#photovoltaique"
-          alt="Panneaux photovoltaïques en fonctionnement"
+          alt="Carport solaire avec panneaux photovoltaïques en Alsace"
           className="h-[350px] sm:h-[400px] lg:h-[500px]"
         />
 
@@ -63,17 +63,17 @@ export function ServicesSection() {
           <ServiceCard
             title="Chauffage"
             description="PAC air/eau et air/air jusqu'à 3× moins énergivores. Éligible MaPrimeRénov, installateur RGE certifié."
-            image="/images/solitek-installation-pompe-chaleur-air-eau-alsace.jpg"
+            image="/images/solitek-pompe-chaleur-air-eau-atlantic-terrasse.jpg"
             href="/services#chauffage"
-            alt="Système de chauffage moderne"
+            alt="Pompe à chaleur air-eau Atlantic installée en extérieur"
             className="h-[350px] flex-1 sm:h-[400px] lg:h-full"
           />
           <ServiceCard
             title="Climatisation"
             description="Fraîcheur en été, chaleur en hiver. Un seul appareil réversible, mise en service incluse."
-            image="/images/solitek-installation-climatisation-reversible-alsace.jpg"
+            image="/images/solitek-climatisation-reversible-split-mural-interieur.jpg"
             href="/services#climatisation"
-            alt="Installation de climatisation"
+            alt="Climatisation réversible split mural installée en intérieur"
             className="h-[350px] flex-1 sm:h-[400px] lg:h-full"
           />
         </div>
@@ -90,9 +90,9 @@ export function ServicesSection() {
           <ServiceCard
             title="Électricité"
             description="Mise aux normes NF C 15-100, bornes IRVE, tableaux. Certificat de conformité fourni à chaque intervention."
-            image="/images/solitek-electricien-rge-strasbourg-mise-aux-normes.jpg"
+            image="/images/solitek-electricien-tableau-electrique-mise-aux-normes.jpg"
             href="/services#electricite"
-            alt="Travaux et installations électriques"
+            alt="Électricien intervenant sur un tableau électrique"
             className="h-[350px] flex-1 sm:h-[400px] lg:h-full"
           />
         </div>
