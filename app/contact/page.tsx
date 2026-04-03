@@ -1,247 +1,197 @@
-"use client";
-
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { AnimatedLink } from "@/components/ui/AnimatedLink";
-import {
-  contactSchema,
-  type ContactFormData,
-  type ContactPayload,
-} from "@/lib/validation/contact";
-
-type Status = "idle" | "loading" | "success" | "error";
+import Image from "next/image";
+import ContactForm from "@/components/forms/ContactForm";
+import { FadeIn } from "@/components/ui/FadeIn";
 
 export default function ContactPage() {
-  const [status, setStatus] = useState<Status>("idle");
-  const [serverMessage, setServerMessage] = useState<string | null>(null);
-
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm<ContactFormData, undefined, ContactPayload>({
-    resolver: zodResolver(contactSchema),
-    defaultValues: { name: "", email: "", phone: "", message: "" },
-  });
-
-  const onSubmit = async (data: ContactPayload) => {
-    setStatus("loading");
-    setServerMessage(null);
-
-    try {
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
-
-      const payload = (await response.json().catch(() => null)) as
-        | { message?: string; note?: string }
-        | null;
-
-      if (!response.ok) {
-        setStatus("error");
-        setServerMessage(payload?.message ?? "Impossible d'envoyer le message.");
-        return;
-      }
-
-      setStatus("success");
-      setServerMessage(payload?.note ?? "Merci, nous vous recontactons rapidement.");
-      reset();
-    } catch (error) {
-      console.error(error);
-      setStatus("error");
-      setServerMessage("Erreur réseau, merci de réessayer.");
-    }
-  };
-
   return (
     <div>
       {/* Hero */}
       <section className="bg-[#161A1E] px-4 pb-16 pt-16 sm:px-8 sm:pb-20 sm:pt-20 lg:px-20 lg:pb-24 lg:pt-24">
         <div className="mx-auto max-w-[1440px]">
-          <p className="mb-4 font-['Figtree'] text-sm font-semibold uppercase tracking-widest text-[#2DB180]">
+          <p className="mb-4 font-ui text-sm font-semibold uppercase tracking-wide text-[#1E9A66]">
             Contactez-nous
           </p>
           <h1 className="font-title text-4xl font-black uppercase leading-tight text-white sm:text-5xl lg:text-[72px] lg:leading-[1]">
-            Demandez<br />un devis
+            Demandez votre devis gratuit
           </h1>
-          <p className="mt-6 max-w-[600px] font-['Figtree'] text-base leading-relaxed text-white/70 sm:text-lg">
-            Décrivez votre projet, nous vous rappelons sous 24h. Sans engagement.
+          <p className="mt-6 max-w-[600px] font-ui text-base leading-relaxed text-white/70 sm:text-lg">
+            Décrivez votre projet, nous vous rappelons sous 24h. Gratuit et sans engagement.
           </p>
         </div>
       </section>
 
-      <div className="bg-[#F5F7FA]">
-      <div className="mx-auto max-w-[1440px] px-4 py-12 sm:px-8 sm:py-16 lg:px-20 lg:py-20">
+      {/* Formulaire + Carte contact */}
+      <section className="bg-[#F5F7FA] px-4 py-12 sm:px-8 sm:py-16 lg:px-20 lg:py-20">
+        <div className="mx-auto max-w-[1200px]">
+          <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-5 lg:gap-16">
 
-        <div className="flex flex-col gap-10 lg:flex-row lg:items-start lg:gap-16 xl:gap-24">
+            {/* Formulaire - 3 colonnes */}
+            <div className="lg:col-span-3">
+              <h2 className="mb-6 font-title text-2xl font-black uppercase text-[#161A1E] sm:text-3xl">
+                Décrivez votre projet
+              </h2>
+              <ContactForm />
+            </div>
 
-          {/* Colonne formulaire */}
-          <div className="flex w-full flex-col gap-8 lg:flex-1">
-            <div>
-              <p className="font-['Figtree'] text-base leading-relaxed text-black/60 sm:text-lg">
-                Pompe à chaleur, climatisation, VMC, électricité : décrivez votre projet ici, nous vous rappelons sous 24h. Pour le photovoltaïque, utilisez notre{' '}
-                <a href="/estimateur" className="font-semibold text-[#2DB180] underline underline-offset-2 hover:opacity-80">
-                  simulateur dédié
-                </a>
-                .
+            {/* Card contact Florian - 2 colonnes */}
+            <div className="lg:col-span-2">
+              <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-lg">
+                {/* Bandeau vert */}
+                <div className="bg-[#2DB180] px-6 py-5">
+                  <p className="font-ui text-xs font-semibold uppercase tracking-wide text-white/70">
+                    Votre interlocuteur dédié
+                  </p>
+                </div>
+                {/* Contenu */}
+                <div className="flex flex-col gap-6 px-6 py-8">
+                  <div>
+                    <p className="font-title text-xl font-black uppercase text-[#161A1E]">Florian Baret</p>
+                    <p className="mt-1 font-ui text-base text-black/50">Dirigeant SOLITEK</p>
+                  </div>
+                  <div className="h-px bg-slate-100" />
+                  <a
+                    href="tel:+33783289777"
+                    className="group flex items-center gap-4 transition-opacity hover:opacity-80"
+                  >
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#2DB180]/10">
+                      <svg className="h-5 w-5 text-[#1E9A66]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z" />
+                      </svg>
+                    </div>
+                    <span className="font-ui text-base font-semibold text-[#161A1E]">07 83 28 97 77</span>
+                  </a>
+                  <a
+                    href="mailto:solitek@outlook.fr"
+                    className="group flex items-center gap-4 transition-opacity hover:opacity-80"
+                  >
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#2DB180]/10">
+                      <svg className="h-5 w-5 text-[#1E9A66]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
+                      </svg>
+                    </div>
+                    <span className="font-ui text-base font-medium text-[#161A1E]">solitek@outlook.fr</span>
+                  </a>
+                  <div className="h-px bg-slate-100" />
+                  <div className="flex items-center gap-4">
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#2DB180]/10">
+                      <svg className="h-5 w-5 text-[#1E9A66]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <p className="font-ui text-base font-medium text-[#161A1E]">Lun - Ven</p>
+                      <p className="mt-0.5 font-ui text-sm text-black/50">08h00 - 12h00 / 14h00 - 18h00</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* Processus SOLITEK */}
+      <section className="bg-[#161A1E] px-4 py-14 sm:px-8 sm:py-20 lg:px-20">
+        <div className="mx-auto max-w-[1200px]">
+          <p className="mb-10 text-center font-ui text-xs font-semibold uppercase tracking-wide text-[#1E9A66] sm:mb-14">
+            Comment ça marche ?
+          </p>
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-3 sm:gap-8">
+            {[
+              { step: "01", title: "Prise de contact", desc: "Décrivez votre projet via le formulaire ou par téléphone. Nous vous recontactons sous 24h pour échanger sur vos besoins.", icon: (
+                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z" />
+                </svg>
+              )},
+              { step: "02", title: "Visite technique", desc: "Un technicien se déplace gratuitement chez vous pour réaliser une étude personnalisée et vous remettre un devis détaillé.", icon: (
+                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M11.42 15.17 17.25 21A2.652 2.652 0 0 0 21 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 1 1-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 0 0 4.486-6.336l-3.276 3.277a3.004 3.004 0 0 1-2.25-2.25l3.276-3.276a4.5 4.5 0 0 0-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085" />
+                </svg>
+              )},
+              { step: "03", title: "Installation", desc: "Notre équipe intervient avec du matériel haut de gamme. Mise en service, test de conformité et remise des documents inclus.", icon: (
+                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.746 3.746 0 0 1 3.296-1.043A3.746 3.746 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.745 3.745 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z" />
+                </svg>
+              )},
+            ].map((item) => (
+              <div key={item.step} className="flex flex-col items-center gap-4 rounded-2xl border border-white/10 bg-white/5 px-6 py-8 text-center">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#2DB180]/15 text-[#1E9A66]">
+                  {item.icon}
+                </div>
+                <span className="font-ui text-xs font-bold tracking-wide text-[#1E9A66]">{item.step}</span>
+                <h3 className="font-title text-xl font-black uppercase text-white">{item.title}</h3>
+                <p className="font-ui text-sm leading-relaxed text-white/80">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Sections entreprise */}
+      {[
+        {
+          bg: "bg-white",
+          label: "Qui sommes-nous ?",
+          title: "Une expertise forgée sur le terrain",
+          text: "SOLITEK, c'est avant tout un expert du terrain. Formé au sein des leaders de l'énergie en Alsace (ES Énergie, FranceSolar, Groupe Beyer), notre fondateur a créé SOLITEK avec une ambition simple : vous offrir un service que les grandes structures ne peuvent pas garantir. Un interlocuteur unique, des conseils honnêtes, et des installations réalisées dans les règles de l'art. Résultat : des clients satisfaits qui nous recommandent, et un accompagnement humain du premier appel à la mise en service.",
+          image: "/images/solitek-installation-panneaux-solaires-alsace.jpg",
+          alt: "Installation de panneaux solaires par SOLITEK en Alsace",
+          reverse: false,
+        },
+        {
+          bg: "bg-[#F5F7FA]",
+          label: "Notre mission",
+          title: "Des solutions fiables, au juste prix",
+          text: "Avec Solitek, bénéficiez de solutions intelligentes et durables pour protéger votre habitat dès aujourd'hui. Et pour demain, nous mettons la technologie au service de votre confort et de vos économies.",
+          image: "/images/solitek-pompe-chaleur-air-eau-atlantic-terrasse.jpg",
+          alt: "Pompe à chaleur Atlantic installée en extérieur par SOLITEK",
+          reverse: true,
+        },
+        {
+          bg: "bg-white",
+          label: "Accompagnement",
+          title: "Un suivi humain et personnalisé",
+          text: "Chez Solitek, chaque installation et chaque projet sont uniques. Nous nous adaptons à votre configuration, à vos besoins et à vos contraintes afin de vous proposer une solution entièrement sur-mesure, au-delà de l'installation. Nous mettons un point d'honneur à vous offrir un accompagnement personnalisé avec un suivi humain, indispensable et réactif à chaque étape de votre projet chez Solitek. La relation client est au coeur de notre engagement.",
+          image: "/images/solitek-technicien-pose-panneaux-solaires-strasbourg.jpg",
+          alt: "Technicien SOLITEK posant des panneaux solaires à Strasbourg",
+          reverse: false,
+        },
+        {
+          bg: "bg-[#F5F7FA]",
+          label: "Solution clé en main",
+          title: "Gratuit et sans engagement",
+          text: "Chez SOLITEK, nous faisons le choix de vous accompagner en toute transparence dès le début de votre projet. Ainsi, l'ensemble de nos prestations en amont (conseil, déplacement, solution, étude technique, élaboration du projet) est entièrement gratuit et sans engagement. Bénéficiez d'une approche complète et personnalisée, sans aucun frais, afin de vous permettre de construire votre projet en toute sérénité. Une démarche simple, claire et pensée pour vous.",
+          image: "/images/solitek-installation-photovoltaique-carport-solaire-alsace.jpg",
+          alt: "Carport solaire installé par SOLITEK en Alsace",
+          reverse: true,
+        },
+      ].map((s) => (
+        <section key={s.label} className={`${s.bg} px-4 py-12 sm:px-8 sm:py-16 lg:px-20 lg:py-20`}>
+          <FadeIn className={`mx-auto grid max-w-[1200px] grid-cols-1 items-center gap-8 lg:grid-cols-2 lg:gap-16 ${s.reverse ? "lg:[direction:rtl]" : ""}`}>
+            <div className={s.reverse ? "lg:[direction:ltr]" : ""}>
+              <p className="mb-2 font-ui text-xs font-semibold uppercase tracking-wide text-[#1E9A66]">
+                {s.label}
+              </p>
+              <h2 className="mb-4 font-title text-2xl font-black uppercase leading-tight text-[#161A1E] sm:text-3xl">
+                {s.title}
+              </h2>
+              <p className="font-ui text-base leading-relaxed text-black/70 sm:text-lg sm:leading-[27px]">
+                {s.text}
               </p>
             </div>
-
-            {/* Processus SOLITEK */}
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-3 sm:gap-0">
-              {[
-                { step: '01', title: 'Prise de contact', desc: 'Réponse sous 24h' },
-                { step: '02', title: 'Visite technique', desc: 'Devis personnalisé offert' },
-                { step: '03', title: 'Installation', desc: 'Mise en service incluse' },
-              ].map((item) => (
-                <div key={item.step} className="flex flex-col gap-2 border-l-2 border-[#2DB180] pl-4 sm:border-l-0 sm:border-t-2 sm:pl-0 sm:pt-4 sm:pr-4">
-                  <span className="font-['Figtree'] text-xs font-bold text-[#2DB180]">{item.step}</span>
-                  <p className="font-['Figtree'] text-sm font-semibold text-[#161A1E]">{item.title}</p>
-                  <p className="font-['Figtree'] text-xs text-black/50">{item.desc}</p>
-                </div>
-              ))}
-            </div>
-
-            <form
-              onSubmit={handleSubmit(onSubmit)}
-              className="flex w-full flex-col gap-4"
-            >
-              <Field
-                label="Nom complet*"
-                type="text"
-                register={register("name")}
-                error={errors.name?.message}
-                disabled={status === "loading"}
+            <div className={s.reverse ? "lg:[direction:ltr]" : ""}>
+              <Image
+                src={s.image}
+                alt={s.alt}
+                width={600}
+                height={340}
+                className="h-[280px] w-full rounded-2xl object-cover sm:h-[320px] lg:h-[340px]"
               />
-
-              <div className="flex flex-col gap-4 sm:flex-row">
-                <Field
-                  label="E-mail*"
-                  type="email"
-                  register={register("email")}
-                  error={errors.email?.message}
-                  disabled={status === "loading"}
-                />
-                <Field
-                  label="Téléphone"
-                  type="tel"
-                  register={register("phone")}
-                  error={errors.phone?.message}
-                  disabled={status === "loading"}
-                />
-              </div>
-
-              <Field
-                label="Message*"
-                type="textarea"
-                register={register("message")}
-                error={errors.message?.message}
-                disabled={status === "loading"}
-              />
-
-              {serverMessage && (
-                <div
-                  className={`w-full rounded-lg p-4 text-sm font-medium ${
-                    status === "success"
-                      ? "border border-green-200 bg-green-50 text-green-800"
-                      : "border border-red-200 bg-red-50 text-red-800"
-                  }`}
-                >
-                  {serverMessage}
-                </div>
-              )}
-
-              <div className="pt-2">
-                <button
-                  type="submit"
-                  disabled={status === "loading"}
-                  className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#2DB180] px-8 py-4 transition-colors hover:bg-[#26a072] disabled:cursor-not-allowed disabled:opacity-50"
-                >
-                  <AnimatedLink className="font-['Figtree'] text-sm font-bold uppercase leading-tight text-white sm:text-base">
-                    {status === "loading" ? "Envoi en cours…" : "Envoyer"}
-                  </AnimatedLink>
-                </button>
-              </div>
-            </form>
-          </div>
-
-          {/* Colonne visuelle - cachée sur mobile, visible à partir de lg */}
-          <div className="hidden lg:flex lg:w-[420px] lg:flex-shrink-0 lg:self-stretch xl:w-[500px]">
-            <div className="w-full overflow-hidden rounded-2xl shadow-xl">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <div className="relative h-full">
-                <div className="pointer-events-none absolute inset-0 z-10 bg-black/20" />
-                <video
-                  className="h-full w-full object-cover"
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  preload="metadata"
-                  poster="/images/solitek-toiture-equipee-panneaux-solaires-alsace.jpg"
-                >
-                  <source src="/hero.mp4" type="video/mp4" />
-                </video>
-                {/* Badge superposé */}
-                <div className="absolute bottom-6 left-6 right-6 z-20 rounded-xl bg-white/10 p-5 backdrop-blur-sm">
-                  <p className="font-['Figtree'] text-sm font-semibold text-white">
-                    Florian Baret
-                  </p>
-                  <p className="font-['Figtree'] text-sm text-white/80">
-                    Responsable photovoltaïque SOLITEK
-                  </p>
-                </div>
-              </div>
             </div>
-          </div>
-
-        </div>
-      </div>
-      </div>
-
-    </div>
-  );
-}
-
-type FieldProps = {
-  label: string;
-  type: string;
-  register: any;
-  error?: string;
-  disabled?: boolean;
-};
-
-function Field({ label, type, register, error, disabled }: FieldProps) {
-  const base =
-    "w-full rounded-lg border border-[rgba(128,128,128,0.40)] bg-white px-4 py-3 text-base text-[#161A1E] placeholder-transparent focus:border-[#2DB180] focus:outline-none focus:ring-2 focus:ring-[#2DB180]/20 disabled:cursor-not-allowed disabled:opacity-50 sm:px-5 sm:py-4";
-
-  return (
-    <div className="flex flex-1 flex-col gap-1.5">
-      <label className="font-['Figtree'] text-sm font-medium text-black/70 sm:text-base">
-        {label}
-      </label>
-      {type === "textarea" ? (
-        <textarea
-          {...register}
-          disabled={disabled}
-          rows={5}
-          className={base}
-        />
-      ) : (
-        <input
-          type={type}
-          {...register}
-          disabled={disabled}
-          className={`h-12 sm:h-[52px] ${base}`}
-        />
-      )}
-      {error && (
-        <p className="text-xs font-medium text-red-600 sm:text-sm">{error}</p>
-      )}
+          </FadeIn>
+        </section>
+      ))}
     </div>
   );
 }

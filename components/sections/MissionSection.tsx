@@ -1,7 +1,8 @@
 'use client';
 
-/* eslint-disable @next/next/no-img-element */
 import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
+import Image from 'next/image';
+import { FadeIn } from '@/components/ui/FadeIn';
 
 const images = [
   {
@@ -13,8 +14,8 @@ const images = [
     alt: 'Maison alsacienne équipée de panneaux solaires sur toiture',
   },
   {
-    src: '/images/solitek-installation-solaire-toiture-maison-alsace.jpg',
-    alt: 'Installation solaire sur toiture résidentielle en Alsace',
+    src: '/images/solitek-installation-photovoltaique-batiment-professionnel.jpg',
+    alt: 'Installation photovoltaïque sur bâtiment professionnel en Alsace',
   },
   {
     src: '/images/solitek-technicien-pose-panneaux-solaires-strasbourg.jpg',
@@ -122,7 +123,13 @@ export function MissionSection() {
   };
   const onTouchEnd = (e: React.TouchEvent) => {
     const diff = touchStartX.current - e.changedTouches[0].clientX;
-    if (Math.abs(diff) > 40) diff > 0 ? goNext() : goPrev();
+    if (Math.abs(diff) > 40) {
+      if (diff > 0) {
+        goNext();
+      } else {
+        goPrev();
+      }
+    }
   };
 
   // Mouse drag
@@ -134,7 +141,13 @@ export function MissionSection() {
     if (!isDragging.current) return;
     isDragging.current = false;
     const diff = dragStartX.current - e.clientX;
-    if (Math.abs(diff) > 40) diff > 0 ? goNext() : goPrev();
+    if (Math.abs(diff) > 40) {
+      if (diff > 0) {
+        goNext();
+      } else {
+        goPrev();
+      }
+    }
   };
   const onMouseLeave = () => { isDragging.current = false; };
 
@@ -153,30 +166,30 @@ export function MissionSection() {
         <div className="mx-auto grid max-w-[1200px] grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-20">
 
           {/* Qui sommes-nous */}
-          <div className="flex flex-col gap-4">
-            <p className="font-['Figtree'] text-xs font-semibold uppercase tracking-widest text-[#2DB180]">
+          <FadeIn className="flex flex-col gap-4">
+            <p className="font-ui text-xs font-semibold uppercase tracking-wide text-[#1E9A66]">
               Qui sommes-nous ?
             </p>
             <h2 className="font-title text-3xl font-black uppercase leading-tight text-[#161A1E] sm:text-4xl lg:text-[40px] lg:leading-tight">
-              Une expertise forgée sur le terrain
+              Votre partenaire énergie à Strasbourg
             </h2>
-            <p className="font-['Figtree'] text-base leading-relaxed text-black/70 sm:text-lg sm:leading-[27px]">
-              SOLITEK a été fondée à Strasbourg par un professionnel des énergies renouvelables formé au sein des acteurs majeurs du secteur en Alsace : ES Énergie, FranceSolar, Groupe Beyer. Ces années passées au cœur de ces structures ont permis de développer une maîtrise complète des installations ENR, des exigences techniques du terrain et des attentes réelles des clients.
+            <p className="font-ui text-base leading-relaxed text-black/70 sm:text-lg sm:leading-[27px]">
+              SOLITEK, c&apos;est avant tout un expert du terrain. Formé au sein des leaders de l&apos;énergie en Alsace (ES Énergie, FranceSolar, Groupe Beyer), notre fondateur a créé SOLITEK avec une ambition simple : vous offrir un service que les grandes structures ne peuvent pas garantir. Un interlocuteur unique, des conseils honnêtes, et des installations réalisées dans les règles de l&apos;art. Résultat : des clients satisfaits qui nous recommandent, et un accompagnement humain du premier appel à la mise en service.
             </p>
-          </div>
+          </FadeIn>
 
           {/* Notre mission */}
-          <div className="flex flex-col gap-4">
-            <p className="font-['Figtree'] text-xs font-semibold uppercase tracking-widest text-[#2DB180]">
-              Notre mission
+          <FadeIn className="flex flex-col gap-4" delay={150}>
+            <p className="font-ui text-xs font-semibold uppercase tracking-wide text-[#1E9A66]">
+              Notre engagement
             </p>
             <h2 className="font-title text-3xl font-black uppercase leading-tight text-[#161A1E] sm:text-4xl lg:text-[40px] lg:leading-tight">
-              Des solutions fiables, au juste prix
+              Devis gratuit, conseil sans engagement
             </h2>
-            <p className="font-['Figtree'] text-base leading-relaxed text-black/70 sm:text-lg sm:leading-[27px]">
-              Basée à Strasbourg, SOLITEK est née de la conviction que chaque projet mérite une réponse technique rigoureuse, un interlocuteur disponible et une transparence totale sur les coûts. Photovoltaïque, pompe à chaleur, climatisation, VMC : chaque installation est conçue sur mesure, suivie de A à Z, avec un seul objectif : que ça dure.
+            <p className="font-ui text-base leading-relaxed text-black/70 sm:text-lg sm:leading-[27px]">
+              Visite technique, étude personnalisée, élaboration du projet : tout est gratuit et sans engagement. Pas de surprise, pas de frais cachés. Nous vous aidons à choisir la meilleure solution pour votre habitat, qu&apos;il s&apos;agisse de panneaux solaires, d&apos;une pompe à chaleur, de climatisation ou d&apos;électricité. Et après l&apos;installation, nous restons disponibles : un vrai suivi humain, réactif, pour que votre investissement soit rentable sur le long terme.
             </p>
-          </div>
+          </FadeIn>
 
         </div>
       </div>
@@ -199,7 +212,7 @@ export function MissionSection() {
             className="absolute left-3 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white/90 p-2.5 backdrop-blur-sm transition-all hover:scale-110 hover:bg-white sm:left-5 lg:left-8"
             aria-label="Image précédente"
           >
-            <svg className="h-5 w-5 text-[#2DB180]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round">
+            <svg className="h-5 w-5 text-[#1E9A66]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round">
               <path d="M15 19l-7-7 7-7" />
             </svg>
           </button>
@@ -208,7 +221,7 @@ export function MissionSection() {
             className="absolute right-3 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white/90 p-2.5 backdrop-blur-sm transition-all hover:scale-110 hover:bg-white sm:right-5 lg:right-8"
             aria-label="Image suivante"
           >
-            <svg className="h-5 w-5 text-[#2DB180]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round">
+            <svg className="h-5 w-5 text-[#1E9A66]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round">
               <path d="M9 5l7 7-7 7" />
             </svg>
           </button>
@@ -233,15 +246,18 @@ export function MissionSection() {
                   onClick={() => !isActive && goToDot(index % N)}
                 >
                   <div
-                    className={`h-[280px] overflow-hidden rounded-2xl transition-opacity duration-700 sm:h-[370px] lg:h-[460px] ${
+                    className={`relative h-[280px] overflow-hidden rounded-2xl transition-opacity duration-700 sm:h-[370px] lg:h-[460px] ${
                       isActive ? 'opacity-100' : 'cursor-pointer opacity-40'
                     }`}
                   >
-                    <img
+                    <Image
                       src={image.src}
                       alt={image.alt}
+                      fill
+                      sizes="72vw"
                       draggable={false}
-                      className={`h-full w-full object-cover transition-transform duration-700 ${
+                      priority={index === N}
+                      className={`object-cover transition-transform duration-700 ${
                         isActive ? 'scale-100' : 'scale-110'
                       }`}
                     />

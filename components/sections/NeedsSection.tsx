@@ -1,7 +1,8 @@
 "use client";
-/* eslint-disable @next/next/no-img-element */
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
+import { FadeIn } from "@/components/ui/FadeIn";
 
 export function NeedsSection() {
   const [selected, setSelected] = useState<string | null>(null);
@@ -10,12 +11,12 @@ export function NeedsSection() {
   return (
     <section className="relative inline-flex h-full w-full flex-col items-start justify-start gap-8 overflow-hidden bg-[#161A1E] p-4 sm:gap-10 sm:p-8 lg:gap-12 lg:p-[100px]">
 
-      <div className="flex flex-col items-center justify-start gap-8 self-stretch sm:gap-10 lg:gap-12">
+      <FadeIn className="flex flex-col items-center justify-start gap-8 self-stretch sm:gap-10 lg:gap-12">
         <h2 className="self-stretch text-center font-title text-3xl font-black uppercase leading-tight text-white sm:text-4xl sm:leading-tight lg:text-[56px] lg:leading-[56px]">
           Votre projet, <br />
           en 2 minutes
         </h2>
-      </div>
+      </FadeIn>
 
       <div className="relative z-10 inline-flex flex-col items-stretch justify-start gap-6 self-stretch lg:flex-row">
         <div className="inline-flex flex-1 flex-col items-center justify-start gap-6 self-stretch rounded-lg bg-white px-4 py-8 sm:gap-8 sm:rounded-xl sm:px-5 sm:py-10 lg:gap-10">
@@ -107,11 +108,13 @@ export function NeedsSection() {
           </div>
         </div>
 
-        <div className="hidden flex-1 lg:flex">
-          <img
-            className="h-full w-full rounded-xl object-cover"
+        <div className="relative hidden flex-1 lg:flex">
+          <Image
+            className="rounded-xl object-cover"
             src="/images/solitek-technicien-pose-panneaux-solaires-strasbourg.jpg"
             alt="Technicien solarisé présentant une installation"
+            fill
+            sizes="50vw"
           />
         </div>
       </div>

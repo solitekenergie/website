@@ -3,9 +3,11 @@
 import { useState, useEffect } from "react";
 import type { EstimatorFormData } from "../MultiStepEstimatorForm";
 import { calculateSolarIRR } from "@/lib/pv/irr";
+import dynamic from "next/dynamic";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
-import SolarHeatMap from "@/components/solar/SolarHeatMap";
+
+const SolarHeatMap = dynamic(() => import("@/components/solar/SolarHeatMap"), { ssr: false });
 
 interface ContactFormData {
   name: string;
@@ -16,6 +18,7 @@ interface ContactFormData {
 interface EstimatorResultsProps {
   formData: EstimatorFormData;
   onBack: () => void;
+  onReset?: () => void;
 }
 
 interface GoogleSolarData {
@@ -48,7 +51,7 @@ interface SolarPotential {
   irrPercent: number | null;
 }
 
-export default function EstimatorResults({ formData, onBack }: EstimatorResultsProps) {
+export default function EstimatorResults({ formData, onBack, onReset }: EstimatorResultsProps) {
   const [loading, setLoading] = useState(true);
   const [results, setResults] = useState<SolarPotential | null>(null);
   const [showContactForm, setShowContactForm] = useState(false);
@@ -69,22 +72,46 @@ export default function EstimatorResults({ formData, onBack }: EstimatorResultsP
     setLoading(true);
 
     try {
-      // Convert consumption to kWh if in euros
+      // --- 1. Calculer la consommation réelle ajustée ---
       let annualConsumptionKwh = formData.consumptionValue;
       if (formData.consumptionUnit === "euro" && formData.electricityPrice) {
         annualConsumptionKwh = formData.consumptionValue / formData.electricityPrice;
       }
 
-      // Adjust consumption based on equipment
+      // Ajustement équipements supplémentaires
       let adjustedConsumption = annualConsumptionKwh;
-      if (formData.otherEquipment.includes("electric-vehicle")) {
-        adjustedConsumption += 2500;
-      }
-      if (formData.otherEquipment.includes("pool")) {
-        adjustedConsumption += 1500;
-      }
-      if (formData.otherEquipment.includes("air-conditioning")) {
-        adjustedConsumption += 1000;
+      if (formData.otherEquipment.includes("electric-vehicle")) adjustedConsumption += 2500;
+      if (formData.otherEquipment.includes("pool")) adjustedConsumption += 1500;
+      if (formData.otherEquipment.includes("air-conditioning")) adjustedConsumption += 1000;
+
+      // Ajustement profil de présence (autoconsommation réelle)
+      let selfConsumptionRate = 0.35; // matin-soir : 35% autoconsommation
+      if (formData.presenceProfile === "all-day") selfConsumptionRate = 0.55;
+      if (formData.presenceProfile === "school-holidays") selfConsumptionRate = 0.40;
+
+      // Ajustement chauffage électrique (augmente la conso couvrable)
+      if (formData.mainHeating === "electric-radiator") adjustedConsumption *= 1.1;
+      if (formData.mainHeating === "heat-pump") adjustedConsumption *= 1.05;
+
+      // --- 2. Récupérer l'irradiation locale (PVGIS) ---
+      let irradiation = 1100; // Défaut conservateur Alsace
+      const coords = formData.coordinates;
+
+      if (coords && coords.lat !== 0 && coords.lng !== 0) {
+        try {
+          const pvgisResponse = await fetch(
+            `https://re.jrc.ec.europa.eu/api/v5_2/PVcalc?lat=${coords.lat}&lon=${coords.lng}&peakpower=1&loss=14&outputformat=json`,
+            { signal: AbortSignal.timeout(15000) },
+          );
+          if (pvgisResponse.ok) {
+            const pvgisData = await pvgisResponse.json();
+            if (pvgisData.outputs?.totals?.fixed?.E_y) {
+              irradiation = pvgisData.outputs.totals.fixed.E_y;
+            }
+          }
+        } catch {
+          // PVGIS indisponible - on continue avec le défaut
+        }
       }
 
       let usedGoogleSolar = false;
@@ -92,68 +119,62 @@ export default function EstimatorResults({ formData, onBack }: EstimatorResultsP
       let annualProductionKwh = 0;
       let recommendedKwc = 0;
       let roofAreaMeters2: number | undefined;
-      let maxSunshineHoursPerYear: number | undefined;
+      let maxSunshineHoursPerYear: number | undefined = Math.round(irradiation);
 
-      // Try Google Solar API first
-      if (formData.coordinates) {
+      // --- 3. Essayer Google Solar (données toiture réelles) ---
+      if (coords && coords.lat !== 0 && coords.lng !== 0) {
         try {
           const solarResponse = await fetch("/api/solar", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              latitude: formData.coordinates.lat,
-              longitude: formData.coordinates.lng,
-            }),
+            body: JSON.stringify({ latitude: coords.lat, longitude: coords.lng }),
           });
 
           if (solarResponse.ok) {
-            const googleSolarData: GoogleSolarData = await solarResponse.json();
+            const gsd: GoogleSolarData = await solarResponse.json();
 
             usedGoogleSolar = true;
-            panelsCount = googleSolarData.optimalPanelsCount;
-            annualProductionKwh = Math.round(googleSolarData.optimalYearlyEnergyKwh);
-            roofAreaMeters2 = googleSolarData.maxAreaMeters2;
-            maxSunshineHoursPerYear = Math.round(googleSolarData.maxSunshineHoursPerYear);
-            recommendedKwc = Math.round((panelsCount * googleSolarData.panelCapacityWatts) / 1000 * 10) / 10;
+            roofAreaMeters2 = gsd.maxAreaMeters2;
+            maxSunshineHoursPerYear = Math.round(gsd.maxSunshineHoursPerYear);
+
+            // Dimensionner selon la conso réelle, pas la config "optimale" de Google
+            // qui ne connait pas le profil du foyer
+            const targetKwc = Math.round((adjustedConsumption * 0.7) / irradiation * 10) / 10;
+            const panelWatts = gsd.panelCapacityWatts || 400;
+
+            // Trouver la config Google Solar la plus proche du besoin
+            const targetPanels = Math.ceil((targetKwc * 1000) / panelWatts);
+            const maxPanels = gsd.maxPanelsCount;
+            panelsCount = Math.min(targetPanels, maxPanels);
+            recommendedKwc = Math.round((panelsCount * panelWatts) / 1000 * 10) / 10;
+
+            // Production basée sur l'irradiation PVGIS locale (plus fiable que le ratio Google)
+            annualProductionKwh = Math.round(recommendedKwc * irradiation * 0.85); // 0.85 = rendement système
           }
-        } catch (error) {
-          console.error("Error fetching Google Solar data:", error);
+        } catch {
+          // Google Solar indisponible - on continue avec PVGIS seul
         }
       }
 
-      // Fallback to PVGIS + estimation if Google Solar failed
+      // --- 4. Fallback PVGIS pur si Google Solar a échoué ---
       if (!usedGoogleSolar) {
-        let irradiation = 1200; // Default for France
-
-        if (formData.coordinates) {
-          try {
-            const pvgisResponse = await fetch(
-              `https://re.jrc.ec.europa.eu/api/v5_2/PVcalc?lat=${formData.coordinates.lat}&lon=${formData.coordinates.lng}&peakpower=1&loss=14&outputformat=json`,
-            );
-            const pvgisData = await pvgisResponse.json();
-
-            if (pvgisData.outputs?.totals?.fixed) {
-              irradiation = pvgisData.outputs.totals.fixed["E_y"];
-            }
-          } catch (error) {
-            console.error("Error fetching PVGIS data:", error);
-          }
-        }
-
-        // Use PVGIS irradiation as approximation of sunshine hours
-        maxSunshineHoursPerYear = Math.round(irradiation);
-
         const coverageTarget = 0.7;
         recommendedKwc = Math.round((adjustedConsumption * coverageTarget) / irradiation * 10) / 10;
-        annualProductionKwh = Math.round(recommendedKwc * irradiation);
-        panelsCount = Math.round((recommendedKwc * 1000) / 400);
+        // Limiter a une installation réaliste résidentielle (max 9 kWc)
+        recommendedKwc = Math.min(recommendedKwc, 9);
+        annualProductionKwh = Math.round(recommendedKwc * irradiation * 0.85);
+        panelsCount = Math.ceil((recommendedKwc * 1000) / 400);
       }
 
-      // Financial calculations
-      const electricityPrice = formData.electricityPrice || 0.20;
-      const annualSavings = Math.round(annualProductionKwh * electricityPrice);
+      // --- 5. Calculs financiers personnalisés ---
+      const electricityPrice = formData.electricityPrice || 0.2516; // Tarif réglementé 2025
+      const autoconsommationKwh = Math.round(annualProductionKwh * selfConsumptionRate);
+      const surplusKwh = annualProductionKwh - autoconsommationKwh;
+      const tarifRachat = 0.1269; // Tarif rachat surplus OA < 9kWc 2025
+      const annualSavings = Math.round(autoconsommationKwh * electricityPrice + surplusKwh * tarifRachat);
+
       const totalSavings = Math.round(annualSavings * 25);
-      const installationCost = Math.round(recommendedKwc * 2500);
+      const installationCost = Math.round(recommendedKwc <= 3 ? recommendedKwc * 2800 : recommendedKwc * 2400);
       const paybackYears = annualSavings > 0 ? Math.round((installationCost / annualSavings) * 10) / 10 : 0;
 
       // Calculate IRR (Taux de Rentabilité Interne)
@@ -382,7 +403,7 @@ export default function EstimatorResults({ formData, onBack }: EstimatorResultsP
                       onClick={handleQuoteRequest}
                       className="w-full rounded-lg bg-[#5CB88F] px-8 py-4 text-lg font-semibold text-white transition-colors hover:bg-[#4da77e]"
                     >
-                      Faire un devis
+                      Estimer mon projet
                     </button>
                   ) : (
                     <div className="space-y-4">
@@ -467,6 +488,17 @@ export default function EstimatorResults({ formData, onBack }: EstimatorResultsP
           </div>
         </div>
       </div>
+      {onReset && (
+        <div className="flex justify-center bg-white pb-12">
+          <button
+            type="button"
+            onClick={onReset}
+            className="inline-flex items-center gap-2 rounded-full border-2 border-slate-300 px-8 py-3 font-ui text-sm font-semibold text-slate-600 transition-colors hover:bg-slate-100"
+          >
+            Nouvelle simulation
+          </button>
+        </div>
+      )}
       <Footer />
     </>
   );

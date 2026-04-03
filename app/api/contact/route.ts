@@ -24,12 +24,28 @@ export async function POST(request: Request) {
   }
 
   const data = parsed.data;
-  const text = `Nom: ${data.name}\nEmail: ${data.email}\nTéléphone: ${data.phone ?? "Non renseigné"}\n\n${data.message}`;
+  const text = `=== NOUVEAU MESSAGE - SITE SOLITEK ===
+
+CONTACT
+-------
+Nom: ${data.name}
+Email: ${data.email}
+Téléphone: ${data.phone ?? "Non renseigné"}
+
+DEMANDE
+-------
+Prestation: ${data.prestation}
+Ville: ${data.ville ?? "Non renseignée"}
+
+MESSAGE
+-------
+${data.message}
+`;
 
   try {
     const result = await sendEmail({
       to: process.env.CONTACT_TO_EMAIL,
-      subject: "Nouveau message depuis le site Solitek",
+      subject: `Nouveau contact site - ${data.prestation} - ${data.name}`,
       text,
       replyTo: data.email,
     });

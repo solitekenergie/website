@@ -81,39 +81,35 @@ export type ContentBlock =
 
 async function fetchAPI(endpoint: string, options: RequestInit = {}) {
   const url = `${STRAPI_URL}/api${endpoint}`;
+  const publicHeaders: HeadersInit = { "Content-Type": "application/json" };
 
-  const headers: HeadersInit = {
-    "Content-Type": "application/json",
-  };
-
-  if (STRAPI_API_TOKEN) {
-    headers.Authorization = `Bearer ${STRAPI_API_TOKEN}`;
-  }
-
-  const res = await fetch(url, {
-    headers,
+  // Public content should stay readable even if a stale token is present locally.
+  const publicRes = await fetch(url, {
+    headers: publicHeaders,
     ...options,
   });
 
-  // If token auth fails, retry without token (public access)
-  if (res.status === 401 && STRAPI_API_TOKEN) {
-    const publicRes = await fetch(url, {
-      headers: { "Content-Type": "application/json" },
-      ...options,
-    });
-
-    if (!publicRes.ok) {
-      throw new Error(`Strapi API error: ${publicRes.status} ${publicRes.statusText}`);
-    }
-
+  if (publicRes.ok) {
     return publicRes.json();
   }
 
-  if (!res.ok) {
-    throw new Error(`Strapi API error: ${res.status} ${res.statusText}`);
+  if ((publicRes.status === 401 || publicRes.status === 403) && STRAPI_API_TOKEN) {
+    const authRes = await fetch(url, {
+      headers: {
+        ...publicHeaders,
+        Authorization: `Bearer ${STRAPI_API_TOKEN}`,
+      },
+      ...options,
+    });
+
+    if (authRes.ok) {
+      return authRes.json();
+    }
+
+    throw new Error(`Strapi API error: ${authRes.status} ${authRes.statusText}`);
   }
 
-  return res.json();
+  throw new Error(`Strapi API error: ${publicRes.status} ${publicRes.statusText}`);
 }
 
 // Pour la liste (page /realisations) : image couverture + première image des blocs contenu

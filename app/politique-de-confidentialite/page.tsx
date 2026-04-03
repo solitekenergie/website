@@ -51,9 +51,18 @@ const sections = [
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Politique de Confidentialité | SOLITEK",
+  title: "Politique de confidentialité",
   description:
-    "Politique de confidentialité de SOLITEK : traitement des données personnelles, cookies et droits des utilisateurs conformément au RGPD.",
+    "Politique de confidentialité de SOLITEK : données personnelles, cookies et droits des utilisateurs au titre du RGPD.",
+  alternates: {
+    canonical: "/politique-de-confidentialite",
+  },
+  openGraph: {
+    title: "Politique de confidentialité | SOLITEK",
+    description:
+      "Politique de confidentialité de SOLITEK : données personnelles, cookies et droits des utilisateurs au titre du RGPD.",
+    url: "/politique-de-confidentialite",
+  },
   robots: { index: false, follow: false },
 };
 
@@ -68,12 +77,12 @@ export default function PrivacyPage() {
         <div className="flex flex-col divide-y divide-slate-200">
           {sections.map((section) => (
             <div key={section.title} className="py-8">
-              <h2 className="mb-4 font-['Figtree'] text-xs font-semibold uppercase tracking-widest text-[#2DB180]">
+              <h2 className="mb-4 font-ui text-xs font-semibold uppercase tracking-wide text-[#1E9A66]">
                 {section.title}
               </h2>
               <ul className="flex flex-col gap-2">
                 {section.content.map((line) => (
-                  <li key={line} className="font-['Figtree'] text-sm leading-relaxed text-black/60 sm:text-base">
+                  <li key={line} className="font-ui text-sm leading-relaxed text-black/60 sm:text-base">
                     {line}
                   </li>
                 ))}

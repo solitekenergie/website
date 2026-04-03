@@ -127,13 +127,13 @@ export default function FaqPage() {
         {/* Hero */}
         <section className="bg-[#161A1E] px-4 pb-16 pt-16 sm:px-8 sm:pb-20 sm:pt-20 lg:px-20 lg:pb-24 lg:pt-24">
           <div className="mx-auto max-w-[1440px]">
-            <p className="mb-4 font-['Figtree'] text-sm font-semibold uppercase tracking-widest text-[#2DB180]">
+            <p className="mb-4 font-ui text-sm font-semibold uppercase tracking-wide text-[#1E9A66]">
               Questions fréquentes
             </p>
             <h1 className="font-title text-4xl font-black uppercase leading-tight text-white sm:text-5xl lg:text-[72px] lg:leading-[1]">
               FAQ
             </h1>
-            <p className="mt-6 max-w-[600px] font-['Figtree'] text-base leading-relaxed text-white/70 sm:text-lg">
+            <p className="mt-6 max-w-[600px] font-ui text-base leading-relaxed text-white/70 sm:text-lg">
               Tout ce que vous devez savoir avant de vous lancer dans votre projet d&apos;installation solaire ou ENR en Alsace.
             </p>
           </div>
@@ -153,12 +153,12 @@ export default function FaqPage() {
             <p className="font-title text-2xl font-black uppercase text-white sm:text-3xl">
               Vous n&apos;avez pas trouvé votre réponse ?
             </p>
-            <p className="max-w-[480px] font-['Figtree'] text-base text-white/70">
+            <p className="max-w-[480px] font-ui text-base text-white/70">
               Notre équipe vous répond sous 24h, sans engagement.
             </p>
             <a
               href="/contact"
-              className="mt-2 inline-flex items-center gap-2 rounded-lg bg-[#2DB180] px-8 py-4 font-['Figtree'] text-sm font-bold uppercase text-white transition-opacity hover:opacity-90 sm:text-base"
+              className="mt-2 inline-flex items-center gap-2 rounded-lg bg-[#2DB180] px-8 py-4 font-ui text-sm font-bold uppercase text-white transition-opacity hover:opacity-90 sm:text-base"
             >
               <AnimatedLink className="text-white">
                 Contacter SOLITEK
@@ -190,7 +190,7 @@ function FaqCard({ index, item, onToggle }: { index: number; item: FaqItem; onTo
         aria-controls={answerId}
         onClick={onToggle}
       >
-        <span className="flex-1 font-['Figtree'] text-base font-semibold leading-snug text-black sm:text-lg lg:text-xl">
+        <span className="flex-1 font-ui text-base font-semibold leading-snug text-black sm:text-lg lg:text-xl">
           {item.question}
         </span>
         <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-[#2DB180] sm:h-12 sm:w-12">
@@ -205,7 +205,7 @@ function FaqCard({ index, item, onToggle }: { index: number; item: FaqItem; onTo
         }`}
       >
         <div className="overflow-hidden">
-          <p className="font-['Figtree'] text-sm leading-relaxed text-black/60 sm:text-base lg:text-lg">
+          <p className="font-ui text-sm leading-relaxed text-black/60 sm:text-base lg:text-lg">
             {item.answer}
           </p>
         </div>

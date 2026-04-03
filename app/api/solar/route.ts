@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { rateLimit, getClientIp } from "@/lib/rate-limit";
 import { getBuildingInsightsCache, setBuildingInsightsCache } from "@/lib/solar/cache";
 
-const RATE_LIMIT = { limit: 2, windowMs: 60_000 }; // 2 req / 60s per IP
+const RATE_LIMIT = { limit: 10, windowMs: 60_000 }; // 10 req / 60s per IP (cache 1h protège des doublons)
 
 interface SolarApiRequest {
   latitude: number;
@@ -59,7 +59,7 @@ interface GoogleSolarResponse {
       administrativeArea: string;
       statisticalArea: string;
       regionCode: string;
-      solarPotential: any;
+      solarPotential: Record<string, unknown>;
     };
   };
 }
@@ -79,9 +79,16 @@ export async function POST(request: NextRequest) {
 
     const { latitude, longitude }: SolarApiRequest = await request.json();
 
-    if (!latitude || !longitude) {
+    if (
+      typeof latitude !== "number" ||
+      typeof longitude !== "number" ||
+      !Number.isFinite(latitude) ||
+      !Number.isFinite(longitude) ||
+      latitude < -90 || latitude > 90 ||
+      longitude < -180 || longitude > 180
+    ) {
       return NextResponse.json(
-        { error: "Latitude and longitude are required" },
+        { error: "Latitude (-90..90) and longitude (-180..180) are required" },
         { status: 400 }
       );
     }
@@ -102,29 +109,35 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Call Google Solar API - Building Insights endpoint
-    const buildingInsightsUrl = `https://solar.googleapis.com/v1/buildingInsights:findClosest?location.latitude=${latitude}&location.longitude=${longitude}&requiredQuality=HIGH&key=${apiKey}`;
+    // Call Google Solar API - Building Insights endpoint (try HIGH, then MEDIUM)
+    let data: GoogleSolarResponse | null = null;
 
-    const response = await fetch(buildingInsightsUrl);
+    for (const quality of ["HIGH", "MEDIUM"] as const) {
+      const buildingInsightsUrl = `https://solar.googleapis.com/v1/buildingInsights:findClosest?location.latitude=${latitude}&location.longitude=${longitude}&requiredQuality=${quality}&key=${apiKey}`;
 
-    if (!response.ok) {
-      const errorText = await response.text();
-      console.error("Google Solar API error:", errorText);
+      const response = await fetch(buildingInsightsUrl);
 
-      if (response.status === 404) {
-        return NextResponse.json(
-          { error: "No solar data available for this location" },
-          { status: 404 }
-        );
+      if (response.ok) {
+        data = await response.json();
+        break;
       }
 
-      return NextResponse.json(
-        { error: "Failed to fetch solar data" },
-        { status: response.status }
-      );
+      if (response.status !== 404) {
+        const errorText = await response.text();
+        console.error(`Google Solar API error (${quality}):`, errorText);
+        return NextResponse.json(
+          { error: "Failed to fetch solar data" },
+          { status: response.status }
+        );
+      }
     }
 
-    const data: GoogleSolarResponse = await response.json();
+    if (!data) {
+      return NextResponse.json(
+        { error: "No solar data available for this location" },
+        { status: 404 }
+      );
+    }
 
     // Extract useful information
     const solarPotential = data.solarPotential;

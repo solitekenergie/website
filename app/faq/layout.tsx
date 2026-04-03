@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "FAQ | Questions sur l'Énergie Solaire & ENR à Strasbourg",
+  title: "FAQ énergie à Strasbourg",
   description:
-    "Toutes les réponses à vos questions sur l'installation de panneaux solaires, pompe à chaleur et climatisation à Strasbourg et en Alsace. Aides financières, délais, entretien.",
+    "Réponses sur les panneaux solaires, la pompe à chaleur, la climatisation, les aides, les délais et l'entretien à Strasbourg et en Alsace.",
   alternates: {
     canonical: "/faq",
   },
@@ -20,9 +20,9 @@ export const metadata: Metadata = {
     "pompe à chaleur compatibilité solaire",
   ],
   openGraph: {
-    title: "FAQ Énergie Solaire & ENR | SOLITEK Strasbourg",
+    title: "FAQ énergie à Strasbourg | SOLITEK",
     description:
-      "Délais, aides financières, dimensionnement, entretien : toutes les réponses sur votre installation solaire ou ENR à Strasbourg et en Alsace.",
+      "Toutes les réponses sur les panneaux solaires, la pompe à chaleur, la climatisation et les aides à Strasbourg.",
     url: "/faq",
   },
 };

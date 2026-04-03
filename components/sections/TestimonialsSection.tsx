@@ -17,16 +17,16 @@ export function TestimonialsSection() {
           <div className="inline-flex flex-col items-start justify-end gap-4 sm:gap-[18px]">
             <div className="flex flex-col items-start justify-start gap-4 sm:gap-6">
               <div className="inline-flex items-center justify-center gap-1">
-                <p className="flex flex-col justify-end font-['Figtree'] text-[11px] font-medium uppercase leading-[22px] text-[#5D6B6C]">
+                <p className="flex flex-col justify-end font-ui text-[11px] font-medium uppercase leading-[22px] text-[#5D6B6C]">
                   Romain Huck | Head of Product
                 </p>
               </div>
-              <h3 className="font-title text-3xl font-bold uppercase leading-tight text-[#2DB180] sm:text-4xl sm:leading-tight lg:text-[48px] lg:leading-[52px]">
+              <h3 className="font-title text-3xl font-bold uppercase leading-tight text-[#1E9A66] sm:text-4xl sm:leading-tight lg:text-[48px] lg:leading-[52px]">
                 Groupe EDF
               </h3>
             </div>
             <div className="flex flex-col items-start justify-start gap-2 sm:gap-[10px]">
-              <blockquote className="max-w-[524px] font-['Figtree'] text-sm font-normal leading-relaxed text-[#5D6B6C] sm:text-[15px] sm:leading-[22.5px]">
+              <blockquote className="max-w-[524px] font-ui text-sm font-normal leading-relaxed text-[#5D6B6C] sm:text-[15px] sm:leading-[22.5px]">
                 &quot;Bien plus qu&apos;un simple installateur, un véritable partenaire de confiance à vos côtés, qui vous accompagne
                 avec rigueur, transparence et engagement pour garantir la qualité et la pérennité de chaque installation.&quot;
               </blockquote>

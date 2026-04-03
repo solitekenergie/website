@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Strapi is a separate project with its own generated files and config style.
+    "strapi-solitek/**",
   ]),
 ]);
 

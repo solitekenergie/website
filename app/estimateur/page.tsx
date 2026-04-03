@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import MultiStepEstimatorForm from "@/components/forms/MultiStepEstimatorForm";
 
 export const metadata: Metadata = {
-  title: "Simulateur Solaire Gratuit à Strasbourg | Estimez vos Économies en 2 min",
+  title: "Simulateur solaire à Strasbourg",
   description:
-    "Calculez votre production solaire et vos économies en 2 minutes. Simulateur photovoltaïque gratuit pour Strasbourg et l'Alsace, personnalisé selon votre adresse. Sans engagement.",
+    "Estimez votre production solaire et vos économies à Strasbourg en 2 minutes. Simulation gratuite selon votre adresse, sans engagement.",
   alternates: {
     canonical: "/estimateur",
   },
@@ -16,9 +16,9 @@ export const metadata: Metadata = {
     "devis solaire en ligne Strasbourg",
   ],
   openGraph: {
-    title: "Simulateur Solaire Gratuit | SOLITEK Alsace",
+    title: "Simulateur solaire à Strasbourg | SOLITEK",
     description:
-      "Estimez votre production solaire et vos économies en 2 minutes, personnalisé selon votre adresse.",
+      "Estimez votre production solaire et vos économies à Strasbourg en 2 minutes selon votre adresse.",
     url: "/estimateur",
   },
 };

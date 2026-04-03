@@ -55,9 +55,18 @@ const sections = [
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Mentions Légales | SOLITEK",
+  title: "Mentions légales",
   description:
-    "Mentions légales du site SOLITEK, installateur certifié RGE en Alsace : éditeur, hébergeur et informations légales.",
+    "Mentions légales de SOLITEK : éditeur du site, hébergement et informations juridiques.",
+  alternates: {
+    canonical: "/mentions-legales",
+  },
+  openGraph: {
+    title: "Mentions légales | SOLITEK",
+    description:
+      "Mentions légales de SOLITEK : éditeur du site, hébergement et informations juridiques.",
+    url: "/mentions-legales",
+  },
   robots: { index: false, follow: false },
 };
 
@@ -72,18 +81,18 @@ export default function MentionsLegalesPage() {
         <div className="flex flex-col divide-y divide-slate-200">
           {sections.map((section) => (
             <div key={section.title} className="py-8">
-              <h2 className="mb-4 font-['Figtree'] text-xs font-semibold uppercase tracking-widest text-[#2DB180]">
+              <h2 className="mb-4 font-ui text-xs font-semibold uppercase tracking-wide text-[#1E9A66]">
                 {section.title}
               </h2>
               <ul className="flex flex-col gap-2">
                 {section.content.map((line) => {
                   const urlMatch = line.match(/^(URL\s*:\s*)(https?:\/\/.+)$/);
                   return (
-                    <li key={line} className="font-['Figtree'] text-sm leading-relaxed text-black/60 sm:text-base">
+                    <li key={line} className="font-ui text-sm leading-relaxed text-black/60 sm:text-base">
                       {urlMatch ? (
                         <>
                           {urlMatch[1]}
-                          <a href={urlMatch[2]} target="_blank" rel="noopener noreferrer" className="underline hover:text-[#2DB180]">
+                          <a href={urlMatch[2]} target="_blank" rel="noopener noreferrer" className="underline hover:text-[#1E9A66]">
                             {urlMatch[2]}
                           </a>
                         </>

@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   contactSchema,
+  PRESTATIONS,
   type ContactFormData,
   type ContactPayload,
 } from "@/lib/validation/contact";
@@ -22,7 +23,7 @@ export default function ContactForm() {
     formState: { errors },
   } = useForm<ContactFormData, undefined, ContactPayload>({
     resolver: zodResolver(contactSchema),
-    defaultValues: { name: "", email: "", phone: "", message: "" },
+    defaultValues: { name: "", email: "", phone: "", prestation: "", ville: "", message: "" },
   });
 
   const onSubmit = async (data: ContactPayload) => {
@@ -56,92 +57,165 @@ export default function ContactForm() {
     }
   };
 
+  const isLoading = status === "loading";
+  const inputBase =
+    "w-full rounded-lg border border-[rgba(128,128,128,0.40)] bg-white px-4 py-3 text-base text-[#161A1E] focus:border-[#2DB180] focus:outline-none focus:ring-2 focus:ring-[#2DB180]/20 disabled:cursor-not-allowed disabled:opacity-50 sm:px-5 sm:py-4";
+
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="space-y-4 rounded-xl border border-slate-200 bg-white p-6 shadow-sm"
+      className="flex w-full flex-col gap-4"
     >
-      <div className="grid gap-4 md:grid-cols-2">
-        <div className="flex flex-col gap-2">
-          <label className="text-sm font-medium text-slate-800" htmlFor="name">
-            Nom complet
-          </label>
-          <input
-            id="name"
-            type="text"
-            {...register("name")}
-            className="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm shadow-inner focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-100"
-            placeholder="Votre nom"
-            disabled={status === "loading"}
-          />
-          {errors.name && <p className="text-sm text-red-600">{errors.name.message}</p>}
-        </div>
-        <div className="flex flex-col gap-2">
-          <label className="text-sm font-medium text-slate-800" htmlFor="email">
-            Email
-          </label>
-          <input
-            id="email"
-            type="email"
-            {...register("email")}
-            className="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm shadow-inner focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-100"
-            placeholder="vous@example.com"
-            disabled={status === "loading"}
-          />
-          {errors.email && <p className="text-sm text-red-600">{errors.email.message}</p>}
-        </div>
-      </div>
+      <Field
+        id="name"
+        label="Nom complet*"
+        type="text"
+        register={register("name")}
+        error={errors.name?.message}
+        disabled={isLoading}
+        inputClassName={inputBase}
+        required
+      />
 
-      <div className="flex flex-col gap-2">
-        <label className="text-sm font-medium text-slate-800" htmlFor="phone">
-          Téléphone (facultatif)
-        </label>
-        <input
+      <div className="flex flex-col gap-4 sm:flex-row">
+        <Field
+          id="email"
+          label="E-mail*"
+          type="email"
+          register={register("email")}
+          error={errors.email?.message}
+          disabled={isLoading}
+          inputClassName={inputBase}
+          required
+        />
+        <Field
           id="phone"
+          label="Téléphone"
           type="tel"
-          {...register("phone")}
-          className="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm shadow-inner focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-100"
-          placeholder="06..."
-          disabled={status === "loading"}
+          register={register("phone")}
+          error={errors.phone?.message}
+          disabled={isLoading}
+          inputClassName={inputBase}
         />
-        {errors.phone && <p className="text-sm text-red-600">{errors.phone.message}</p>}
       </div>
 
-      <div className="flex flex-col gap-2">
-        <label className="text-sm font-medium text-slate-800" htmlFor="message">
-          Votre projet
-        </label>
-        <textarea
-          id="message"
-          rows={5}
-          {...register("message")}
-          className="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm shadow-inner focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-100"
-          placeholder="Décrivez votre toiture, vos objectifs et vos contraintes..."
-          disabled={status === "loading"}
+      <div className="flex flex-col gap-4 sm:flex-row">
+        <div className="flex flex-1 flex-col gap-1.5">
+          <label htmlFor="prestation" className="font-ui text-sm font-medium text-black/70 sm:text-base">
+            Prestation souhaitée*
+          </label>
+          <select
+            id="prestation"
+            {...register("prestation")}
+            disabled={isLoading}
+            required
+            aria-required="true"
+            aria-invalid={errors.prestation ? "true" : undefined}
+            className={`h-12 appearance-none sm:h-[52px] ${inputBase}`}
+          >
+            <option value="">Sélectionner</option>
+            {PRESTATIONS.map((p) => (
+              <option key={p} value={p}>{p}</option>
+            ))}
+          </select>
+          {errors.prestation?.message && (
+            <p className="text-xs font-medium text-red-600 sm:text-sm">{errors.prestation.message}</p>
+          )}
+        </div>
+        <Field
+          id="ville"
+          label="Ville"
+          type="text"
+          register={register("ville")}
+          error={errors.ville?.message}
+          disabled={isLoading}
+          inputClassName={inputBase}
         />
-        {errors.message && <p className="text-sm text-red-600">{errors.message.message}</p>}
       </div>
+
+      <Field
+        id="message"
+        label="Votre projet*"
+        type="textarea"
+        register={register("message")}
+        error={errors.message?.message}
+        disabled={isLoading}
+        inputClassName={inputBase}
+        required
+      />
 
       {serverMessage && (
-        <p
-          className={`text-sm ${status === "success" ? "text-emerald-700" : "text-red-600"}`}
+        <div
+          role="status"
+          aria-live="polite"
+          className={`w-full rounded-lg p-4 text-sm font-medium ${
+            status === "success"
+              ? "border border-green-200 bg-green-50 text-green-800"
+              : "border border-red-200 bg-red-50 text-red-800"
+          }`}
         >
           {serverMessage}
-        </p>
+        </div>
       )}
 
-      <div className="flex items-center justify-between gap-3">
-        <p className="text-xs text-slate-500">
-          Nous répondons sous 24h. Vos informations restent confidentielles.
-        </p>
+      <div className="flex justify-center pt-2">
         <button
           type="submit"
-          className="rounded-full bg-sky-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-sky-700 disabled:cursor-not-allowed disabled:opacity-60"
-          disabled={status === "loading"}
+          disabled={isLoading}
+          className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#2DB180] px-20 py-5 font-ui text-sm font-bold uppercase leading-tight text-white transition-colors hover:bg-[#26a072] disabled:cursor-not-allowed disabled:opacity-50 sm:px-24 sm:py-6 sm:text-base"
         >
-          {status === "loading" ? "Envoi..." : "Envoyer"}
+          {isLoading ? "Envoi en cours..." : "Envoyer ma demande"}
         </button>
       </div>
     </form>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+
+type FieldProps = {
+  id: string;
+  label: string;
+  type: string;
+  register: Record<string, unknown>;
+  error?: string;
+  disabled?: boolean;
+  inputClassName: string;
+  required?: boolean;
+};
+
+function Field({ id, label, type, register, error, disabled, inputClassName, required }: FieldProps) {
+  return (
+    <div className="flex flex-1 flex-col gap-1.5">
+      <label htmlFor={id} className="font-ui text-sm font-medium text-black/70 sm:text-base">
+        {label}
+      </label>
+      {type === "textarea" ? (
+        <textarea
+          id={id}
+          {...register}
+          disabled={disabled}
+          rows={5}
+          className={inputClassName}
+          aria-invalid={error ? "true" : undefined}
+          required={required}
+          aria-required={required ? "true" : undefined}
+        />
+      ) : (
+        <input
+          id={id}
+          type={type}
+          {...register}
+          disabled={disabled}
+          className={`h-12 sm:h-[52px] ${inputClassName}`}
+          aria-invalid={error ? "true" : undefined}
+          required={required}
+          aria-required={required ? "true" : undefined}
+        />
+      )}
+      {error && (
+        <p className="text-xs font-medium text-red-600 sm:text-sm">{error}</p>
+      )}
+    </div>
   );
 }

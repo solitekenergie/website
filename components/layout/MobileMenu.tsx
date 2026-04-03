@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Link from "next/link";
 import PrimaryCta from "../ui/PrimaryCta";
 import { AnimatedLink } from "../ui/AnimatedLink";
+import { useFocusTrap } from "@/lib/useFocusTrap";
 
 interface MobileMenuProps {
   isOpen: boolean;
@@ -12,11 +13,7 @@ interface MobileMenuProps {
 }
 
 export default function MobileMenu({ isOpen, onClose, navItems }: MobileMenuProps) {
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const menuRef = useFocusTrap(isOpen);
 
   useEffect(() => {
     if (isOpen) {
@@ -29,8 +26,6 @@ export default function MobileMenu({ isOpen, onClose, navItems }: MobileMenuProp
       document.body.style.overflow = "";
     };
   }, [isOpen]);
-
-  if (!mounted) return null;
 
   return (
     <>
@@ -45,12 +40,14 @@ export default function MobileMenu({ isOpen, onClose, navItems }: MobileMenuProp
 
       {/* Menu panel */}
       <div
+        ref={menuRef}
         className={`fixed right-0 top-0 z-50 h-full w-[85vw] max-w-md bg-[#161A1E] shadow-2xl transition-transform duration-700 ease-[cubic-bezier(0.77,0,0.175,1)] ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
         role="dialog"
         aria-modal="true"
         aria-label="Menu de navigation"
+        onKeyDown={(e) => { if (e.key === "Escape") onClose(); }}
       >
         {/* Menu content */}
         <div className="flex h-full flex-col">

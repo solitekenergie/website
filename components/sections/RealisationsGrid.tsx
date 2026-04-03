@@ -1,7 +1,7 @@
 "use client";
-/* eslint-disable @next/next/no-img-element */
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 type CardData = {
   slug: string;
@@ -22,18 +22,20 @@ function Card({ slug, image, title, date, description, featured }: CardData) {
     >
       <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl bg-[#161A1E]">
         {image ? (
-          <img
-            className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+          <Image
+            className="object-cover transition-transform duration-300 group-hover:scale-105"
             src={image}
             alt={title}
+            fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
           />
         ) : (
           <div className="h-full w-full flex items-center justify-center p-8">
-            <img src="/logo.png" alt="SOLITEK" className="w-20 h-auto opacity-30 object-contain" />
+            <Image src="/logo.png" alt="SOLITEK" width={80} height={40} className="opacity-30 object-contain" />
           </div>
         )}
         {featured && (
-          <span className="absolute left-3 top-3 rounded-full bg-[#2DB180] px-3 py-1 font-['Figtree'] text-xs font-semibold text-white">
+          <span className="absolute left-3 top-3 rounded-full bg-[#2DB180] px-3 py-1 font-ui text-xs font-semibold text-white">
             À la une
           </span>
         )}
@@ -42,8 +44,8 @@ function Card({ slug, image, title, date, description, featured }: CardData) {
         <div className="font-title font-black uppercase text-xl text-[#161A1E] sm:text-2xl lg:text-[26px] lg:leading-tight line-clamp-2">
           {title}
         </div>
-        <div className="font-['Figtree'] text-sm text-black/50">{date}</div>
-        <div className="font-['Figtree'] text-sm sm:text-base text-black/70 line-clamp-3 leading-relaxed">
+        <div className="font-ui text-sm text-black/50">{date}</div>
+        <div className="font-ui text-sm sm:text-base text-black/70 line-clamp-3 leading-relaxed">
           {description}
         </div>
       </div>
@@ -58,7 +60,7 @@ export function RealisationsGrid({ cards }: { cards: CardData[] }) {
 
   if (cards.length === 0) {
     return (
-      <div className="text-center font-['Figtree'] text-lg text-black/60">
+      <div className="text-center font-ui text-lg text-black/60">
         Aucune réalisation disponible pour le moment.
       </div>
     );

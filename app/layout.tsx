@@ -13,31 +13,34 @@ const montserrat = Montserrat({
 
 const figtree = Figtree({
   subsets: ["latin"],
-  weight: ["700"],
+  weight: ["400", "500", "600", "700"],
   variable: "--font-ui",
 });
 
 export const metadata: Metadata = {
   title: {
-    default: "SOLITEK | Installateur RGE à Strasbourg – Solaire, PAC & Clim",
-    template: "%s | SOLITEK Strasbourg",
+    default: "Solutions énergétiques à Strasbourg",
+    template: "%s | SOLITEK",
   },
   description:
-    "SOLITEK, installateur certifié RGE à Strasbourg et en Alsace : panneaux solaires, pompe à chaleur, climatisation réversible, VMC, borne IRVE et électricité. Devis gratuit, sans engagement.",
+    "SOLITEK à Strasbourg et en Alsace : photovoltaïque, pompe à chaleur, climatisation, ventilation et électricité. Étude gratuite pour votre projet énergétique.",
   keywords: [
     // Core métier + Strasbourg
-    "installateur solaire Strasbourg",
+    "solutions énergétiques Strasbourg",
     "panneaux solaires Strasbourg",
     "photovoltaïque Strasbourg",
     "installation photovoltaïque Strasbourg",
-    "installateur solaire Alsace",
+    "rénovation énergétique Strasbourg",
+    "installateur RGE Alsace",
     "panneaux solaires Alsace",
     "énergie solaire maison",
     "autoconsommation solaire",
     // Services + Strasbourg
     "pompe à chaleur Strasbourg",
+    "chauffage Strasbourg",
     "climatisation réversible Strasbourg",
     "VMC double flux Strasbourg",
+    "électricité Strasbourg",
     "électricien RGE Strasbourg",
     "pompe à chaleur Alsace",
     "climatisation réversible Alsace",
@@ -63,9 +66,9 @@ export const metadata: Metadata = {
     type: "website",
     locale: "fr_FR",
     siteName: "SOLITEK",
-    title: "SOLITEK | Installateur RGE à Strasbourg – Solaire, PAC & Clim",
+    title: "Solutions énergétiques à Strasbourg | SOLITEK",
     description:
-      "Panneaux solaires, pompe à chaleur, climatisation, VMC et borne IRVE à Strasbourg et en Alsace. Certifié RGE. Devis gratuit et sans engagement.",
+      "SOLITEK à Strasbourg et en Alsace : photovoltaïque, pompe à chaleur, climatisation, ventilation et électricité. Étude gratuite.",
     images: [
       {
         url: "/hero-panels.jpg",
@@ -74,13 +77,6 @@ export const metadata: Metadata = {
         alt: "Installation de panneaux solaires par SOLITEK en Alsace",
       },
     ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "SOLITEK | Installateur RGE à Strasbourg – Solaire, PAC & Clim",
-    description:
-      "Panneaux solaires, pompe à chaleur, climatisation, VMC et borne IRVE à Strasbourg et en Alsace. Certifié RGE.",
-    images: ["/hero-panels.jpg"],
   },
   robots: {
     index: true,
@@ -117,39 +113,18 @@ export default function RootLayout({
           />
         </noscript>
 
-        {/* Google Tag Manager */}
-        <Script id="gtm" strategy="beforeInteractive">
-          {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-MS6ZCPX8');`}
-        </Script>
+        {/* Consent Mode config - inline script for fastest execution before GTM */}
+        <script dangerouslySetInnerHTML={{ __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('consent','default',{'ad_storage':'denied','analytics_storage':'denied','functionality_storage':'denied','personalization_storage':'denied','security_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','wait_for_update':1500});gtag('set','ads_data_redaction',true);gtag('set','url_passthrough',false);(function(){var s={adStorage:{storageName:"ad_storage",serialNumber:0},analyticsStorage:{storageName:"analytics_storage",serialNumber:1},functionalityStorage:{storageName:"functionality_storage",serialNumber:2},personalizationStorage:{storageName:"personalization_storage",serialNumber:3},securityStorage:{storageName:"security_storage",serialNumber:4},adUserData:{storageName:"ad_user_data",serialNumber:5},adPersonalization:{storageName:"ad_personalization",serialNumber:6}};var c=localStorage.getItem("__lxG__consent__v2");if(c){c=JSON.parse(c);if(c&&c.cls_val)c=c.cls_val;if(c)c=c.split("|");if(c&&c.length&&typeof c[14]!==undefined){c=c[14].split("").map(function(e){return e-0});if(c.length){var t={};Object.values(s).sort(function(a,b){return a.serialNumber-b.serialNumber}).forEach(function(e){t[e.storageName]=c[e.serialNumber]?"granted":"denied"});gtag("consent","update",t)}}}})();` }} />
 
-        {/* Default Consent Mode + GA4 config - beforeInteractive pour que le dataLayer
-            soit prêt avant le chargement de gtag.js */}
-        <Script id="consent-mode-config" strategy="beforeInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('consent', 'default', {
-                'ad_storage': 'denied',
-                'analytics_storage': 'denied',
-                'functionality_storage': 'denied',
-                'personalization_storage': 'denied',
-                'security_storage': 'denied',
-                'ad_user_data': 'denied',
-                'ad_personalization': 'denied',
-                'wait_for_update': 1500
-            });
-            gtag('set', 'ads_data_redaction', true);
-            gtag('set', 'url_passthrough', false);
-            (function(){
-                const s={adStorage:{storageName:"ad_storage",serialNumber:0},analyticsStorage:{storageName:"analytics_storage",serialNumber:1},functionalityStorage:{storageName:"functionality_storage",serialNumber:2},personalizationStorage:{storageName:"personalization_storage",serialNumber:3},securityStorage:{storageName:"security_storage",serialNumber:4},adUserData:{storageName:"ad_user_data",serialNumber:5},adPersonalization:{storageName:"ad_personalization",serialNumber:6}};let c=localStorage.getItem("__lxG__consent__v2");if(c){c=JSON.parse(c);if(c&&c.cls_val)c=c.cls_val;if(c)c=c.split("|");if(c&&c.length&&typeof c[14]!==undefined){c=c[14].split("").map(e=>e-0);if(c.length){let t={};Object.values(s).sort((e,t)=>e.serialNumber-t.serialNumber).forEach(e=>{t[e.storageName]=c[e.serialNumber]?"granted":"denied"});gtag("consent","update",t)}}}
-            })();
-          `}
+        {/* Google Tag Manager */}
+        <Script id="gtm" strategy="afterInteractive">
+          {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-MS6ZCPX8');`}
         </Script>
 
         {/* Clickio Consent Main tag */}
         <Script
           src="//clickiocmp.com/t/consent_247315.js"
-          strategy="beforeInteractive"
+          strategy="lazyOnload"
         />
 
         {/* Google Analytics 4 */}
@@ -218,6 +193,13 @@ export default function RootLayout({
                 { "@type": "Offer", itemOffered: { "@type": "Service", name: "Électricité et mise aux normes" } },
                 { "@type": "Offer", itemOffered: { "@type": "Service", name: "Borne IRVE" } },
               ],
+              contactPoint: {
+                "@type": "ContactPoint",
+                telephone: "+33783289777",
+                contactType: "customer service",
+                areaServed: "FR",
+                availableLanguage: "French",
+              },
               sameAs: [
                 "https://www.linkedin.com/in/solitek-energie-82b6402a5/",
                 "https://www.instagram.com/solitek_",

@@ -98,8 +98,6 @@ export default function SolarHeatMap({ coordinates }: SolarHeatMapProps) {
 
     if (!rgb || !flux || !canvas || !range || loading) return;
 
-    let frameId: number;
-
     async function render() {
       const utils = await import("@/lib/solar/geotiff-utils");
       const mask = maskDataRef.current ?? undefined;
@@ -121,8 +119,8 @@ export default function SolarHeatMap({ coordinates }: SolarHeatMapProps) {
       ctx.drawImage(composite, 0, 0);
     }
 
-    frameId = requestAnimationFrame(() => {
-      render();
+    const frameId = requestAnimationFrame(() => {
+      void render();
     });
 
     return () => cancelAnimationFrame(frameId);

@@ -11,6 +11,7 @@ const navItems = [
   { href: "/", label: "Accueil" },
   { href: "/services", label: "Services" },
   { href: "/realisations", label: "Réalisations" },
+  { href: "/blog", label: "Blog" },
   { href: "/faq", label: "FAQ" },
   { href: "/contact", label: "Contact" },
 ];
@@ -93,7 +94,7 @@ export default function Header() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="transition-colors hover:text-[#2DB180] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#2DB180]"
+                  className="transition-colors hover:text-[#1E9A66] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#2DB180]"
                 >
                   <AnimatedLink>{item.label}</AnimatedLink>
                 </Link>

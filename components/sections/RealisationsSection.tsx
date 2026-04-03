@@ -1,18 +1,20 @@
-/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import type { Realisation } from "@/lib/realisations";
+import { FadeIn } from "@/components/ui/FadeIn";
 import { getStrapiImageUrl } from "@/lib/realisations";
 
-function NavButton({ direction }: { direction: "left" | "right" }) {
+function NavButton({ direction, onClick }: { direction: "left" | "right"; onClick?: () => void }) {
   const isLeft = direction === "left";
   return (
     <button
       type="button"
+      onClick={onClick}
       aria-label={isLeft ? "Précédent" : "Suivant"}
-      className="flex h-14 w-14 items-center justify-center gap-2 rounded-full bg-[rgba(22,26,30,0.07)]"
+      className="flex h-14 w-14 items-center justify-center gap-2 rounded-full bg-[rgba(22,26,30,0.07)] transition-colors hover:bg-[rgba(22,26,30,0.12)]"
     >
       <svg
         width="24"
@@ -82,9 +84,11 @@ export function RealisationsSection({ realisations }: { realisations: Realisatio
 
   return (
     <section className="inline-flex h-full w-full flex-col items-start justify-start gap-12 p-4 sm:gap-16 sm:p-8 lg:gap-20 lg:p-[100px]">
-      <h2 className="self-stretch text-center font-title text-3xl font-black uppercase leading-tight text-black sm:text-4xl sm:leading-tight lg:text-[56px] lg:leading-[56px]">
-        Nos réalisations
-      </h2>
+      <FadeIn>
+        <h2 className="self-stretch text-center font-title text-3xl font-black uppercase leading-tight text-black sm:text-4xl sm:leading-tight lg:text-[56px] lg:leading-[56px]">
+          Nos réalisations
+        </h2>
+      </FadeIn>
 
       <div className="w-full overflow-hidden">
         <div
@@ -104,19 +108,19 @@ export function RealisationsSection({ realisations }: { realisations: Realisatio
                 className="inline-flex flex-col items-start justify-start gap-4 sm:gap-6"
                 style={{ minWidth: `${cardWidth}px`, width: `${cardWidth}px` }}
               >
-                <div className="flex h-[250px] w-full flex-col items-center justify-end gap-2 overflow-hidden rounded-lg bg-[#161A1E] p-6 sm:h-[300px] sm:p-8 lg:h-[350px] lg:p-10">
-                  <img className="h-full w-full rounded object-cover" src={imageUrl} alt={altText} />
+                <div className="relative h-[250px] w-full overflow-hidden rounded-lg bg-[#161A1E] sm:h-[300px] lg:h-[350px]">
+                  <Image className="rounded object-cover" src={imageUrl} alt={altText} fill sizes="(max-width: 640px) 100vw, (max-width: 1024px) 400px, 500px" />
                 </div>
                 <div className="flex flex-col items-start justify-start gap-4 self-stretch sm:gap-6">
                   <div className="flex flex-col items-start justify-start gap-3 self-stretch sm:gap-4">
                     <h3 className="self-stretch font-title text-xl font-black uppercase leading-tight text-[#161A1E] sm:text-2xl sm:leading-tight lg:text-[28px] lg:leading-[28px]">
                       {real.titre}
                     </h3>
-                    <p className="self-stretch font-['Figtree'] text-sm font-normal leading-6 text-black/60 opacity-80 sm:text-[15px]">
+                    <p className="self-stretch text-left font-ui text-sm font-normal leading-6 text-black/60 opacity-80 sm:text-[15px]">
                       {formatDate(real.datePublication)}
                     </p>
                   </div>
-                  <p className="self-stretch font-['Figtree'] text-base font-normal leading-relaxed text-black sm:text-lg sm:leading-[27px]">
+                  <p className="self-stretch text-left font-ui text-base font-normal leading-relaxed text-black sm:text-lg sm:leading-[27px]">
                     {real.resume}
                   </p>
                 </div>
@@ -128,12 +132,8 @@ export function RealisationsSection({ realisations }: { realisations: Realisatio
 
       {realisations.length > 1 && (
         <div className="inline-flex items-center justify-center gap-2 self-stretch">
-          <span onClick={handlePrev}>
-            <NavButton direction="left" />
-          </span>
-          <span onClick={handleNext}>
-            <NavButton direction="right" />
-          </span>
+          <NavButton direction="left" onClick={handlePrev} />
+          <NavButton direction="right" onClick={handleNext} />
         </div>
       )}
     </section>

@@ -95,11 +95,11 @@ export default function Step1Address({ formData, updateFormData, onNext }: Step1
   };
 
   const handleManualValidation = () => {
-    // Permet de continuer même sans coordonnées si l'utilisateur a saisi une adresse
+    // Permet de continuer même sans coordonnées (PVGIS utilisera un défaut France)
     if (address) {
       updateFormData({
         address,
-        coordinates: selectedCoords || { lat: 0, lng: 0 } // Coordonnées par défaut si non disponibles
+        coordinates: selectedCoords || undefined,
       });
       onNext();
     }

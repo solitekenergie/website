@@ -1,7 +1,7 @@
-/* eslint-disable @next/next/no-img-element */
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import {
   getRealisation,
   getRealisations,
@@ -12,6 +12,7 @@ import {
   type Realisation,
   type ContentBlock,
 } from "@/lib/realisations";
+import { shortenSeoDescription, shortenSeoTitle } from "@/lib/seo";
 import { absoluteUrl } from "@/lib/site";
 
 type RichTextNode = {
@@ -34,7 +35,7 @@ function RichText({ content }: { content: string | RichTextNode[] | undefined })
   if (!content) return null;
   if (typeof content === "string") {
     return (
-      <p className="font-['Figtree'] text-base leading-relaxed text-black/70 sm:text-lg sm:leading-[27px]">
+      <p className="font-ui text-base leading-relaxed text-black/70 sm:text-lg sm:leading-[27px]">
         {content}
       </p>
     );
@@ -47,7 +48,7 @@ function RichText({ content }: { content: string | RichTextNode[] | undefined })
     switch (node.type) {
       case "paragraph":
         return (
-          <p key={index} className="font-['Figtree'] text-base leading-relaxed text-black/70 sm:text-lg sm:leading-[27px] mb-4">
+          <p key={index} className="font-ui text-base leading-relaxed text-black/70 sm:text-lg sm:leading-[27px] mb-4">
             {children}
           </p>
         );
@@ -66,7 +67,7 @@ function RichText({ content }: { content: string | RichTextNode[] | undefined })
         );
       case "list-item":
         return (
-          <li key={index} className="font-['Figtree'] text-base leading-relaxed text-black/70 sm:text-lg">
+          <li key={index} className="font-ui text-base leading-relaxed text-black/70 sm:text-lg">
             {children}
           </li>
         );
@@ -107,13 +108,17 @@ function renderContentBlock(block: ContentBlock, index: number) {
           : "items-center";
       return (
         <div key={index} className={`flex flex-col ${alignClass}`}>
-          <img
-            src={mediaUrl}
-            alt={block.alt ?? block.media?.alternativeText ?? ""}
-            className={`max-w-full h-auto ${radius}`}
-          />
+          <div className="relative w-full aspect-[16/9]">
+            <Image
+              src={mediaUrl}
+              alt={block.alt ?? block.media?.alternativeText ?? ""}
+              fill
+              sizes="(max-width: 900px) 100vw, 900px"
+              className={`object-contain ${radius}`}
+            />
+          </div>
           {block.legende && (
-            <p className="mt-2 text-center font-['Figtree'] text-sm text-black/40">{block.legende}</p>
+            <p className="mt-2 text-center font-ui text-sm text-black/40">{block.legende}</p>
           )}
         </div>
       );
@@ -143,12 +148,13 @@ function renderContentBlock(block: ContentBlock, index: number) {
             block.positionImage === "droite" ? "lg:flex-row-reverse" : ""
           }`}
         >
-          <div className="w-full overflow-hidden rounded-xl lg:flex-1">
-            <img
+          <div className="relative w-full overflow-hidden rounded-xl lg:flex-1" style={{ minHeight: block.hauteurImage || "300px" }}>
+            <Image
               src={imgUrl}
               alt={block.image?.alternativeText ?? ""}
-              className="w-full h-auto object-cover"
-              style={block.hauteurImage ? { height: block.hauteurImage } : undefined}
+              fill
+              sizes="(max-width: 1024px) 100vw, 50vw"
+              className="object-cover"
             />
           </div>
           <div className="lg:flex-1">
@@ -172,11 +178,13 @@ function renderContentBlock(block: ContentBlock, index: number) {
       return (
         <div key={index} className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {images.map((image, imgIndex) => (
-            <div key={imgIndex} className="aspect-[4/3] overflow-hidden rounded-xl bg-[#161A1E]">
-              <img
+            <div key={imgIndex} className="relative aspect-[4/3] overflow-hidden rounded-xl bg-[#161A1E]">
+              <Image
                 src={getStrapiImageUrl(image.url)}
                 alt={image.alternativeText ?? ""}
-                className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+                fill
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                className="object-cover transition-transform duration-300 hover:scale-105"
               />
             </div>
           ))}
@@ -191,7 +199,7 @@ function renderContentBlock(block: ContentBlock, index: number) {
             {typeof block.texte === "string" ? block.texte : richTextToPlainText(block.texte)}
           </p>
           {block.auteur && (
-            <footer className="mt-2 font-['Figtree'] text-sm text-black/50">{block.auteur}</footer>
+            <footer className="mt-2 font-ui text-sm text-black/50">{block.auteur}</footer>
           )}
         </blockquote>
       );
@@ -219,11 +227,11 @@ function renderContentBlock(block: ContentBlock, index: number) {
           {block.technologies.map((tech, techIndex) => (
             <div key={techIndex} className="flex flex-col items-center gap-2 rounded-xl bg-slate-50 p-4">
               {tech.icone && (
-                <img src={getStrapiImageUrl(tech.icone.url)} alt={tech.nom} className="w-10 h-10 object-contain" />
+                <Image src={getStrapiImageUrl(tech.icone.url)} alt={tech.nom} width={40} height={40} className="object-contain" />
               )}
-              <span className="font-['Figtree'] text-sm font-semibold text-center text-[#161A1E]">{tech.nom}</span>
+              <span className="font-ui text-sm font-semibold text-center text-[#161A1E]">{tech.nom}</span>
               {tech.description && (
-                <p className="font-['Figtree'] text-xs text-black/50 text-center">{tech.description}</p>
+                <p className="font-ui text-xs text-black/50 text-center">{tech.description}</p>
               )}
             </div>
           ))}
@@ -243,29 +251,31 @@ function AutreProjetCard({ realisation }: { realisation: Realisation }) {
       href={`/realisations/${realisation.slug}`}
       className="group flex flex-col gap-4 hover:opacity-90 transition-opacity"
     >
-      <div className="aspect-[4/3] w-full overflow-hidden rounded-xl bg-[#161A1E]">
+      <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl bg-[#161A1E]">
         {coverUrl ? (
-          <img
+          <Image
             src={coverUrl}
             alt={realisation.imageCouverture?.alternativeText ?? realisation.titre}
-            className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+            fill
+            sizes="(max-width: 640px) 100vw, 33vw"
+            className="object-cover transition-transform duration-300 group-hover:scale-105"
           />
         ) : (
-          <div className="h-full w-full flex items-center justify-center p-8">
-            <img src="/logo.png" alt="SOLITEK" className="w-24 h-auto opacity-30 object-contain" />
+          <div className="flex h-full w-full items-center justify-center p-8">
+            <Image src="/logo.png" alt="SOLITEK" width={96} height={48} className="opacity-30 object-contain" />
           </div>
         )}
       </div>
       <div className="flex flex-col gap-1">
         {realisation.categorie && (
-          <p className="font-['Figtree'] text-xs font-semibold uppercase tracking-widest text-[#2DB180]">
+          <p className="font-ui text-xs font-semibold uppercase tracking-wide text-[#1E9A66]">
             {realisation.categorie.titre}
           </p>
         )}
         <h3 className="font-title text-lg font-black uppercase text-[#161A1E] sm:text-xl">
           {realisation.titre}
         </h3>
-        <p className="font-['Figtree'] text-sm text-black/50">{formatDate(realisation.datePublication)}</p>
+        <p className="font-ui text-sm text-black/50">{formatDate(realisation.datePublication)}</p>
       </div>
     </Link>
   );
@@ -285,20 +295,22 @@ export async function generateMetadata({
   const realisation = await getRealisation(resolvedParams.slug);
 
   if (!realisation) {
-    return { title: "Réalisation non trouvée | SOLITEK" };
+    return { title: "Réalisation non trouvée" };
   }
 
   const coverUrl = getFirstImageUrl(realisation);
+  const seoTitle = shortenSeoTitle(realisation.titre);
+  const seoDescription = shortenSeoDescription(realisation.resume || realisation.description);
 
   return {
-    title: `${realisation.titre} | Réalisations SOLITEK`,
-    description: realisation.resume || realisation.description,
+    title: seoTitle,
+    description: seoDescription,
     alternates: {
       canonical: `/realisations/${realisation.slug}`,
     },
     openGraph: {
-      title: `${realisation.titre} | SOLITEK`,
-      description: realisation.resume || realisation.description,
+      title: seoTitle,
+      description: seoDescription,
       url: `/realisations/${realisation.slug}`,
       images: coverUrl ? [{ url: coverUrl, alt: realisation.titre }] : [],
     },
@@ -387,7 +399,7 @@ export default async function RealisationPage({
           <div className="mx-auto max-w-[1440px]">
             <Link
               href="/realisations"
-              className="mb-4 inline-flex items-center gap-2 font-['Figtree'] text-sm font-semibold uppercase tracking-widest text-white transition-opacity hover:opacity-70"
+              className="mb-4 inline-flex items-center gap-2 font-ui text-sm font-semibold uppercase tracking-wide text-white transition-opacity hover:opacity-70"
             >
               <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -399,7 +411,7 @@ export default async function RealisationPage({
               {realisation.titre}
             </h1>
 
-            <p className="mt-6 max-w-[700px] font-['Figtree'] text-base leading-relaxed text-white/70 sm:text-lg">
+            <p className="mt-6 max-w-[700px] font-ui text-base leading-relaxed text-white/70 sm:text-lg">
               {realisation.resume || realisation.description}
             </p>
           </div>
@@ -409,7 +421,7 @@ export default async function RealisationPage({
         {(realisation.videoCouverture || coverUrl) && (
           <div className="w-full px-4 pt-8 sm:px-8 sm:pt-12 lg:px-20 lg:pt-16">
             <div className="mx-auto max-w-[1440px]">
-              <div className="aspect-[16/7] w-full overflow-hidden rounded-xl bg-[#161A1E]">
+              <div className="relative aspect-[16/7] w-full overflow-hidden rounded-xl bg-[#161A1E]">
                 {realisation.videoCouverture ? (
                   <video
                     src={realisation.videoCouverture}
@@ -421,10 +433,13 @@ export default async function RealisationPage({
                     className="h-full w-full object-cover"
                   />
                 ) : (
-                  <img
+                  <Image
                     src={coverUrl}
                     alt={realisation.imageCouverture?.alternativeText ?? realisation.titre}
-                    className="h-full w-full object-cover"
+                    fill
+                    sizes="100vw"
+                    priority
+                    className="object-cover"
                   />
                 )}
               </div>
@@ -439,7 +454,7 @@ export default async function RealisationPage({
             {/* Description longue */}
             {realisation.description && realisation.description !== realisation.resume && (
               <div className="mb-10 sm:mb-14">
-                <p className="font-['Figtree'] text-base leading-relaxed text-black/70 sm:text-lg sm:leading-[27px]">
+                <p className="font-ui text-base leading-relaxed text-black/70 sm:text-lg sm:leading-[27px]">
                   {realisation.description}
                 </p>
               </div>
@@ -460,11 +475,13 @@ export default async function RealisationPage({
                 </h2>
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                   {realisation.images.map((image, imgIndex) => (
-                    <div key={imgIndex} className="aspect-[4/3] overflow-hidden rounded-xl bg-[#161A1E]">
-                      <img
+                    <div key={imgIndex} className="relative aspect-[4/3] overflow-hidden rounded-xl bg-[#161A1E]">
+                      <Image
                         src={getStrapiImageUrl(image.url)}
                         alt={image.alternativeText ?? `Photo ${imgIndex + 1} - ${realisation.titre}`}
-                        className="h-full w-full object-cover transition-transform duration-300 hover:scale-105"
+                        fill
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        className="object-cover transition-transform duration-300 hover:scale-105"
                       />
                     </div>
                   ))}
@@ -496,7 +513,7 @@ export default async function RealisationPage({
             <h2 className="font-title text-3xl font-black uppercase leading-tight text-white sm:text-4xl lg:text-[56px] lg:leading-[56px]">
               Un projet similaire ?
             </h2>
-            <p className="max-w-[560px] font-['Figtree'] text-base leading-relaxed text-white/80 sm:text-lg">
+            <p className="max-w-[560px] font-ui text-base leading-relaxed text-white/80 sm:text-lg">
               Décrivez votre installation, nous vous recontactons sous 24h. Devis gratuit, sans engagement.
             </p>
             <Link

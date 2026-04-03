@@ -1,54 +1,50 @@
 import type { Metadata } from "next";
-import { listPosts } from "@/lib/blog";
 import { getRealisations } from "@/lib/realisations";
-import { MissionSection } from "@/components/sections/MissionSection";
+import dynamic from "next/dynamic";
+
+const MissionSection = dynamic(() => import("@/components/sections/MissionSection").then(m => m.MissionSection));
 import { ServicesSection } from "@/components/sections/ServicesSection";
 import { NeedsSection } from "@/components/sections/NeedsSection";
 import { RealisationsSection } from "@/components/sections/RealisationsSection";
 import { SuppliersSection } from "@/components/sections/SuppliersSection";
-import { AssetProbe } from "@/components/debug/AssetProbe";
 import PrimaryCta from "@/components/ui/PrimaryCta";
 
 export const metadata: Metadata = {
-  title: "SOLITEK | Installateur RGE à Strasbourg – Solaire, PAC & Clim en Alsace",
+  title: "Solutions énergétiques à Strasbourg | SOLITEK",
   description:
-    "Installateur certifié RGE à Strasbourg et en Alsace : panneaux solaires, pompe à chaleur, climatisation, VMC et borne IRVE. Devis gratuit et simulation en ligne en 2 minutes.",
+    "SOLITEK à Strasbourg et en Alsace : photovoltaïque, pompe à chaleur, climatisation, ventilation et électricité. Étude gratuite pour votre projet énergétique.",
   alternates: {
     canonical: "/",
   },
   keywords: [
+    "solutions énergétiques Strasbourg",
     "installateur RGE Strasbourg",
     "panneaux solaires Strasbourg",
+    "photovoltaïque Strasbourg",
+    "pompe à chaleur Strasbourg",
+    "chauffage Strasbourg",
+    "climatisation Strasbourg",
+    "ventilation Strasbourg",
+    "électricité Strasbourg",
     "installateur RGE Alsace",
     "panneaux solaires Alsace",
-    "pompe à chaleur Alsace",
     "climatisation réversible Alsace",
     "VMC double flux Alsace",
     "borne IRVE Alsace",
     "installation photovoltaïque Alsace",
-    "énergie renouvelable maison Alsace",
-    "autoconsommation photovoltaïque",
-    "devis solaire gratuit",
+    "rénovation énergétique Alsace",
+    "devis énergétique Strasbourg",
   ],
   openGraph: {
-    title: "SOLITEK | Installateur RGE à Strasbourg – Solaire, PAC & Clim en Alsace",
+    title: "Solutions énergétiques à Strasbourg | SOLITEK",
     description:
-      "Panneaux solaires, pompe à chaleur, climatisation, VMC et borne IRVE à Strasbourg et en Alsace. Certifié RGE. Devis gratuit et simulation en ligne.",
+      "SOLITEK à Strasbourg et en Alsace : photovoltaïque, pompe à chaleur, climatisation, ventilation et électricité. Étude gratuite.",
     url: "/",
   },
 };
 
-export default async function Home({
-  searchParams,
-}: {
-  searchParams?: Promise<Record<string, string | string[]>>;
-}) {
-  const [, realisations] = await Promise.all([listPosts(), getRealisations()]);
-  const resolvedParams = (await searchParams) ?? {};
-  const debugParam = Array.isArray(resolvedParams.debugAssets)
-    ? resolvedParams.debugAssets[0]
-    : resolvedParams.debugAssets;
-  const debugAssets = debugParam === "1";
+export default async function Home() {
+  const realisations = await getRealisations();
 
   return (
     <div className="space-y-0">
@@ -72,16 +68,19 @@ export default async function Home({
           <div className="mx-auto w-full max-w-[1440px] px-4 sm:px-8 xl:px-[80px]">
             <div className="flex flex-col gap-12">
               <div className="max-w-[603px] space-y-[13px]">
-                <h1 className="font-title text-[42px] font-black uppercase leading-[1.05] tracking-[-1.1px] text-white sm:text-[56px] sm:tracking-[-1.2px] lg:text-[72px] lg:leading-[72px] lg:tracking-[-1.44px]">
-                  <span className="block">Votre partenaire</span>
-                  <span className="block">d’avenir</span>
+                <h1
+                  aria-label="Votre partenaire d'avenir énergétique"
+                  className="font-title text-[42px] font-black uppercase leading-[1.05] tracking-[-1.1px] text-white sm:text-[56px] sm:tracking-[-1.2px] lg:text-[72px] lg:leading-[72px] lg:tracking-[-1.44px]"
+                >
+                  <span className="block">Votre partenaire d&apos;avenir</span>
+                  {" "}
+                  <span className="mt-3 inline-flex items-center rounded-[8px] bg-[rgba(45,177,128,1)] p-6 font-title text-[36px] font-black uppercase leading-[1] tracking-[-1px] text-[#161A1E] sm:text-[48px] sm:tracking-[-1.2px] lg:text-[72px] lg:tracking-[-1.44px]">
+                    Énergétique
+                  </span>
                 </h1>
-                <span className="inline-flex items-center rounded-[8px] bg-[rgba(45,177,128,1)] p-6 font-title text-[36px] font-black uppercase leading-[1] tracking-[-1px] text-[#161A1E] sm:text-[48px] sm:tracking-[-1.2px] lg:text-[72px] lg:tracking-[-1.44px]">
-                  Énergétique
-                </span>
               </div>
               <div className="space-y-6">
-                <p className="font-['Figtree'] text-sm font-semibold uppercase tracking-widest text-[#2DB180]">
+                <p className="font-ui text-sm font-semibold uppercase tracking-wide text-[#1E9A66]">
                   Installateur certifié RGE à Strasbourg et en Alsace
                 </p>
                 <p className="font-title text-[18px] font-normal leading-[24px] tracking-[-0.3px] text-white/80 sm:text-[20px] lg:text-[22px]">
@@ -107,28 +106,6 @@ export default async function Home({
       <NeedsSection />
 
       <RealisationsSection realisations={realisations} />
-
-      {debugAssets ? (
-        <div className="px-4 py-8">
-          <h2 className="text-lg font-semibold">Asset probe (debugAssets=1)</h2>
-          <p className="text-sm text-slate-600">Vérifie le chargement des images locales (mission + services).</p>
-          <AssetProbe
-            sources={[
-              { src: "/images/solitek-installation-panneaux-solaires-alsace.jpg", label: "Mission 1" },
-              { src: "/images/solitek-panneaux-solaires-toiture-maison-alsacienne.jpg", label: "Mission 2" },
-              { src: "/images/solitek-installation-solaire-toiture-maison-alsace.jpg", label: "Mission 3" },
-              { src: "/images/solitek-technicien-pose-panneaux-solaires-strasbourg.jpg", label: "Mission 4" },
-              { src: "/images/solitek-toiture-equipee-panneaux-solaires-alsace.jpg", label: "Mission 5" },
-              { src: "/images/solitek-installation-photovoltaique-carport-solaire-alsace.jpg", label: "Service Photovoltaïque" },
-              { src: "/images/solitek-pompe-chaleur-air-eau-atlantic-terrasse.jpg", label: "Service Chauffage" },
-              { src: "/images/solitek-climatisation-reversible-split-mural-interieur.jpg", label: "Service Climatisation" },
-              { src: "/images/solitek-installation-vmc-double-flux-alsace.jpg", label: "Service Ventilation" },
-              { src: "/images/solitek-electricien-tableau-electrique-mise-aux-normes.jpg", label: "Service Electricité" },
-              { src: "/images/solitek-entretien-nettoyage-panneaux-solaires.jpg", label: "Service Entretien" },
-            ]}
-          />
-        </div>
-      ) : null}
 
       {/* <TestimonialsSection /> */}
     </div>
