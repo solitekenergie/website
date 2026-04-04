@@ -71,7 +71,7 @@ export const metadata: Metadata = {
       "SOLITEK à Strasbourg et en Alsace : photovoltaïque, pompe à chaleur, climatisation, ventilation et électricité. Étude gratuite.",
     images: [
       {
-        url: "/hero-panels.jpg",
+        url: "/images/solitek-installation-panneaux-solaires-alsace.jpg",
         width: 1200,
         height: 630,
         alt: "Installation de panneaux solaires par SOLITEK en Alsace",
