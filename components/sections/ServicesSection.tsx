@@ -58,9 +58,9 @@ export function ServicesSection() {
           <ServiceCard
             title="Photovoltaïque"
             description="Installation clé en main avec SOLITEK : visite technique gratuite, étude personnalisée, démarches administratives et suivi de production en temps réel."
-            image="/images/solitek-installation-photovoltaique-carport-solaire-alsace.jpg"
+            image="/images/solitek-panneaux-solaires-toiture-maison-alsacienne.jpg"
             href="/services#photovoltaique"
-            alt="Carport solaire avec panneaux photovoltaïques en Alsace"
+            alt="Maison alsacienne équipée de panneaux solaires sur toiture"
             className={fullWidthCardClassName}
           />
         </FadeIn>

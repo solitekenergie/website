@@ -40,7 +40,7 @@ const nextConfig: NextConfig = {
               "font-src 'self' https://fonts.gstatic.com",
               "img-src 'self' data: blob: https://cms-production-8fb5.up.railway.app https://www.google-analytics.com https://solar.googleapis.com",
               "connect-src 'self' https://cms-production-8fb5.up.railway.app https://www.google-analytics.com https://solar.googleapis.com https://api-adresse.data.gouv.fr https://clickiocmp.com",
-              "frame-src 'self' https://www.googletagmanager.com https://clickiocmp.com",
+              "frame-src 'self' https://www.googletagmanager.com https://clickiocmp.com https://www.openstreetmap.org",
               "object-src 'none'",
               "base-uri 'self'",
             ].join("; "),
