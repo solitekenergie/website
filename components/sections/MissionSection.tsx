@@ -11,19 +11,24 @@ const images = [
     position: 'center 40%',
   },
   {
-    src: '/images/solitek-maison-panneaux-solaires-ciel-bleu.jpg',
-    alt: 'Maison avec panneaux solaires sous un ciel bleu',
-    position: 'center 45%',
+    src: '/images/solitek-maison-panneaux-solaires-jardin.jpg',
+    alt: 'Maison avec panneaux solaires vue depuis le jardin',
+    position: 'center 40%',
   },
   {
-    src: '/images/solitek-carport-solaire-ciel-bleu.jpg',
-    alt: 'Carport solaire installé par SOLITEK en Alsace',
-    position: 'center 45%',
+    src: '/images/solitek-realisation-pac-interieure.jpg',
+    alt: 'Installation pompe à chaleur intérieure par SOLITEK',
+    position: 'center',
   },
   {
-    src: '/images/solitek-maison-alsacienne-panneaux-installation.jpg',
-    alt: 'Maison alsacienne avec panneaux solaires sur toiture',
-    position: 'center 50%',
+    src: '/images/solitek-maison-photovoltaique-toiture-ciel-bleu.jpg',
+    alt: 'Maison avec panneaux photovoltaïques sur toiture sous ciel bleu',
+    position: 'center 35%',
+  },
+  {
+    src: '/images/solitek-technicien-installation-climatisation.jpg',
+    alt: 'Technicien SOLITEK installant une climatisation',
+    position: 'center 30%',
   },
   {
     src: '/images/solitek-panneaux-solaires-village-alsacien-vignes.jpg',

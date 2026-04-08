@@ -368,8 +368,8 @@ export default function MultiStepEstimatorForm() {
           {/* Right side - Image */}
           <div className="relative hidden h-[450px] lg:block">
             <Image
-              src="/images/solitek-simulateur-estimation-installation-solaire.png"
-              alt="Installation de panneaux solaires"
+              src="/images/solitek-maison-alsacienne-colombages-panneaux.jpg"
+              alt="Maison alsacienne à colombages avec panneaux solaires SOLITEK"
               fill
               sizes="50vw"
               className="rounded-2xl object-cover"
