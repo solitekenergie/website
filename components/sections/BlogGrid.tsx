@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { FadeIn } from "@/components/ui/FadeIn";
 
 type BlogCardData = {
@@ -11,48 +12,51 @@ type BlogCardData = {
   excerpt: string;
   readingTime?: number;
   tags?: string[];
+  image?: string;
 };
 
 const PAGE_SIZE = 6;
 
-function BlogCard({ slug, title, date, excerpt, readingTime, tags }: BlogCardData) {
+function BlogCard({ slug, title, date, excerpt, readingTime, tags, image }: BlogCardData) {
   const category = tags?.[0];
 
   return (
     <Link
       href={`/blog/${slug}`}
-      className="group flex h-full flex-col rounded-2xl border border-slate-200 bg-white transition-all hover:border-[#2DB180]/30 hover:shadow-lg"
+      className="group relative flex flex-col gap-4 hover:opacity-80 transition-opacity"
     >
-      {/* Header */}
-      <div className="flex items-center justify-between px-6 pt-6">
+      <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl bg-[#161A1E]">
+        {image ? (
+          <Image
+            className="object-cover transition-transform duration-300 group-hover:scale-105"
+            src={image}
+            alt={title}
+            fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          />
+        ) : (
+          <div className="h-full w-full flex items-center justify-center p-8">
+            <Image src="/logo.png" alt="SOLITEK" width={80} height={40} className="opacity-30 object-contain" />
+          </div>
+        )}
         {category && (
-          <span className="rounded-full bg-[#2DB180]/10 px-3 py-1 font-ui text-xs font-semibold text-[#1E9A66]">
+          <span className="absolute left-3 top-3 rounded-full bg-[#2DB180] px-3 py-1 font-ui text-xs font-semibold text-white">
             {category}
           </span>
         )}
         {readingTime && (
-          <span className="font-ui text-xs text-black/40">{readingTime} min</span>
+          <span className="absolute right-3 top-3 rounded-full bg-black/50 px-3 py-1 font-ui text-xs font-semibold text-white">
+            {readingTime} min
+          </span>
         )}
       </div>
-
-      {/* Content */}
-      <div className="flex flex-1 flex-col gap-3 px-6 pb-6 pt-4">
-        <h3 className="font-title text-lg font-bold leading-snug text-[#161A1E] line-clamp-2 sm:text-xl">
+      <div className="flex flex-col gap-2">
+        <div className="font-title font-black uppercase text-xl text-[#161A1E] sm:text-2xl lg:text-[26px] lg:leading-tight line-clamp-2">
           {title}
-        </h3>
-        <p className="text-left font-ui text-sm leading-relaxed text-black/60 line-clamp-2">
+        </div>
+        <div className="font-ui text-sm text-black/50">{date}</div>
+        <div className="font-ui text-sm sm:text-base text-black/70 line-clamp-3 leading-relaxed">
           {excerpt}
-        </p>
-
-        {/* Footer */}
-        <div className="mt-auto flex items-center justify-between pt-4">
-          <span className="font-ui text-xs text-black/40">{date}</span>
-          <span className="flex items-center gap-1.5 font-ui text-sm font-semibold text-[#1E9A66] transition-colors group-hover:text-[#178A59]">
-            Lire
-            <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 12h14M12 5l7 7-7 7" />
-            </svg>
-          </span>
         </div>
       </div>
     </Link>
@@ -121,7 +125,7 @@ export function BlogGrid({ cards, allTags }: { cards: BlogCardData[]; allTags?: 
         </div>
       )}
 
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8">
+      <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 lg:gap-8">
         {shown.map((card, i) => (
           <FadeIn key={card.slug} delay={i * 80}>
             <BlogCard {...card} />

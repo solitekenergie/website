@@ -65,20 +65,23 @@ export default async function BlogPostPage({
 }) {
   const resolvedParams = await params;
 
-  // Try Strapi first, fallback to markdown
-  const strapiPost = await getArticle(resolvedParams.slug);
-  const mdPost = !strapiPost ? await getPost(resolvedParams.slug) : null;
+  // Try both sources, Strapi takes priority
+  const [strapiPost, mdPost] = await Promise.all([
+    getArticle(resolvedParams.slug),
+    getPost(resolvedParams.slug),
+  ]);
 
-  if (!strapiPost && !mdPost) notFound();
+  const post = strapiPost ?? mdPost;
+  if (!post) notFound();
 
   const isStrapiPost = !!strapiPost;
-  const title = strapiPost?.title ?? mdPost!.title;
-  const date = strapiPost?.date ?? mdPost!.date;
-  const excerpt = strapiPost?.excerpt ?? mdPost!.excerpt;
-  const slug = strapiPost?.slug ?? mdPost!.slug;
-  const image = strapiPost?.image ?? mdPost!.image;
-  const readingTime = strapiPost?.readingTime ?? mdPost!.readingTime;
-  const tags = strapiPost?.tags ?? mdPost!.tags;
+  const title = post.title;
+  const date = post.date;
+  const excerpt = post.excerpt;
+  const slug = post.slug;
+  const image = post.image;
+  const readingTime = post.readingTime;
+  const tags = post.tags;
 
   // Related posts from both sources
   const [strapiAll, mdAll] = await Promise.all([getArticles(), listPosts()]);
@@ -177,11 +180,11 @@ export default async function BlogPostPage({
         {/* Contenu */}
         <section className={`w-full px-4 pb-16 sm:px-8 sm:pb-20 lg:px-20 lg:pb-[100px] ${image ? "pt-8 sm:pt-10 lg:pt-12" : "pt-10 sm:pt-14 lg:pt-16"}`}>
           <div className="mx-auto max-w-[800px]">
-            {isStrapiPost && strapiPost.contenu ? (
+            {isStrapiPost && strapiPost?.contenu ? (
               <div className="flex flex-col gap-8">
                 {strapiPost.contenu.map((block, index) => renderContentBlock(block, index))}
               </div>
-            ) : mdPost ? (
+            ) : mdPost?.htmlContent ? (
               <div
                 className="prose prose-lg prose-slate max-w-none prose-headings:font-title prose-headings:font-black prose-headings:uppercase prose-headings:text-[#161A1E] prose-a:text-[#1E9A66] prose-strong:text-[#161A1E]"
                 dangerouslySetInnerHTML={{ __html: mdPost.htmlContent }}

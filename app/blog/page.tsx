@@ -74,6 +74,7 @@ export default async function BlogPage() {
     excerpt: post.excerpt,
     readingTime: post.readingTime,
     tags: post.tags,
+    image: post.image,
   }));
 
   return (
