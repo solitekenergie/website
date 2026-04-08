@@ -1,10 +1,13 @@
 ---
-title: "Les 7 erreurs à éviter avant d'installer du photovoltaïque"
-date: "2026-02-28"
-excerpt: "Passer au photovoltaïque est une excellente décision, à condition d'éviter certaines erreurs. Voici les 7 erreurs les plus fréquentes à éviter absolument."
-category: "photovoltaique"
-tags: "Photovoltaïque, Conseils"
-image: "/images/solitek-toiture-equipee-panneaux-solaires-alsace.jpg"
+title: Les 7 erreurs à éviter avant d'installer du photovoltaïque
+date: '2026-02-28'
+excerpt: >-
+  Passer au photovoltaïque est une excellente décision, à condition d'éviter
+  certaines erreurs. Voici les 7 erreurs les plus fréquentes à éviter
+  absolument.
+category: Photovoltaique
+tags: 'Photovoltaïque, Conseils'
+image: /images/solitek-toiture-equipee-panneaux-solaires-alsace.jpg
 ---
 
 Passer au photovoltaïque est une excellente décision... à condition d'éviter certaines erreurs. Aujourd'hui, beaucoup de particuliers se lancent dans le solaire sans être correctement accompagnés, ce qui peut entraîner une installation mal optimisée, voire non rentable.

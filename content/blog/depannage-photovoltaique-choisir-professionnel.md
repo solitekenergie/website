@@ -1,10 +1,13 @@
 ---
-title: "Dépannage photovoltaïque : comment choisir un bon professionnel ?"
-date: "2026-03-10"
-excerpt: "Une panne sur votre installation photovoltaïque peut entraîner une perte importante de production. Découvrez les critères essentiels pour choisir un bon technicien."
-category: "photovoltaique"
-tags: "Photovoltaïque, Conseils"
-image: "/images/solitek-technicien-pose-panneaux-solaires-strasbourg.jpg"
+title: 'Dépannage photovoltaïque : comment choisir un bon professionnel ?'
+date: '2026-03-10'
+excerpt: >-
+  Une panne sur votre installation photovoltaïque peut entraîner une perte
+  importante de production. Découvrez les critères essentiels pour choisir un
+  bon technicien.
+category: Photovoltaique
+tags: 'Photovoltaïque, Conseils'
+image: /images/solitek-technicien-pose-panneaux-solaires-strasbourg.jpg
 ---
 
 Une panne sur votre installation photovoltaïque peut entraîner une perte importante de production d'électricité, un dysfonctionnement de l'onduleur solaire ou une baisse significative du rendement général de votre système. Dans ce contexte, il est primordial de réagir rapidement en faisant appel à un professionnel du dépannage photovoltaïque. Mais comment trouver un expert fiable, compétent et réactif ? Dans cet article, nous vous guidons à travers les critères essentiels pour choisir un bon technicien.

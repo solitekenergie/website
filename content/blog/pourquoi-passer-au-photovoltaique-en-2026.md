@@ -1,10 +1,13 @@
 ---
-title: "Pourquoi passer au photovoltaïque en 2026 ? Les vrais avantages"
-date: "2026-03-15"
-excerpt: "L'énergie solaire n'est plus une tendance, c'est une réalité. Découvrez les vrais avantages du photovoltaïque : économies, rentabilité, durabilité et accompagnement."
-category: "photovoltaique"
-tags: "Photovoltaïque, Conseils"
-image: "/images/solitek-installation-photovoltaique-carport-solaire-alsace.jpg"
+title: Pourquoi passer au photovoltaïque en 2026 ? Les vrais avantages
+date: '2026-03-15'
+excerpt: >-
+  L'énergie solaire n'est plus une tendance, c'est une réalité. Découvrez les
+  vrais avantages du photovoltaïque : économies, rentabilité, durabilité et
+  accompagnement.
+category: Photovoltaique
+tags: 'Photovoltaïque, Conseils'
+image: /images/solitek-installation-photovoltaique-carport-solaire-alsace.jpg
 ---
 
 ## Le solaire : une évidence aujourd'hui

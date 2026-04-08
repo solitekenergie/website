@@ -1,10 +1,12 @@
 ---
-title: "Simulation : combien rapporte une installation photovoltaïque ?"
-date: "2026-02-20"
-excerpt: "Installer des panneaux solaires, c'est bien. Mais combien ça rapporte vraiment ? Simulation concrète avec chiffres pour comprendre la rentabilité."
-category: "photovoltaique"
-tags: "Photovoltaïque, Conseils, Aides & Primes"
-image: "/images/solitek-installation-panneaux-solaires-alsace.jpg"
+title: 'Simulation : combien rapporte une installation photovoltaïque ?'
+date: '2026-02-20'
+excerpt: >-
+  Installer des panneaux solaires, c'est bien. Mais combien ça rapporte vraiment
+  ? Simulation concrète avec chiffres pour comprendre la rentabilité.
+category: Photovoltaique
+tags: 'Photovoltaïque, Conseils, Aides & Primes'
+image: /images/solitek-economies-panneaux-solaires-euros.jpg
 ---
 
 Installer des panneaux solaires, c'est bien. Mais la vraie question que tout le monde se pose est simple : **combien ça rapporte vraiment ?** Dans cet article, on vous donne une estimation concrète pour comprendre la rentabilité d'une installation photovoltaïque.

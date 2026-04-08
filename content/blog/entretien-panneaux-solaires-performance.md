@@ -1,10 +1,13 @@
 ---
-title: "Entretien des panneaux solaires : comment garder 100 % de performance"
-date: "2026-01-10"
-excerpt: "Un panneau encrassé perd jusqu'à 20 % de production. Découvrez pourquoi l'entretien régulier de vos panneaux solaires est essentiel pour maximiser votre rendement."
-category: "entretien"
-tags: "Photovoltaïque, Conseils"
-image: "/images/solitek-entretien-nettoyage-panneaux-solaires.jpg"
+title: 'Entretien des panneaux solaires : comment garder 100 % de performance'
+date: '2026-01-10'
+excerpt: >-
+  Un panneau encrassé perd jusqu'à 20 % de production. Découvrez pourquoi
+  l'entretien régulier de vos panneaux solaires est essentiel pour maximiser
+  votre rendement.
+category: Entretien
+tags: 'Photovoltaïque, Conseils'
+image: /images/solitek-entretien-nettoyage-panneaux-solaires.jpg
 ---
 
 Vos panneaux solaires sont installés, ils produisent... mais savez-vous qu'un simple manque d'entretien peut réduire considérablement leur rendement ?

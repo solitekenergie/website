@@ -1,10 +1,13 @@
 ---
-title: "Prime CEE et aides photovoltaïques : tout comprendre en 2026"
-date: "2026-03-05"
-excerpt: "Prime CEE, prime à l'autoconsommation, revente du surplus, TVA réduite : découvrez toutes les aides disponibles pour votre projet solaire ou de rénovation énergétique en 2026."
-category: "aides"
-tags: "Photovoltaïque, Aides & Primes"
-image: "/images/solitek-installation-panneaux-solaires-alsace.jpg"
+title: 'Prime CEE et aides photovoltaïques : tout comprendre en 2026'
+date: '2026-03-05'
+excerpt: >-
+  Prime CEE, prime à l'autoconsommation, revente du surplus, TVA réduite :
+  découvrez toutes les aides disponibles pour votre projet solaire ou de
+  rénovation énergétique en 2026.
+category: Aides & Primes
+tags: 'Photovoltaïque, Aides & Primes'
+image: /images/solitek-installation-panneaux-solaires-alsace.jpg
 ---
 
 ## Prime CEE pour vos travaux : définition, conditions et montants

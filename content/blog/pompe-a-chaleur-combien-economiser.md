@@ -1,10 +1,13 @@
 ---
-title: "Pompe à chaleur : combien pouvez-vous économiser réellement ?"
-date: "2026-02-10"
-excerpt: "Installer une pompe à chaleur est l'une des solutions les plus efficaces pour réduire ses factures d'énergie. Voici une estimation concrète des gains possibles."
-category: "pompe-a-chaleur"
-tags: "Pompe à chaleur, Conseils, Aides & Primes"
-image: "/images/solitek-pompe-chaleur-air-eau-atlantic-terrasse.jpg"
+title: 'Pompe à chaleur : combien pouvez-vous économiser réellement ?'
+date: '2026-02-10'
+excerpt: >-
+  Installer une pompe à chaleur est l'une des solutions les plus efficaces pour
+  réduire ses factures d'énergie. Voici une estimation concrète des gains
+  possibles.
+category: Chauffage
+tags: 'Pompe à chaleur, Conseils, Aides & Primes'
+image: /images/solitek-pompe-chaleur-air-eau-atlantic-terrasse.jpg
 ---
 
 Installer une pompe à chaleur est aujourd'hui l'une des solutions les plus efficaces pour réduire ses factures d'énergie.

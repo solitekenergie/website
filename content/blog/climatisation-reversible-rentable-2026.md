@@ -1,10 +1,12 @@
 ---
-title: "Climatisation réversible : est-ce rentable en 2026 ?"
-date: "2026-01-30"
-excerpt: "Avec l'augmentation des températures et la hausse du prix de l'électricité, la climatisation réversible est-elle un bon investissement en 2026 ?"
-category: "climatisation"
-tags: "Climatisation, Conseils, Aides & Primes"
-image: "/images/solitek-climatisation-reversible-split-mural-interieur.jpg"
+title: 'Climatisation réversible : est-ce rentable en 2026 ?'
+date: '2026-01-30'
+excerpt: >-
+  Avec l'augmentation des températures et la hausse du prix de l'électricité, la
+  climatisation réversible est-elle un bon investissement en 2026 ?
+category: Climatisation
+tags: 'Climatisation, Conseils, Aides & Primes'
+image: /images/solitek-climatisation-reversible-split-mural-interieur.jpg
 ---
 
 Avec l'augmentation des températures en été et la hausse du prix de l'électricité, de plus en plus de foyers s'équipent en climatisation réversible.

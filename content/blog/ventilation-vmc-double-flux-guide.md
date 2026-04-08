@@ -1,10 +1,12 @@
 ---
-title: "VMC double flux : pourquoi c'est indispensable pour votre maison ?"
-date: "2026-01-20"
-excerpt: "La VMC double flux récupère jusqu'à 90 % de la chaleur de l'air sortant. Un investissement essentiel pour un air sain et des économies d'énergie durables."
-category: "ventilation"
-tags: "Ventilation, Conseils"
-image: "/images/solitek-installation-vmc-double-flux-alsace.jpg"
+title: 'VMC double flux : pourquoi c''est indispensable pour votre maison ?'
+date: '2026-01-20'
+excerpt: >-
+  La VMC double flux récupère jusqu'à 90 % de la chaleur de l'air sortant. Un
+  investissement essentiel pour un air sain et des économies d'énergie durables.
+category: Ventilation
+tags: 'Ventilation, Conseils'
+image: /images/solitek-installation-vmc-double-flux-alsace.jpg
 ---
 
 La ventilation est souvent le grand oublié des projets de rénovation énergétique. Pourtant, une bonne VMC (Ventilation Mécanique Contrôlée) est essentielle pour la qualité de l'air intérieur et les performances énergétiques de votre logement.

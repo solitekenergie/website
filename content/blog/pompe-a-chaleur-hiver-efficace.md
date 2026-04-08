@@ -1,10 +1,12 @@
 ---
-title: "Pompe à chaleur en hiver : est-ce vraiment efficace ?"
-date: "2026-02-05"
-excerpt: "Est-ce que ça chauffe vraiment bien en hiver, surtout quand il fait très froid ? La réponse est oui, à condition d'avoir une installation adaptée."
-category: "pompe-a-chaleur"
-tags: "Pompe à chaleur, Conseils"
-image: "/images/solitek-installation-pompe-chaleur-ballon-interieur.jpg"
+title: 'Pompe à chaleur en hiver : est-ce vraiment efficace ?'
+date: '2026-02-05'
+excerpt: >-
+  Est-ce que ça chauffe vraiment bien en hiver, surtout quand il fait très froid
+  ? La réponse est oui, à condition d'avoir une installation adaptée.
+category: Chauffage
+tags: 'Pompe à chaleur, Conseils'
+image: /images/solitek-installation-pompe-chaleur-ballon-interieur.jpg
 ---
 
 C'est l'une des questions les plus fréquentes avant d'installer une pompe à chaleur : **est-ce que ça chauffe vraiment bien en hiver, surtout quand il fait très froid ?**

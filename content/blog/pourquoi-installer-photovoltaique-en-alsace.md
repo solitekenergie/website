@@ -1,10 +1,13 @@
 ---
-title: "Pourquoi installer du photovoltaïque en Alsace ?"
-date: "2026-02-15"
-excerpt: "L'Alsace est une région idéale pour passer au solaire. Contrairement aux idées reçues, il n'est pas nécessaire d'habiter dans le sud pour rentabiliser une installation."
-category: "photovoltaique"
-tags: "Photovoltaïque, Conseils"
-image: "/images/solitek-panneaux-solaires-toiture-maison-alsacienne.jpg"
+title: Pourquoi installer du photovoltaïque en Alsace ?
+date: '2026-02-15'
+excerpt: >-
+  L'Alsace est une région idéale pour passer au solaire. Contrairement aux idées
+  reçues, il n'est pas nécessaire d'habiter dans le sud pour rentabiliser une
+  installation.
+category: Photovoltaique
+tags: 'Photovoltaïque, Conseils'
+image: /images/solitek-panneaux-solaires-toiture-maison-alsacienne.jpg
 ---
 
 L'Alsace est une région idéale pour passer au solaire. Contrairement aux idées reçues, il n'est pas nécessaire d'habiter dans le sud de la France pour rentabiliser une installation photovoltaïque.

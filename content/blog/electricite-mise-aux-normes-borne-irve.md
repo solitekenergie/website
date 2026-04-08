@@ -1,10 +1,13 @@
 ---
-title: "Électricité : mise aux normes et borne IRVE, ce qu'il faut savoir"
-date: "2026-01-15"
-excerpt: "Mise aux normes NF C 15-100, installation de bornes IRVE pour véhicule électrique : tout ce que vous devez savoir pour sécuriser et moderniser votre installation électrique."
-category: "electricite"
-tags: "Électricité, Conseils"
-image: "/images/solitek-electricien-tableau-electrique-mise-aux-normes.jpg"
+title: 'Électricité : mise aux normes et borne IRVE, ce qu''il faut savoir'
+date: '2026-01-15'
+excerpt: >-
+  Mise aux normes NF C 15-100, installation de bornes IRVE pour véhicule
+  électrique : tout ce que vous devez savoir pour sécuriser et moderniser votre
+  installation électrique.
+category: Electricite
+tags: 'Électricité, Conseils'
+image: /images/solitek-electricien-tableau-electrique-mise-aux-normes.jpg
 ---
 
 Votre installation électrique est le coeur de votre maison. Qu'il s'agisse de mise aux normes, de remplacement de tableau ou d'installation de borne de recharge pour véhicule électrique, il est essentiel de faire appel à un professionnel qualifié.

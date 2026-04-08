@@ -1,10 +1,13 @@
 ---
-title: "Climatisation : combien ça consomme vraiment ?"
-date: "2026-01-25"
-excerpt: "Est-ce que la climatisation consomme beaucoup ? Contrairement aux idées reçues, une climatisation moderne est beaucoup plus économique qu'on ne le pense."
-category: "climatisation"
-tags: "Climatisation, Conseils"
-image: "/images/solitek-climatisation-unite-exterieure-installation.jpg"
+title: 'Climatisation : combien ça consomme vraiment ?'
+date: '2026-01-25'
+excerpt: >-
+  Est-ce que la climatisation consomme beaucoup ? Contrairement aux idées
+  reçues, une climatisation moderne est beaucoup plus économique qu'on ne le
+  pense.
+category: Climatisation
+tags: 'Climatisation, Conseils'
+image: /images/solitek-climatisation-unite-exterieure-installation.jpg
 ---
 
 Installer une climatisation, c'est confortable...
