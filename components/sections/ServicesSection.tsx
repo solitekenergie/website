@@ -81,10 +81,10 @@ export function ServicesSection() {
             <ServiceCard
               title="Climatisation"
               description="Confort optimal été comme hiver. Solutions performantes et économiques, installation clé en main à Strasbourg."
-              image="/images/solitek-climatisation-reversible-split-mural-interieur.jpg"
+              image="/images/solitek-technicien-installation-climatisation.jpg"
               href="/services#climatisation"
-              alt="Climatisation réversible split mural installée en intérieur"
-              bgPosition="70% center"
+              alt="Technicien SOLITEK installant une climatisation"
+              bgPosition="center"
               className={`${splitRowCardClassName} flex-1`}
             />
           </div>
@@ -95,10 +95,10 @@ export function ServicesSection() {
             <ServiceCard
               title="Ventilation"
               description="Air sain toute l'année. VMC double flux avec récupération de chaleur jusqu'à 90 %."
-              image="/images/solitek-installation-vmc-double-flux-alsace.jpg"
+              image="/images/solitek-ventilation-composants-vmc.jpg"
               href="/services#ventilation"
-              alt="Système de ventilation résidentielle"
-              bgPosition="center 60%"
+              alt="Composants VMC double flux pour ventilation"
+              bgPosition="center"
               className={`${splitRowCardClassName} flex-1`}
             />
             <ServiceCard

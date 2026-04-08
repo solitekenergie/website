@@ -86,8 +86,8 @@ const services: Service[] = [
     tagline: 'Votre expert local à Strasbourg',
     description:
       "Profitez d'un confort optimal été comme hiver avec Solitek, votre expert local à Strasbourg. Nous vous proposons des solutions de climatisation performantes, économiques et parfaitement adaptées à votre logement. Avec Solitek, choisissez la tranquillité, la performance et un accompagnement de proximité.",
-    image: '/images/solitek-climatisation-reversible-split-mural-interieur.jpg',
-    imagePosition: '70% center',
+    image: '/images/solitek-technicien-installation-climatisation.jpg',
+    imagePosition: 'center',
     points: [
       'Étude et devis 100 % gratuits : conseils sur-mesure, sans engagement',
       'Installation clé en main : on s\'occupe de tout de A à Z',
@@ -107,8 +107,8 @@ const services: Service[] = [
     tagline: 'Un air sain dans chaque pièce',
     description:
       "VMC double flux avec récupération de chaleur jusqu'à 90 %. Idéal pour les constructions neuves et les rénovations, pour un air sain et des économies d'énergie garanties.",
-    image: '/images/solitek-installation-vmc-double-flux-alsace.jpg',
-    imagePosition: 'center 60%',
+    image: '/images/solitek-ventilation-composants-vmc.jpg',
+    imagePosition: 'center',
     points: ['VMC simple flux et double flux', 'Récupération de chaleur jusqu\'à 90 %', 'Prévention humidité et moisissures', 'Norme RT2020 / RE2020'],
     imageLeft: true,
     cta: { href: '/contact', label: 'Demander un devis' },
