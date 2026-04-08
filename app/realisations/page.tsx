@@ -41,24 +41,24 @@ export default async function RealisationsPage() {
     ...realisations.filter((r) => !r.misEnAvant),
   ];
 
-  const cards = sorted.map((r) => {
-    const tags = r.technologies
-      ? r.technologies.split(",").map((t: string) => t.trim()).filter(Boolean)
-      : [];
-    return {
-      slug: r.slug,
-      image: getFirstImageUrl(r),
-      title: r.titre,
-      date: formatDate(r.datePublication),
-      description: r.resume,
-      featured: r.misEnAvant,
-      tags,
-    };
-  });
+  const REALISATION_CATEGORIES = [
+    "Photovoltaique",
+    "Chauffage",
+    "Climatisation",
+    "Ventilation",
+    "Electricite",
+    "Entretien",
+  ];
 
-  const allTags = Array.from(
-    new Set(cards.flatMap((c) => c.tags))
-  ).sort();
+  const cards = sorted.map((r) => ({
+    slug: r.slug,
+    image: getFirstImageUrl(r),
+    title: r.titre,
+    date: formatDate(r.datePublication),
+    description: r.resume,
+    featured: r.misEnAvant,
+    category: (r as Record<string, unknown>).categorie as string | undefined,
+  }));
 
   return (
     <div className="flex flex-col">
@@ -82,9 +82,8 @@ export default async function RealisationsPage() {
           <ContentGrid
             cards={cards}
             basePath="/realisations"
-            allTags={allTags}
+            categories={REALISATION_CATEGORIES}
             emptyMessage="Aucune réalisation disponible pour le moment."
-            filterId="realisations-category-filter"
           />
         </div>
       </section>

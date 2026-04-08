@@ -65,6 +65,17 @@
         "images"
       ]
     },
+    "categorie": {
+      "type": "enumeration",
+      "enum": [
+        "Photovoltaique",
+        "Chauffage",
+        "Climatisation",
+        "Ventilation",
+        "Electricite",
+        "Entretien"
+      ]
+    },
     "technologies": {
       "type": "text"
     },

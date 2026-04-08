@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { FadeIn } from "@/components/ui/FadeIn";
@@ -12,25 +12,23 @@ export type ContentCardData = {
   description: string;
   image?: string;
   featured?: boolean;
-  tags?: string[];
+  category?: string;
   readingTime?: number;
 };
 
 const PAGE_SIZE = 6;
 
+/* ── Card standard ── */
 function ContentCard({
   slug,
   title,
   date,
   description,
   image,
-  featured,
-  tags,
+  category,
   readingTime,
   basePath,
 }: ContentCardData & { basePath: string }) {
-  const category = tags?.[0];
-
   return (
     <Link
       href={`${basePath}/${slug}`}
@@ -50,12 +48,7 @@ function ContentCard({
             <Image src="/logo.png" alt="SOLITEK" width={80} height={40} className="opacity-30 object-contain" />
           </div>
         )}
-        {featured && (
-          <span className="absolute left-3 top-3 rounded-full bg-[#2DB180] px-3 py-1 font-ui text-xs font-semibold text-white">
-            A la une
-          </span>
-        )}
-        {!featured && category && (
+        {category && (
           <span className="absolute left-3 top-3 rounded-full bg-[#2DB180] px-3 py-1 font-ui text-xs font-semibold text-white">
             {category}
           </span>
@@ -79,31 +72,141 @@ function ContentCard({
   );
 }
 
+/* ── Card mise en avant (grande) ── */
+function FeaturedCard({
+  slug,
+  title,
+  date,
+  description,
+  image,
+  category,
+  readingTime,
+  basePath,
+}: ContentCardData & { basePath: string }) {
+  return (
+    <Link
+      href={`${basePath}/${slug}`}
+      className="group relative flex flex-col gap-6 hover:opacity-90 transition-opacity sm:flex-row sm:gap-8"
+    >
+      <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl bg-[#161A1E] sm:aspect-[3/2] sm:flex-1">
+        {image ? (
+          <Image
+            className="object-cover transition-transform duration-500 group-hover:scale-105"
+            src={image}
+            alt={title}
+            fill
+            sizes="(max-width: 640px) 100vw, 60vw"
+            priority
+          />
+        ) : (
+          <div className="h-full w-full flex items-center justify-center p-8">
+            <Image src="/logo.png" alt="SOLITEK" width={120} height={60} className="opacity-30 object-contain" />
+          </div>
+        )}
+        <span className="absolute left-3 top-3 rounded-full bg-[#2DB180] px-3 py-1 font-ui text-xs font-semibold text-white">
+          A la une
+        </span>
+        {readingTime && (
+          <span className="absolute right-3 top-3 rounded-full bg-black/50 px-3 py-1 font-ui text-xs font-semibold text-white">
+            {readingTime} min
+          </span>
+        )}
+      </div>
+      <div className="flex flex-col justify-center gap-3 sm:flex-1">
+        {category && (
+          <span className="w-fit rounded-full bg-[#2DB180]/10 px-3 py-1 font-ui text-xs font-semibold text-[#1E9A66]">
+            {category}
+          </span>
+        )}
+        <h3 className="font-title font-black uppercase text-2xl text-[#161A1E] sm:text-3xl lg:text-[36px] lg:leading-tight line-clamp-3">
+          {title}
+        </h3>
+        <p className="font-ui text-sm text-black/50">{date}</p>
+        <p className="font-ui text-base text-black/70 leading-relaxed line-clamp-4 sm:text-lg">
+          {description}
+        </p>
+      </div>
+    </Link>
+  );
+}
+
+/* ── Filtres défilants ── */
+function CategoryFilter({
+  categories,
+  active,
+  onChange,
+}: {
+  categories: string[];
+  active: string | null;
+  onChange: (cat: string | null) => void;
+}) {
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  return (
+    <div className="relative">
+      <div
+        ref={scrollRef}
+        className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide"
+        style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+      >
+        <button
+          onClick={() => onChange(null)}
+          className={`shrink-0 rounded-full px-5 py-2.5 font-ui text-sm font-semibold transition-all ${
+            active === null
+              ? "bg-[#161A1E] text-white"
+              : "bg-slate-100 text-[#161A1E] hover:bg-slate-200"
+          }`}
+        >
+          Tout
+        </button>
+        {categories.map((cat) => (
+          <button
+            key={cat}
+            onClick={() => onChange(active === cat ? null : cat)}
+            className={`shrink-0 rounded-full px-5 py-2.5 font-ui text-sm font-semibold transition-all ${
+              active === cat
+                ? "bg-[#2DB180] text-white"
+                : "bg-slate-100 text-[#161A1E] hover:bg-slate-200"
+            }`}
+          >
+            {cat}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* ── Grille principale ── */
 type ContentGridProps = {
   cards: ContentCardData[];
   basePath: string;
-  allTags?: string[];
+  categories?: string[];
   emptyMessage?: string;
-  filterId?: string;
 };
 
 export function ContentGrid({
   cards,
   basePath,
-  allTags,
+  categories,
   emptyMessage = "Aucun contenu disponible pour le moment.",
-  filterId = "category-filter",
 }: ContentGridProps) {
   const [visible, setVisible] = useState(PAGE_SIZE);
-  const [activeTag, setActiveTag] = useState<string | null>(null);
+  const [activeCategory, setActiveCategory] = useState<string | null>(null);
 
   const filtered = useMemo(() => {
-    if (!activeTag) return cards;
-    return cards.filter((c) => c.tags?.includes(activeTag));
-  }, [cards, activeTag]);
+    if (!activeCategory) return cards;
+    return cards.filter((c) => c.category === activeCategory);
+  }, [cards, activeCategory]);
 
-  const shown = filtered.slice(0, visible);
-  const hasMore = visible < filtered.length;
+  // Séparer le featured du reste
+  const featuredCard = filtered.find((c) => c.featured);
+  const regularCards = featuredCard
+    ? filtered.filter((c) => c !== featuredCard)
+    : filtered;
+
+  const shown = regularCards.slice(0, visible);
+  const hasMore = visible < regularCards.length;
 
   if (cards.length === 0) {
     return (
@@ -115,46 +218,26 @@ export function ContentGrid({
 
   return (
     <div className="flex flex-col gap-10 sm:gap-14">
-      {allTags && allTags.length > 0 && (
-        <div className="flex w-full flex-col gap-2 sm:max-w-xs">
-          <label
-            htmlFor={filterId}
-            className="font-ui text-xs font-semibold uppercase tracking-wide text-black/50"
-          >
-            Catégorie
-          </label>
-          <div className="relative">
-            <select
-              id={filterId}
-              value={activeTag ?? ""}
-              onChange={(event) => {
-                setActiveTag(event.target.value || null);
-                setVisible(PAGE_SIZE);
-              }}
-              className="w-full appearance-none rounded-xl border border-slate-200 bg-white px-4 py-3 pr-12 text-left font-ui text-sm font-medium text-[#161A1E] outline-none transition-colors hover:border-slate-300 focus:border-[#2DB180]"
-            >
-              <option value="">Toutes les catégories</option>
-              {allTags.map((tag) => (
-                <option key={tag} value={tag}>
-                  {tag}
-                </option>
-              ))}
-            </select>
-            <svg
-              width="18"
-              height="18"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-              className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-black/50"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-            </svg>
-          </div>
-        </div>
+      {/* Filtres défilants */}
+      {categories && categories.length > 0 && (
+        <CategoryFilter
+          categories={categories}
+          active={activeCategory}
+          onChange={(cat) => {
+            setActiveCategory(cat);
+            setVisible(PAGE_SIZE);
+          }}
+        />
       )}
 
+      {/* Card mise en avant */}
+      {featuredCard && (
+        <FadeIn>
+          <FeaturedCard {...featuredCard} basePath={basePath} />
+        </FadeIn>
+      )}
+
+      {/* Grille standard */}
       <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 lg:gap-8">
         {shown.map((card, i) => (
           <FadeIn key={card.slug} delay={i * 80}>
@@ -163,9 +246,9 @@ export function ContentGrid({
         ))}
       </div>
 
-      {shown.length === 0 && activeTag && (
+      {shown.length === 0 && !featuredCard && (
         <div className="text-center font-ui text-base text-black/50">
-          Aucun contenu pour cette catégorie.
+          {activeCategory ? "Aucun contenu pour cette catégorie." : emptyMessage}
         </div>
       )}
 

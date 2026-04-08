@@ -30,7 +30,18 @@
       "required": true
     },
     "categorie": {
-      "type": "string"
+      "type": "enumeration",
+      "enum": [
+        "Photovoltaique",
+        "Chauffage",
+        "Climatisation",
+        "Ventilation",
+        "Electricite",
+        "Entretien",
+        "Aides & Primes",
+        "Conseils"
+      ],
+      "required": true
     },
     "tags": {
       "type": "text"

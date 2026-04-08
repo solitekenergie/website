@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { getArticles, getAllTags as getStrapiTags } from "@/lib/blog-strapi";
-import { listPosts as listMarkdownPosts, getAllTags as getMarkdownTags } from "@/lib/blog";
+import { getArticles } from "@/lib/blog-strapi";
+import { listPosts as listMarkdownPosts } from "@/lib/blog";
 import { ContentGrid } from "@/components/sections/ContentGrid";
 
 export const metadata: Metadata = {
@@ -38,12 +38,20 @@ function formatDate(dateString: string): string {
 }
 
 export default async function BlogPage() {
-  // Strapi articles + markdown fallback, merged and deduplicated by slug
-  const [strapiPosts, markdownPosts, strapiTags, mdTags] = await Promise.all([
+  const BLOG_CATEGORIES = [
+    "Photovoltaique",
+    "Chauffage",
+    "Climatisation",
+    "Ventilation",
+    "Electricite",
+    "Entretien",
+    "Aides & Primes",
+    "Conseils",
+  ];
+
+  const [strapiPosts, markdownPosts] = await Promise.all([
     getArticles(),
     listMarkdownPosts(),
-    getStrapiTags(),
-    getMarkdownTags(),
   ]);
 
   const seenSlugs = new Set(strapiPosts.map((p) => p.slug));
@@ -54,7 +62,6 @@ export default async function BlogPage() {
     date: p.date,
     excerpt: p.excerpt,
     readingTime: p.readingTime,
-    tags: p.tags,
     category: p.category,
     image: p.image,
     contenu: [],
@@ -65,16 +72,15 @@ export default async function BlogPage() {
     return (Number.isNaN(bDate) ? 0 : bDate) - (Number.isNaN(aDate) ? 0 : aDate);
   });
 
-  const allTags = Array.from(new Set([...strapiTags, ...mdTags])).sort();
-
   const cards = allPosts.map((post) => ({
     slug: post.slug,
     title: post.title,
     date: formatDate(post.date),
     description: post.excerpt,
     readingTime: post.readingTime,
-    tags: post.tags,
+    category: post.category,
     image: post.image,
+    featured: post.misEnAvant,
   }));
 
   return (
@@ -99,9 +105,8 @@ export default async function BlogPage() {
           <ContentGrid
             cards={cards}
             basePath="/blog"
-            allTags={allTags}
+            categories={BLOG_CATEGORIES}
             emptyMessage="Aucun article disponible pour le moment."
-            filterId="blog-category-filter"
           />
         </div>
       </section>
