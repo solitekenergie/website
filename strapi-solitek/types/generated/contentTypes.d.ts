@@ -430,6 +430,57 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiArticleArticle extends Struct.CollectionTypeSchema {
+  collectionName: 'articles';
+  info: {
+    description: 'Articles de blog Solitek';
+    displayName: 'Articles';
+    pluralName: 'articles';
+    singularName: 'article';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    categorie: Schema.Attribute.String;
+    contenu: Schema.Attribute.DynamicZone<
+      [
+        'content-blocks.paragraphe',
+        'content-blocks.image',
+        'content-blocks.video',
+        'content-blocks.image-et-texte',
+        'content-blocks.deux-colonnes',
+        'content-blocks.galerie',
+        'content-blocks.citation',
+        'content-blocks.callout',
+      ]
+    > &
+      Schema.Attribute.Required;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    datePublication: Schema.Attribute.DateTime & Schema.Attribute.Required;
+    extrait: Schema.Attribute.Text & Schema.Attribute.Required;
+    imageCouverture: Schema.Attribute.Media<'images'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::article.article'
+    > &
+      Schema.Attribute.Private;
+    misEnAvant: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    publishedAt: Schema.Attribute.DateTime;
+    slug: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    tags: Schema.Attribute.Text;
+    titre: Schema.Attribute.String & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiRealisationsRealisations
   extends Struct.CollectionTypeSchema {
   collectionName: 'realisations_all';
@@ -999,6 +1050,7 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::article.article': ApiArticleArticle;
       'api::realisations.realisations': ApiRealisationsRealisations;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
