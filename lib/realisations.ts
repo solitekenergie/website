@@ -20,6 +20,7 @@ export type Realisation = {
   videoCouverture?: string;
   afficherControlesVideo: boolean;
   images?: StrapiMedia[];
+  technologies?: string;
   misEnAvant: boolean;
   datePublication: string;
   categorie?: {

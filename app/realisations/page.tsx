@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { getRealisations, getFirstImageUrl } from "@/lib/realisations";
-import { RealisationsGrid } from "@/components/sections/RealisationsGrid";
+import { ContentGrid } from "@/components/sections/ContentGrid";
 
 export const metadata: Metadata = {
   title: "Réalisations en Alsace",
@@ -41,14 +41,24 @@ export default async function RealisationsPage() {
     ...realisations.filter((r) => !r.misEnAvant),
   ];
 
-  const cards = sorted.map((r) => ({
-    slug: r.slug,
-    image: getFirstImageUrl(r),
-    title: r.titre,
-    date: formatDate(r.datePublication),
-    description: r.resume,
-    featured: r.misEnAvant,
-  }));
+  const cards = sorted.map((r) => {
+    const tags = r.technologies
+      ? r.technologies.split(",").map((t: string) => t.trim()).filter(Boolean)
+      : [];
+    return {
+      slug: r.slug,
+      image: getFirstImageUrl(r),
+      title: r.titre,
+      date: formatDate(r.datePublication),
+      description: r.resume,
+      featured: r.misEnAvant,
+      tags,
+    };
+  });
+
+  const allTags = Array.from(
+    new Set(cards.flatMap((c) => c.tags))
+  ).sort();
 
   return (
     <div className="flex flex-col">
@@ -69,7 +79,13 @@ export default async function RealisationsPage() {
 
       <section className="w-full px-4 pb-16 pt-16 sm:px-8 sm:pb-20 sm:pt-20 lg:px-20 lg:pb-[100px] lg:pt-[100px]">
         <div className="mx-auto max-w-[1440px]">
-          <RealisationsGrid cards={cards} />
+          <ContentGrid
+            cards={cards}
+            basePath="/realisations"
+            allTags={allTags}
+            emptyMessage="Aucune réalisation disponible pour le moment."
+            filterId="realisations-category-filter"
+          />
         </div>
       </section>
     </div>

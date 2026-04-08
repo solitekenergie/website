@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { getArticles, getAllTags as getStrapiTags } from "@/lib/blog-strapi";
 import { listPosts as listMarkdownPosts, getAllTags as getMarkdownTags } from "@/lib/blog";
-import { BlogGrid } from "@/components/sections/BlogGrid";
+import { ContentGrid } from "@/components/sections/ContentGrid";
 
 export const metadata: Metadata = {
   title: "Blog énergie en Alsace",
@@ -71,7 +71,7 @@ export default async function BlogPage() {
     slug: post.slug,
     title: post.title,
     date: formatDate(post.date),
-    excerpt: post.excerpt,
+    description: post.excerpt,
     readingTime: post.readingTime,
     tags: post.tags,
     image: post.image,
@@ -96,7 +96,13 @@ export default async function BlogPage() {
 
       <section className="w-full px-4 pb-16 pt-16 sm:px-8 sm:pb-20 sm:pt-20 lg:px-20 lg:pb-[100px] lg:pt-[100px]">
         <div className="mx-auto max-w-[1440px]">
-          <BlogGrid cards={cards} allTags={allTags} />
+          <ContentGrid
+            cards={cards}
+            basePath="/blog"
+            allTags={allTags}
+            emptyMessage="Aucun article disponible pour le moment."
+            filterId="blog-category-filter"
+          />
         </div>
       </section>
     </div>
