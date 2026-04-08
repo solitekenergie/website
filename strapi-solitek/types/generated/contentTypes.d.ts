@@ -496,6 +496,10 @@ export interface ApiRealisationsRealisations
   attributes: {
     afficherControlesVideo: Schema.Attribute.Boolean &
       Schema.Attribute.DefaultTo<false>;
+    categorie: Schema.Attribute.Enumeration<
+      ['Photovoltaique', 'Chauffage', 'Climatisation', 'Ventilation', 'Electricite', 'Entretien']
+    > &
+      Schema.Attribute.Required;
     contenu: Schema.Attribute.DynamicZone<
       [
         'content-blocks.paragraphe',
@@ -506,7 +510,6 @@ export interface ApiRealisationsRealisations
         'content-blocks.galerie',
         'content-blocks.citation',
         'content-blocks.callout',
-        'content-blocks.tech-stack',
       ]
     > &
       Schema.Attribute.Required;
@@ -514,7 +517,7 @@ export interface ApiRealisationsRealisations
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     datePublication: Schema.Attribute.DateTime & Schema.Attribute.Required;
-    description: Schema.Attribute.Text & Schema.Attribute.Required;
+    extrait: Schema.Attribute.Text & Schema.Attribute.Required;
     imageCouverture: Schema.Attribute.Media<'images'>;
     images: Schema.Attribute.Media<'images', true>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
@@ -525,17 +528,13 @@ export interface ApiRealisationsRealisations
       Schema.Attribute.Private;
     misEnAvant: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     publishedAt: Schema.Attribute.DateTime;
-    resume: Schema.Attribute.Text & Schema.Attribute.Required;
     slug: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.Unique;
-    technologies: Schema.Attribute.Text;
     titre: Schema.Attribute.String & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    urlGithub: Schema.Attribute.String;
-    urlProjet: Schema.Attribute.String;
     videoCouverture: Schema.Attribute.String;
   };
 }

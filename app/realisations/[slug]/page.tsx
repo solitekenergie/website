@@ -269,7 +269,7 @@ function AutreProjetCard({ realisation }: { realisation: Realisation }) {
       <div className="flex flex-col gap-1">
         {realisation.categorie && (
           <p className="font-ui text-xs font-semibold uppercase tracking-wide text-[#1E9A66]">
-            {realisation.categorie.titre}
+            {realisation.categorie}
           </p>
         )}
         <h3 className="font-title text-lg font-black uppercase text-[#161A1E] sm:text-xl">
@@ -300,7 +300,7 @@ export async function generateMetadata({
 
   const coverUrl = getFirstImageUrl(realisation);
   const seoTitle = shortenSeoTitle(realisation.titre);
-  const seoDescription = shortenSeoDescription(realisation.resume || realisation.description);
+  const seoDescription = shortenSeoDescription(realisation.extrait);
 
   return {
     title: seoTitle,
@@ -343,12 +343,12 @@ export default async function RealisationPage({
     "@context": "https://schema.org",
     "@type": "Article",
     headline: realisation.titre,
-    description: realisation.resume || realisation.description,
+    description: realisation.extrait,
     datePublished: realisation.datePublication || realisation.publishedAt,
     dateModified: realisation.updatedAt || realisation.publishedAt || realisation.datePublication,
     mainEntityOfPage: absoluteUrl(`/realisations/${realisation.slug}`),
     image: schemaImage ? [schemaImage] : undefined,
-    articleSection: realisation.categorie?.titre,
+    articleSection: realisation.categorie,
     author: {
       "@type": "Organization",
       name: "SOLITEK",
@@ -404,7 +404,7 @@ export default async function RealisationPage({
               <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
               </svg>
-              {realisation.categorie?.titre ?? "Nos réalisations"}
+              {realisation.categorie ?? "Nos réalisations"}
             </Link>
 
             <h1 className="font-title text-4xl font-black uppercase leading-tight text-white sm:text-5xl lg:text-[72px] lg:leading-[1]">
@@ -412,7 +412,7 @@ export default async function RealisationPage({
             </h1>
 
             <p className="mt-6 max-w-[700px] font-ui text-base leading-relaxed text-white/70 sm:text-lg">
-              {realisation.resume || realisation.description}
+              {realisation.extrait}
             </p>
           </div>
         </section>
@@ -450,15 +450,6 @@ export default async function RealisationPage({
         {/* Contenu */}
         <section className="w-full px-4 pb-16 pt-10 sm:px-8 sm:pb-20 sm:pt-14 lg:px-20 lg:pb-[100px] lg:pt-16">
           <div className="mx-auto max-w-[900px]">
-
-            {/* Description longue */}
-            {realisation.description && realisation.description !== realisation.resume && (
-              <div className="mb-10 sm:mb-14">
-                <p className="font-ui text-base leading-relaxed text-black/70 sm:text-lg sm:leading-[27px]">
-                  {realisation.description}
-                </p>
-              </div>
-            )}
 
             {/* Blocs de contenu Strapi */}
             {realisation.contenu && realisation.contenu.length > 0 && (

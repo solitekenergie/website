@@ -55,9 +55,9 @@ export default async function RealisationsPage() {
     image: getFirstImageUrl(r),
     title: r.titre,
     date: formatDate(r.datePublication),
-    description: r.resume,
+    description: r.extrait,
     featured: r.misEnAvant,
-    category: (r as Record<string, unknown>).categorie as string | undefined,
+    category: r.categorie,
   }));
 
   return (

@@ -16,18 +16,37 @@
       "type": "string",
       "required": true
     },
-    "description": {
-      "type": "text",
-      "required": true
-    },
-    "resume": {
-      "type": "text",
-      "required": true
-    },
     "slug": {
       "type": "string",
       "required": true,
       "unique": true
+    },
+    "extrait": {
+      "type": "text",
+      "required": true
+    },
+    "datePublication": {
+      "type": "datetime",
+      "required": true
+    },
+    "categorie": {
+      "type": "enumeration",
+      "enum": [
+        "Photovoltaique",
+        "Chauffage",
+        "Climatisation",
+        "Ventilation",
+        "Electricite",
+        "Entretien"
+      ],
+      "required": true
+    },
+    "imageCouverture": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images"
+      ]
     },
     "contenu": {
       "type": "dynamiczone",
@@ -39,14 +58,13 @@
         "content-blocks.deux-colonnes",
         "content-blocks.galerie",
         "content-blocks.citation",
-        "content-blocks.callout",
-        "content-blocks.tech-stack"
+        "content-blocks.callout"
       ],
       "required": true
     },
-    "imageCouverture": {
+    "images": {
       "type": "media",
-      "multiple": false,
+      "multiple": true,
       "allowedTypes": [
         "images"
       ]
@@ -58,40 +76,9 @@
       "type": "boolean",
       "default": false
     },
-    "images": {
-      "type": "media",
-      "multiple": true,
-      "allowedTypes": [
-        "images"
-      ]
-    },
-    "categorie": {
-      "type": "enumeration",
-      "enum": [
-        "Photovoltaique",
-        "Chauffage",
-        "Climatisation",
-        "Ventilation",
-        "Electricite",
-        "Entretien"
-      ]
-    },
-    "technologies": {
-      "type": "text"
-    },
-    "urlProjet": {
-      "type": "string"
-    },
-    "urlGithub": {
-      "type": "string"
-    },
     "misEnAvant": {
       "type": "boolean",
       "default": false
-    },
-    "datePublication": {
-      "type": "datetime",
-      "required": true
     }
   }
 }

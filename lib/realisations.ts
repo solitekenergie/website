@@ -12,22 +12,16 @@ export type Realisation = {
   id: number;
   documentId: string;
   titre: string;
-  description: string;
-  resume: string;
+  extrait: string;
   slug: string;
   contenu: ContentBlock[];
   imageCouverture?: StrapiMedia;
   videoCouverture?: string;
   afficherControlesVideo: boolean;
   images?: StrapiMedia[];
-  technologies?: string;
+  categorie?: string;
   misEnAvant: boolean;
   datePublication: string;
-  categorie?: {
-    titre: string;
-    slug: string;
-    couleur?: string;
-  };
   createdAt: string;
   updatedAt: string;
   publishedAt: string;

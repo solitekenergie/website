@@ -121,7 +121,7 @@ export function RealisationsSection({ realisations }: { realisations: Realisatio
                     </p>
                   </div>
                   <p className="self-stretch text-left font-ui text-base font-normal leading-relaxed text-black sm:text-lg sm:leading-[27px]">
-                    {real.resume}
+                    {real.extrait}
                   </p>
                 </div>
               </Link>
