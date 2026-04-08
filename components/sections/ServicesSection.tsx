@@ -8,23 +8,24 @@ type ServiceCardProps = {
   href: string;
   className?: string;
   alt: string;
+  bgPosition?: string;
 };
 
-const cardBackground = (image: string) => ({
+const cardBackground = (image: string, bgPosition = "center") => ({
   backgroundImage: "linear-gradient(180deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.25) 40%, rgba(0,0,0,0.75) 100%), url('" + image + "')",
   backgroundSize: "cover",
-  backgroundPosition: "center",
+  backgroundPosition: bgPosition,
 });
 
 const fullWidthCardClassName = "h-[350px] sm:h-[400px] lg:h-[500px]";
 const splitRowCardClassName = "h-[350px] sm:h-[400px] lg:h-full";
 
-function ServiceCard({ title, description, image, href, className, alt }: ServiceCardProps) {
+function ServiceCard({ title, description, image, href, className, alt, bgPosition }: ServiceCardProps) {
   return (
     <Link
       href={href}
-      className={`${className ?? ""} flex w-full flex-col items-center justify-center gap-4 overflow-hidden rounded-lg bg-cover bg-center px-6 py-8 sm:gap-6 sm:rounded-xl sm:px-12 sm:py-10 lg:px-20 lg:py-12`}
-      style={cardBackground(image)}
+      className={`${className ?? ""} flex w-full flex-col items-center justify-center gap-4 overflow-hidden rounded-lg bg-cover px-6 py-8 sm:gap-6 sm:rounded-xl sm:px-12 sm:py-10 lg:px-20 lg:py-12`}
+      style={cardBackground(image, bgPosition)}
     >
       <div className="flex w-full max-w-[603px] flex-col items-center justify-end gap-8 text-center sm:gap-12">
         <h3 className="w-full text-center font-title text-3xl font-black uppercase leading-tight text-white sm:text-4xl sm:leading-tight lg:text-[56px] lg:leading-[56px]">
@@ -61,6 +62,7 @@ export function ServicesSection() {
             image="/images/solitek-panneaux-solaires-toiture-maison-alsacienne.jpg"
             href="/services#photovoltaique"
             alt="Maison alsacienne équipée de panneaux solaires sur toiture"
+            bgPosition="center 55%"
             className={fullWidthCardClassName}
           />
         </FadeIn>
@@ -73,6 +75,7 @@ export function ServicesSection() {
               image="/images/solitek-pompe-chaleur-air-eau-atlantic-terrasse.jpg"
               href="/services#chauffage"
               alt="Pompe à chaleur air-eau Atlantic installée en extérieur"
+              bgPosition="60% center"
               className={`${splitRowCardClassName} flex-1`}
             />
             <ServiceCard
@@ -81,6 +84,7 @@ export function ServicesSection() {
               image="/images/solitek-climatisation-reversible-split-mural-interieur.jpg"
               href="/services#climatisation"
               alt="Climatisation réversible split mural installée en intérieur"
+              bgPosition="70% center"
               className={`${splitRowCardClassName} flex-1`}
             />
           </div>
@@ -94,6 +98,7 @@ export function ServicesSection() {
               image="/images/solitek-installation-vmc-double-flux-alsace.jpg"
               href="/services#ventilation"
               alt="Système de ventilation résidentielle"
+              bgPosition="center 60%"
               className={`${splitRowCardClassName} flex-1`}
             />
             <ServiceCard
@@ -102,6 +107,7 @@ export function ServicesSection() {
               image="/images/solitek-electricien-tableau-electrique-mise-aux-normes.jpg"
               href="/services#electricite"
               alt="Électricien intervenant sur un tableau électrique"
+              bgPosition="65% center"
               className={`${splitRowCardClassName} flex-1`}
             />
           </div>

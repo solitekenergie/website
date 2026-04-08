@@ -115,6 +115,7 @@ export function NeedsSection() {
             alt="Technicien solarisé présentant une installation"
             fill
             sizes="50vw"
+            style={{ objectPosition: 'center 35%' }}
           />
         </div>
       </div>

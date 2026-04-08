@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import ContactForm from "@/components/forms/ContactForm";
 import { FadeIn } from "@/components/ui/FadeIn";
 
@@ -21,7 +22,7 @@ export default function ContactPage() {
       </section>
 
       {/* Formulaire + Carte contact */}
-      <section className="bg-[#F5F7FA] px-4 py-12 sm:px-8 sm:py-16 lg:px-20 lg:py-20">
+      <section id="formulaire" className="bg-[#F5F7FA] px-4 py-12 sm:px-8 sm:py-16 lg:px-20 lg:py-20">
         <div className="mx-auto max-w-[1200px]">
           <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-5 lg:gap-16">
 
@@ -83,6 +84,17 @@ export default function ContactPage() {
                       <p className="mt-0.5 font-ui text-sm text-black/50">08h00 - 12h00 / 14h00 - 18h00</p>
                     </div>
                   </div>
+                  <div className="h-px bg-slate-100" />
+                  <a
+                    href="/florian-baret.vcf"
+                    download="Florian Baret - SOLITEK.vcf"
+                    className="flex items-center justify-center gap-2 rounded-xl bg-[#2DB180] px-5 py-3 transition-all hover:-translate-y-0.5 hover:bg-[#26A072]"
+                  >
+                    <svg className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M18 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0ZM3 19.235v-.11a6.375 6.375 0 0 1 12.75 0v.109A12.318 12.318 0 0 1 9.374 21c-2.331 0-4.512-.645-6.374-1.766Z" />
+                    </svg>
+                    <span className="font-ui text-sm font-bold text-white">Ajouter aux contacts</span>
+                  </a>
                 </div>
               </div>
             </div>
@@ -91,12 +103,94 @@ export default function ContactPage() {
         </div>
       </section>
 
+      {/* Qui sommes-nous - intro */}
+      <section className="bg-white px-4 pb-6 pt-14 sm:px-8 sm:pb-8 sm:pt-20 lg:px-20 lg:pb-10 lg:pt-24">
+        <FadeIn className="mx-auto max-w-[1200px]">
+          <h2 className="mb-6 font-title text-3xl font-black uppercase leading-tight text-[#161A1E] sm:text-4xl lg:text-[40px] lg:leading-tight">
+            Qui sommes-nous ?
+          </h2>
+          <p className="max-w-[900px] font-ui text-base leading-relaxed text-black/70 sm:text-lg sm:leading-[27px]">
+            SOLITEK, c'est avant tout un expert du terrain. Formé au sein des leaders de l'énergie en Alsace (ES Énergie, FranceSolar, Groupe Beyer), notre fondateur a créé SOLITEK avec une ambition simple : vous offrir un service que les grandes structures ne peuvent pas garantir. Un interlocuteur unique, des conseils honnêtes, et des installations réalisées dans les règles de l'art. Résultat : des clients satisfaits qui nous recommandent, et un accompagnement humain du premier appel à la mise en service.
+          </p>
+        </FadeIn>
+      </section>
+
+      {/* Sous-sections */}
+      {[
+        {
+          bg: "bg-white",
+          label: "Expérience",
+          title: "Une expertise forgée sur le terrain",
+          text: "SOLITEK, c'est avant tout un expert du terrain. Formé au sein des leaders de l'énergie en Alsace (ES Énergie, FranceSolar, Groupe Beyer), notre fondateur a créé SOLITEK avec une ambition simple : vous offrir un service que les grandes structures ne peuvent pas garantir. Un interlocuteur unique, des conseils honnêtes, et des installations réalisées dans les règles de l'art. Résultat : des clients satisfaits qui nous recommandent, et un accompagnement humain du premier appel à la mise en service.",
+          image: "/images/solitek-panneaux-solaires-toiture-multi-pentes-alsace.jpg",
+          alt: "Installation photovoltaïque sur toiture multi-pentes en Alsace",
+          position: "center",
+          reverse: false,
+        },
+        {
+          bg: "bg-[#F5F7FA]",
+          label: "Mission",
+          title: "Des solutions fiables, au juste prix",
+          text: "Avec Solitek, bénéficiez de solutions intelligentes et durables pour protéger votre habitat dès aujourd'hui. Et pour demain, nous mettons la technologie au service de votre confort et de vos économies.",
+          image: "/images/solitek-pompe-chaleur-air-eau-atlantic-terrasse.jpg",
+          alt: "Pompe à chaleur Atlantic installée en extérieur par SOLITEK",
+          position: "60% center",
+          reverse: true,
+        },
+        {
+          bg: "bg-white",
+          label: "Valeurs",
+          title: "Un suivi humain et personnalisé",
+          text: "Chez Solitek, chaque installation et chaque projet sont uniques. Nous nous adaptons à votre configuration, à vos besoins et à vos contraintes afin de vous proposer une solution entièrement sur-mesure, au-delà de l'installation. Nous mettons un point d'honneur à vous offrir un accompagnement personnalisé avec un suivi humain, indispensable et réactif à chaque étape de votre projet chez Solitek. La relation client est au coeur de notre engagement.",
+          image: "/images/solitek-technicien-pose-panneaux-solaires-strasbourg.jpg",
+          alt: "Technicien SOLITEK posant des panneaux solaires à Strasbourg",
+          position: "center 35%",
+          reverse: false,
+        },
+        {
+          bg: "bg-[#F5F7FA]",
+          label: "Solution",
+          title: "Gratuit et sans engagement",
+          text: "Chez SOLITEK, nous faisons le choix de vous accompagner en toute transparence dès le début de votre projet. Ainsi, l'ensemble de nos prestations en amont (conseil, déplacement, solution, étude technique, élaboration du projet) est entièrement gratuit et sans engagement. Bénéficiez d'une approche complète et personnalisée, sans aucun frais, afin de vous permettre de construire votre projet en toute sérénité. Une démarche simple, claire et pensée pour vous.",
+          image: "/images/solitek-installation-photovoltaique-carport-solaire-alsace.jpg",
+          alt: "Carport solaire installé par SOLITEK en Alsace",
+          position: "center 45%",
+          reverse: true,
+        },
+      ].map((s) => (
+        <section key={s.label} className={`${s.bg} px-4 py-12 sm:px-8 sm:py-16 lg:px-20 lg:py-20`}>
+          <FadeIn className={`mx-auto grid max-w-[1200px] grid-cols-1 items-center gap-8 lg:grid-cols-2 lg:gap-16 ${s.reverse ? "lg:[direction:rtl]" : ""}`}>
+            <div className={s.reverse ? "lg:[direction:ltr]" : ""}>
+              <p className="mb-2 font-ui text-sm font-semibold uppercase tracking-wide text-[#1E9A66]">
+                {s.label}
+              </p>
+              <h3 className="mb-4 font-title text-xl font-black uppercase leading-tight text-[#161A1E] sm:text-2xl lg:text-[30px] lg:leading-tight">
+                {s.title}
+              </h3>
+              <p className="font-ui text-base leading-relaxed text-black/70 sm:text-lg sm:leading-[27px]">
+                {s.text}
+              </p>
+            </div>
+            <div className={s.reverse ? "lg:[direction:ltr]" : ""}>
+              <Image
+                src={s.image}
+                alt={s.alt}
+                width={600}
+                height={340}
+                className="h-[280px] w-full rounded-2xl object-cover sm:h-[320px] lg:h-[340px]"
+                style={{ objectPosition: s.position }}
+              />
+            </div>
+          </FadeIn>
+        </section>
+      ))}
+
       {/* Processus SOLITEK */}
       <section className="bg-[#161A1E] px-4 py-14 sm:px-8 sm:py-20 lg:px-20">
         <div className="mx-auto max-w-[1200px]">
-          <p className="mb-10 text-center font-ui text-xs font-semibold uppercase tracking-wide text-[#1E9A66] sm:mb-14">
+          <h2 className="mb-10 text-center font-title text-3xl font-black uppercase leading-tight text-white sm:mb-14 sm:text-4xl lg:text-[40px] lg:leading-tight">
             Comment ça marche ?
-          </p>
+          </h2>
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-3 sm:gap-8">
             {[
               { step: "01", title: "Prise de contact", desc: "Décrivez votre projet via le formulaire ou par téléphone. Nous vous recontactons sous 24h pour échanger sur vos besoins.", icon: (
@@ -128,70 +222,31 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* Sections entreprise */}
-      {[
-        {
-          bg: "bg-white",
-          label: "Qui sommes-nous ?",
-          title: "Une expertise forgée sur le terrain",
-          text: "SOLITEK, c'est avant tout un expert du terrain. Formé au sein des leaders de l'énergie en Alsace (ES Énergie, FranceSolar, Groupe Beyer), notre fondateur a créé SOLITEK avec une ambition simple : vous offrir un service que les grandes structures ne peuvent pas garantir. Un interlocuteur unique, des conseils honnêtes, et des installations réalisées dans les règles de l'art. Résultat : des clients satisfaits qui nous recommandent, et un accompagnement humain du premier appel à la mise en service.",
-          image: "/images/solitek-installation-panneaux-solaires-alsace.jpg",
-          alt: "Installation de panneaux solaires par SOLITEK en Alsace",
-          reverse: false,
-        },
-        {
-          bg: "bg-[#F5F7FA]",
-          label: "Notre mission",
-          title: "Des solutions fiables, au juste prix",
-          text: "Avec Solitek, bénéficiez de solutions intelligentes et durables pour protéger votre habitat dès aujourd'hui. Et pour demain, nous mettons la technologie au service de votre confort et de vos économies.",
-          image: "/images/solitek-pompe-chaleur-air-eau-atlantic-terrasse.jpg",
-          alt: "Pompe à chaleur Atlantic installée en extérieur par SOLITEK",
-          reverse: true,
-        },
-        {
-          bg: "bg-white",
-          label: "Accompagnement",
-          title: "Un suivi humain et personnalisé",
-          text: "Chez Solitek, chaque installation et chaque projet sont uniques. Nous nous adaptons à votre configuration, à vos besoins et à vos contraintes afin de vous proposer une solution entièrement sur-mesure, au-delà de l'installation. Nous mettons un point d'honneur à vous offrir un accompagnement personnalisé avec un suivi humain, indispensable et réactif à chaque étape de votre projet chez Solitek. La relation client est au coeur de notre engagement.",
-          image: "/images/solitek-technicien-pose-panneaux-solaires-strasbourg.jpg",
-          alt: "Technicien SOLITEK posant des panneaux solaires à Strasbourg",
-          reverse: false,
-        },
-        {
-          bg: "bg-[#F5F7FA]",
-          label: "Solution clé en main",
-          title: "Gratuit et sans engagement",
-          text: "Chez SOLITEK, nous faisons le choix de vous accompagner en toute transparence dès le début de votre projet. Ainsi, l'ensemble de nos prestations en amont (conseil, déplacement, solution, étude technique, élaboration du projet) est entièrement gratuit et sans engagement. Bénéficiez d'une approche complète et personnalisée, sans aucun frais, afin de vous permettre de construire votre projet en toute sérénité. Une démarche simple, claire et pensée pour vous.",
-          image: "/images/solitek-installation-photovoltaique-carport-solaire-alsace.jpg",
-          alt: "Carport solaire installé par SOLITEK en Alsace",
-          reverse: true,
-        },
-      ].map((s) => (
-        <section key={s.label} className={`${s.bg} px-4 py-12 sm:px-8 sm:py-16 lg:px-20 lg:py-20`}>
-          <FadeIn className={`mx-auto grid max-w-[1200px] grid-cols-1 items-center gap-8 lg:grid-cols-2 lg:gap-16 ${s.reverse ? "lg:[direction:rtl]" : ""}`}>
-            <div className={s.reverse ? "lg:[direction:ltr]" : ""}>
-              <p className="mb-2 font-ui text-xs font-semibold uppercase tracking-wide text-[#1E9A66]">
-                {s.label}
-              </p>
-              <h2 className="mb-4 font-title text-2xl font-black uppercase leading-tight text-[#161A1E] sm:text-3xl">
-                {s.title}
-              </h2>
-              <p className="font-ui text-base leading-relaxed text-black/70 sm:text-lg sm:leading-[27px]">
-                {s.text}
-              </p>
-            </div>
-            <div className={s.reverse ? "lg:[direction:ltr]" : ""}>
-              <Image
-                src={s.image}
-                alt={s.alt}
-                width={600}
-                height={340}
-                className="h-[280px] w-full rounded-2xl object-cover sm:h-[320px] lg:h-[340px]"
-              />
-            </div>
-          </FadeIn>
-        </section>
-      ))}
+      {/* CTA final */}
+      <section className="bg-white px-4 py-14 sm:px-8 sm:py-20 lg:px-20">
+        <FadeIn className="mx-auto flex max-w-[800px] flex-col items-center gap-6 text-center">
+          <h2 className="font-title text-3xl font-black uppercase leading-tight text-[#161A1E] sm:text-4xl lg:text-[40px] lg:leading-tight">
+            Prêt à lancer votre projet ?
+          </h2>
+          <p className="font-ui text-base leading-relaxed text-black/70 sm:text-lg">
+            Demandez votre devis gratuit ou estimez directement votre installation photovoltaïque.
+          </p>
+          <div className="flex flex-col gap-4 sm:flex-row sm:gap-6">
+            <a
+              href="#formulaire"
+              className="inline-flex h-14 items-center justify-center gap-2 rounded-full bg-[#2DB180] px-8 font-ui text-base font-bold text-white shadow-[0_18px_40px_rgba(45,177,128,0.32)] transition-all hover:-translate-y-0.5 hover:bg-[#26A072]"
+            >
+              Devis gratuit tous travaux
+            </a>
+            <Link
+              href="/estimateur"
+              className="inline-flex h-14 items-center justify-center gap-2 rounded-full border-2 border-[#2DB180] px-8 font-ui text-base font-bold text-[#2DB180] transition-all hover:-translate-y-0.5 hover:bg-[#2DB180]/5"
+            >
+              Simulation solaire en 2 min
+            </Link>
+          </div>
+        </FadeIn>
+      </section>
     </div>
   );
 }

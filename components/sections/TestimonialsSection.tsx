@@ -13,6 +13,7 @@ export function TestimonialsSection() {
             className="relative h-[200px] w-[200px] rounded-lg object-cover sm:h-[240px] sm:w-[240px] lg:h-[249px] lg:w-[250px] lg:rounded-xl"
             src="/images/solitek-installation-panneaux-solaires-alsace.jpg"
             alt="Portrait ou réalisation client"
+            style={{ objectPosition: '40% 35%' }}
           />
           <div className="inline-flex flex-col items-start justify-end gap-4 sm:gap-[18px]">
             <div className="flex flex-col items-start justify-start gap-4 sm:gap-6">

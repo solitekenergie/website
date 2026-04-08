@@ -36,6 +36,7 @@ type Service = {
   tagline: string;
   description: string;
   image: string;
+  imagePosition?: string;
   points: string[];
   imageLeft: boolean;
   cta: { href: string; label: string };
@@ -49,6 +50,7 @@ const services: Service[] = [
     description:
       "Chez Solitek, nous faisons bien plus que poser des panneaux solaires : nous vous accompagnons à chaque étape, avec expertise et proximité. De la visite technique gratuite à la réalisation du devis personnalisé, en passant par l'étude complète et le suivi administratif, notre engagement est de rendre votre projet simple, transparent et 100 % adapté à vos besoins. Nous mettons notre expertise et notre passion au service de votre transition énergétique, pour que votre installation solaire soit fiable, durable et performante aujourd'hui comme demain.",
     image: '/images/solitek-installation-photovoltaique-carport-solaire-alsace.jpg',
+    imagePosition: 'center 45%',
     points: [
       'Étude personnalisée et gratuite : conseils experts, simulation de production offerte et visite technique sans engagement',
       'Accompagnement administratif complet : démarches Consuel, raccordement Enedis, aides et primes à l\'autoconsommation',
@@ -65,6 +67,7 @@ const services: Service[] = [
     description:
       "Passez à un chauffage performant, économique et respectueux de l'environnement avec Solitek, votre fidèle partenaire Grand Est. Nous transformons votre projet en solution clé en main, simple, avec un accompagnement 100 % gratuit et humain, du premier conseil à l'installation.",
     image: '/images/solitek-pompe-chaleur-air-eau-atlantic-terrasse.jpg',
+    imagePosition: '60% center',
     points: [
       'Des technologies haut de gamme avec des pompes à chaleur dernière génération de chez Atlantic, Daikin, Airwell ou d\'autres',
       'Ballon thermodynamique performant pour des économies d\'énergie immédiates',
@@ -84,6 +87,7 @@ const services: Service[] = [
     description:
       "Profitez d'un confort optimal été comme hiver avec Solitek, votre expert local à Strasbourg. Nous vous proposons des solutions de climatisation performantes, économiques et parfaitement adaptées à votre logement. Avec Solitek, choisissez la tranquillité, la performance et un accompagnement de proximité.",
     image: '/images/solitek-climatisation-reversible-split-mural-interieur.jpg',
+    imagePosition: '70% center',
     points: [
       'Étude et devis 100 % gratuits : conseils sur-mesure, sans engagement',
       'Installation clé en main : on s\'occupe de tout de A à Z',
@@ -104,6 +108,7 @@ const services: Service[] = [
     description:
       "VMC double flux avec récupération de chaleur jusqu'à 90 %. Idéal pour les constructions neuves et les rénovations, pour un air sain et des économies d'énergie garanties.",
     image: '/images/solitek-installation-vmc-double-flux-alsace.jpg',
+    imagePosition: 'center 60%',
     points: ['VMC simple flux et double flux', 'Récupération de chaleur jusqu\'à 90 %', 'Prévention humidité et moisissures', 'Norme RT2020 / RE2020'],
     imageLeft: true,
     cta: { href: '/contact', label: 'Demander un devis' },
@@ -115,6 +120,7 @@ const services: Service[] = [
     description:
       "Mise aux normes NF C 15-100, tableaux électriques, bornes IRVE pour véhicule électrique. Certificat de conformité fourni à chaque intervention.",
     image: '/images/solitek-electricien-tableau-electrique-mise-aux-normes.jpg',
+    imagePosition: '65% center',
     points: ['Mise aux normes NF C 15-100', 'Bornes de recharge IRVE (P1/P2)', 'Tableaux et disjoncteurs', 'Certificat de conformité inclus'],
     imageLeft: false,
     cta: { href: '/contact', label: 'Demander un devis' },
@@ -199,6 +205,7 @@ export default function ServicesPage() {
                       fill
                       sizes="(max-width: 1024px) 100vw, 50vw"
                       className="object-cover"
+                      style={service.imagePosition ? { objectPosition: service.imagePosition } : undefined}
                     />
                   </div>
                 </div>

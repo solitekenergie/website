@@ -6,24 +6,29 @@ import { FadeIn } from '@/components/ui/FadeIn';
 
 const images = [
   {
-    src: '/images/solitek-installation-panneaux-solaires-alsace.jpg',
-    alt: 'Installation de panneaux solaires sur une toiture résidentielle',
+    src: '/images/solitek-installation-solaire-toiture-maison-alsace.jpg',
+    alt: 'Installation solaire sur toiture de maison en Alsace',
+    position: 'center 35%',
   },
   {
     src: '/images/solitek-panneaux-solaires-toiture-maison-alsacienne.jpg',
     alt: 'Maison alsacienne équipée de panneaux solaires sur toiture',
+    position: 'center 55%',
   },
   {
     src: '/images/solitek-installation-photovoltaique-batiment-professionnel.jpg',
     alt: 'Installation photovoltaïque sur bâtiment professionnel en Alsace',
+    position: 'center 65%',
   },
   {
     src: '/images/solitek-technicien-pose-panneaux-solaires-strasbourg.jpg',
     alt: 'Technicien solaire vérifiant une installation',
+    position: 'center 35%',
   },
   {
     src: '/images/solitek-toiture-equipee-panneaux-solaires-alsace.jpg',
     alt: "Vue aérienne d'une toiture équipée de panneaux solaires",
+    position: 'center',
   },
 ];
 
@@ -260,6 +265,7 @@ export function MissionSection() {
                       className={`object-cover transition-transform duration-700 ${
                         isActive ? 'scale-100' : 'scale-110'
                       }`}
+                      style={{ objectPosition: image.position }}
                     />
                   </div>
                 </div>

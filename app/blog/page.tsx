@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { listPosts, getAllTags } from "@/lib/blog";
+import { getArticles, getAllTags as getStrapiTags } from "@/lib/blog-strapi";
+import { listPosts as listMarkdownPosts, getAllTags as getMarkdownTags } from "@/lib/blog";
 import { BlogGrid } from "@/components/sections/BlogGrid";
 
 export const metadata: Metadata = {
@@ -37,9 +38,36 @@ function formatDate(dateString: string): string {
 }
 
 export default async function BlogPage() {
-  const [posts, allTags] = await Promise.all([listPosts(), getAllTags()]);
+  // Strapi articles + markdown fallback, merged and deduplicated by slug
+  const [strapiPosts, markdownPosts, strapiTags, mdTags] = await Promise.all([
+    getArticles(),
+    listMarkdownPosts(),
+    getStrapiTags(),
+    getMarkdownTags(),
+  ]);
 
-  const cards = posts.map((post) => ({
+  const seenSlugs = new Set(strapiPosts.map((p) => p.slug));
+  const fallbackPosts = markdownPosts.filter((p) => !seenSlugs.has(p.slug));
+  const allPosts = [...strapiPosts, ...fallbackPosts.map((p) => ({
+    slug: p.slug,
+    title: p.title,
+    date: p.date,
+    excerpt: p.excerpt,
+    readingTime: p.readingTime,
+    tags: p.tags,
+    category: p.category,
+    image: p.image,
+    contenu: [],
+    misEnAvant: false,
+  }))].sort((a, b) => {
+    const aDate = a.date ? Date.parse(a.date) : 0;
+    const bDate = b.date ? Date.parse(b.date) : 0;
+    return (Number.isNaN(bDate) ? 0 : bDate) - (Number.isNaN(aDate) ? 0 : aDate);
+  });
+
+  const allTags = Array.from(new Set([...strapiTags, ...mdTags])).sort();
+
+  const cards = allPosts.map((post) => ({
     slug: post.slug,
     title: post.title,
     date: formatDate(post.date),

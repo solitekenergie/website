@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
+import { getArticle, getArticleSlugs, getArticles } from "@/lib/blog-strapi";
 import { getPost, getPostSlugs, listPosts, extractFaqFromMarkdown } from "@/lib/blog";
+import { renderContentBlock } from "@/components/content/ContentBlocks";
 import { shortenSeoDescription, shortenSeoTitle } from "@/lib/seo";
 import { absoluteUrl } from "@/lib/site";
 
@@ -19,8 +21,9 @@ function formatDate(value: string) {
 
 
 export async function generateStaticParams() {
-  const slugs = await getPostSlugs();
-  return slugs.map((slug) => ({ slug }));
+  const [strapiSlugs, mdSlugs] = await Promise.all([getArticleSlugs(), getPostSlugs()]);
+  const allSlugs = Array.from(new Set([...strapiSlugs, ...mdSlugs]));
+  return allSlugs.map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({
@@ -29,22 +32,28 @@ export async function generateMetadata({
   params: Promise<{ slug: string }> | { slug: string };
 }): Promise<Metadata> {
   const resolvedParams = await params;
-  const post = await getPost(resolvedParams.slug);
+  const strapiPost = await getArticle(resolvedParams.slug);
+  const post = strapiPost ?? await getPost(resolvedParams.slug);
 
   if (!post) return { title: "Article non trouvé" };
 
-  const seoTitle = shortenSeoTitle(post.title);
-  const seoDescription = shortenSeoDescription(post.excerpt);
+  const title = "title" in post ? post.title : "";
+  const excerpt = "excerpt" in post ? post.excerpt : "";
+  const slug = post.slug;
+  const image = post.image;
+
+  const seoTitle = shortenSeoTitle(title);
+  const seoDescription = shortenSeoDescription(excerpt);
 
   return {
     title: seoTitle,
     description: seoDescription,
-    alternates: { canonical: `/blog/${post.slug}` },
+    alternates: { canonical: `/blog/${slug}` },
     openGraph: {
       title: seoTitle,
       description: seoDescription,
-      url: `/blog/${post.slug}`,
-      ...(post.image ? { images: [{ url: absoluteUrl(post.image), width: 1200, height: 630, alt: post.title }] } : {}),
+      url: `/blog/${slug}`,
+      ...(image ? { images: [{ url: absoluteUrl(image), width: 1200, height: 630, alt: title }] } : {}),
     },
   };
 }
@@ -55,33 +64,48 @@ export default async function BlogPostPage({
   params: Promise<{ slug: string }> | { slug: string };
 }) {
   const resolvedParams = await params;
-  const [post, allPosts] = await Promise.all([
-    getPost(resolvedParams.slug),
-    listPosts(),
-  ]);
 
-  if (!post) notFound();
+  // Try Strapi first, fallback to markdown
+  const strapiPost = await getArticle(resolvedParams.slug);
+  const mdPost = !strapiPost ? await getPost(resolvedParams.slug) : null;
 
-  // Prioritize posts with common tags for better internal linking
-  const otherPosts = allPosts
-    .filter((p) => p.slug !== resolvedParams.slug)
+  if (!strapiPost && !mdPost) notFound();
+
+  const isStrapiPost = !!strapiPost;
+  const title = strapiPost?.title ?? mdPost!.title;
+  const date = strapiPost?.date ?? mdPost!.date;
+  const excerpt = strapiPost?.excerpt ?? mdPost!.excerpt;
+  const slug = strapiPost?.slug ?? mdPost!.slug;
+  const image = strapiPost?.image ?? mdPost!.image;
+  const readingTime = strapiPost?.readingTime ?? mdPost!.readingTime;
+  const tags = strapiPost?.tags ?? mdPost!.tags;
+
+  // Related posts from both sources
+  const [strapiAll, mdAll] = await Promise.all([getArticles(), listPosts()]);
+  const allPostsMerged = [
+    ...strapiAll.map((p) => ({ slug: p.slug, title: p.title, date: p.date, excerpt: p.excerpt, tags: p.tags })),
+    ...mdAll.filter((p) => !strapiAll.some((s) => s.slug === p.slug)).map((p) => ({ slug: p.slug, title: p.title, date: p.date, excerpt: p.excerpt, tags: p.tags })),
+  ];
+
+  const otherPosts = allPostsMerged
+    .filter((p) => p.slug !== slug)
     .sort((a, b) => {
-      const aCommon = a.tags.filter((t) => post.tags.includes(t)).length;
-      const bCommon = b.tags.filter((t) => post.tags.includes(t)).length;
+      const aCommon = a.tags.filter((t) => tags.includes(t)).length;
+      const bCommon = b.tags.filter((t) => tags.includes(t)).length;
       return bCommon - aCommon;
     })
     .slice(0, 3);
 
-  const faqEntries = extractFaqFromMarkdown(post.content);
+  const faqEntries = mdPost ? extractFaqFromMarkdown(mdPost.content) : [];
 
   const articleSchema = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
-    headline: post.title,
-    description: post.excerpt,
-    datePublished: post.date || undefined,
-    ...(post.image ? { image: absoluteUrl(post.image) } : {}),
-    mainEntityOfPage: absoluteUrl(`/blog/${post.slug}`),
+    headline: title,
+    description: excerpt,
+    datePublished: date || undefined,
+    ...(image ? { image: absoluteUrl(image) } : {}),
+    mainEntityOfPage: absoluteUrl(`/blog/${slug}`),
     author: { "@type": "Organization", name: "SOLITEK" },
     publisher: {
       "@type": "Organization",
@@ -124,22 +148,22 @@ export default async function BlogPostPage({
               Blog
             </Link>
             <h1 className="font-title text-3xl font-black uppercase leading-tight text-white sm:text-4xl lg:text-[56px] lg:leading-[1.1]">
-              {post.title}
+              {title}
             </h1>
             <p className="mt-6 font-ui text-sm text-white/50">
-              {formatDate(post.date)} · {post.readingTime} min de lecture
+              {formatDate(date)} · {readingTime} min de lecture
             </p>
           </div>
         </section>
 
         {/* Image de couverture */}
-        {post.image && (
+        {image && (
           <section className="w-full px-4 pt-10 sm:px-8 sm:pt-14 lg:px-20 lg:pt-16">
             <div className="mx-auto max-w-[800px]">
               <div className="relative h-[240px] overflow-hidden rounded-2xl sm:h-[340px] lg:h-[420px]">
                 <Image
-                  src={post.image}
-                  alt={post.title}
+                  src={image}
+                  alt={title}
                   fill
                   sizes="(max-width: 800px) 100vw, 800px"
                   className="object-cover"
@@ -151,12 +175,18 @@ export default async function BlogPostPage({
         )}
 
         {/* Contenu */}
-        <section className={`w-full px-4 pb-16 sm:px-8 sm:pb-20 lg:px-20 lg:pb-[100px] ${post.image ? "pt-8 sm:pt-10 lg:pt-12" : "pt-10 sm:pt-14 lg:pt-16"}`}>
+        <section className={`w-full px-4 pb-16 sm:px-8 sm:pb-20 lg:px-20 lg:pb-[100px] ${image ? "pt-8 sm:pt-10 lg:pt-12" : "pt-10 sm:pt-14 lg:pt-16"}`}>
           <div className="mx-auto max-w-[800px]">
-            <div
-              className="prose prose-lg prose-slate max-w-none prose-headings:font-title prose-headings:font-black prose-headings:uppercase prose-headings:text-[#161A1E] prose-a:text-[#1E9A66] prose-strong:text-[#161A1E]"
-              dangerouslySetInnerHTML={{ __html: post.htmlContent }}
-            />
+            {isStrapiPost && strapiPost.contenu ? (
+              <div className="flex flex-col gap-8">
+                {strapiPost.contenu.map((block, index) => renderContentBlock(block, index))}
+              </div>
+            ) : mdPost ? (
+              <div
+                className="prose prose-lg prose-slate max-w-none prose-headings:font-title prose-headings:font-black prose-headings:uppercase prose-headings:text-[#161A1E] prose-a:text-[#1E9A66] prose-strong:text-[#161A1E]"
+                dangerouslySetInnerHTML={{ __html: mdPost.htmlContent }}
+              />
+            ) : null}
 
             {/* CTA */}
             <div className="mt-12 rounded-2xl bg-[#2DB180]/10 px-6 py-8 text-center sm:px-10 sm:py-10">

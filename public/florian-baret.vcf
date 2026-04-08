@@ -1,0 +1,12 @@
+BEGIN:VCARD
+VERSION:3.0
+N:Baret;Florian;;;
+FN:Florian Baret
+ORG:SOLITEK
+TITLE:Dirigeant
+TEL;TYPE=CELL:+33783289777
+EMAIL:solitek@outlook.fr
+URL:https://www.solitek.fr
+ADR;TYPE=WORK:;;Strasbourg;;;67;France
+NOTE:Votre interlocuteur dédié - SOLITEK Strasbourg
+END:VCARD
