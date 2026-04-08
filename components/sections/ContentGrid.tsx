@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useRef, useState } from "react";
+import { useMemo, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { FadeIn } from "@/components/ui/FadeIn";
@@ -130,7 +130,7 @@ function FeaturedCard({
   );
 }
 
-/* ── Filtres défilants ── */
+/* ── Filtre dropdown ── */
 function CategoryFilter({
   categories,
   active,
@@ -140,38 +140,33 @@ function CategoryFilter({
   active: string | null;
   onChange: (cat: string | null) => void;
 }) {
-  const scrollRef = useRef<HTMLDivElement>(null);
-
   return (
-    <div className="relative">
-      <div
-        ref={scrollRef}
-        className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide"
-        style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
-      >
-        <button
-          onClick={() => onChange(null)}
-          className={`shrink-0 rounded-full px-5 py-2.5 font-ui text-sm font-semibold transition-all ${
-            active === null
-              ? "bg-[#161A1E] text-white"
-              : "bg-slate-100 text-[#161A1E] hover:bg-slate-200"
-          }`}
+    <div className="flex w-full flex-col gap-2 sm:max-w-xs">
+      <label className="font-ui text-xs font-semibold uppercase tracking-wide text-black/50">
+        Catégorie
+      </label>
+      <div className="relative">
+        <select
+          value={active ?? ""}
+          onChange={(e) => onChange(e.target.value || null)}
+          className="w-full appearance-none rounded-xl border border-slate-200 bg-white px-4 py-3 pr-12 text-left font-ui text-sm font-medium text-[#161A1E] outline-none transition-colors hover:border-slate-300 focus:border-[#2DB180]"
         >
-          Tout
-        </button>
-        {categories.map((cat) => (
-          <button
-            key={cat}
-            onClick={() => onChange(active === cat ? null : cat)}
-            className={`shrink-0 rounded-full px-5 py-2.5 font-ui text-sm font-semibold transition-all ${
-              active === cat
-                ? "bg-[#2DB180] text-white"
-                : "bg-slate-100 text-[#161A1E] hover:bg-slate-200"
-            }`}
-          >
-            {cat}
-          </button>
-        ))}
+          <option value="">Toutes les catégories</option>
+          {categories.map((cat) => (
+            <option key={cat} value={cat}>{cat}</option>
+          ))}
+        </select>
+        <svg
+          width="18"
+          height="18"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+          className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-black/50"
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+        </svg>
       </div>
     </div>
   );
