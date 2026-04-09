@@ -152,7 +152,7 @@ export default function ContactPage() {
           label: "Solution",
           title: "Gratuit et sans engagement",
           text: "Chez SOLITEK, nous faisons le choix de vous accompagner en toute transparence dès le début de votre projet. Ainsi, l'ensemble de nos prestations en amont (conseil, déplacement, solution, étude technique, élaboration du projet) est entièrement gratuit et sans engagement. Bénéficiez d'une approche complète et personnalisée, sans aucun frais, afin de vous permettre de construire votre projet en toute sérénité. Une démarche simple, claire et pensée pour vous.",
-          image: "/images/solitek-technicien-installation-climatisation.jpg",
+          image: "/images/solitek-technicien-entretien-client.jpg",
           alt: "Technicien SOLITEK installant une climatisation",
           position: "center",
           reverse: true,

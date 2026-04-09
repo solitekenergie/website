@@ -81,7 +81,7 @@ export function ServicesSection() {
             <ServiceCard
               title="Climatisation"
               description="Confort optimal été comme hiver. Solutions performantes et économiques, installation clé en main à Strasbourg."
-              image="/images/solitek-technicien-installation-climatisation.jpg"
+              image="/images/solitek-climatisation-reversible-split-mural-interieur.jpg"
               href="/services#climatisation"
               alt="Technicien SOLITEK installant une climatisation"
               bgPosition="center"

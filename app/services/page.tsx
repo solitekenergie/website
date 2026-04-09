@@ -86,7 +86,7 @@ const services: Service[] = [
     tagline: 'Votre expert local à Strasbourg',
     description:
       "Profitez d'un confort optimal été comme hiver avec Solitek, votre expert local à Strasbourg. Nous vous proposons des solutions de climatisation performantes, économiques et parfaitement adaptées à votre logement. Avec Solitek, choisissez la tranquillité, la performance et un accompagnement de proximité.",
-    image: '/images/solitek-technicien-installation-climatisation.jpg',
+    image: '/images/solitek-climatisation-reversible-split-mural-interieur.jpg',
     imagePosition: 'center',
     points: [
       'Étude et devis 100 % gratuits : conseils sur-mesure, sans engagement',

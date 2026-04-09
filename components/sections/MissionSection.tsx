@@ -11,24 +11,29 @@ const images = [
     position: 'center 40%',
   },
   {
+    src: '/images/solitek-pompe-chaleur-facade-moderne.jpg',
+    alt: 'Pompe à chaleur installée sur facade moderne',
+    position: 'center',
+  },
+  {
     src: '/images/solitek-maison-panneaux-solaires-jardin.jpg',
     alt: 'Maison avec panneaux solaires vue depuis le jardin',
     position: 'center 40%',
   },
   {
-    src: '/images/solitek-realisation-pac-interieure.jpg',
-    alt: 'Installation pompe à chaleur intérieure par SOLITEK',
-    position: 'center',
+    src: '/images/solitek-technicien-entretien-client.jpg',
+    alt: 'Technicien SOLITEK accompagnant un client',
+    position: 'center 25%',
   },
   {
     src: '/images/solitek-maison-photovoltaique-toiture-ciel-bleu.jpg',
-    alt: 'Maison avec panneaux photovoltaïques sur toiture sous ciel bleu',
+    alt: 'Maison avec panneaux photovoltaïques sous ciel bleu',
     position: 'center 35%',
   },
   {
-    src: '/images/solitek-technicien-installation-climatisation.jpg',
-    alt: 'Technicien SOLITEK installant une climatisation',
-    position: 'center 30%',
+    src: '/images/solitek-climatisation-reversible-split-mural-interieur.jpg',
+    alt: 'Climatisation réversible split mural en intérieur',
+    position: '70% center',
   },
   {
     src: '/images/solitek-panneaux-solaires-village-alsacien-vignes.jpg',
