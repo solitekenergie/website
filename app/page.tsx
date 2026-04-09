@@ -10,7 +10,7 @@ import { SuppliersSection } from "@/components/sections/SuppliersSection";
 import PrimaryCta from "@/components/ui/PrimaryCta";
 
 export const metadata: Metadata = {
-  title: "Solutions énergétiques à Strasbourg | SOLITEK",
+  title: "SOLITEK ENERGIE - Votre spécialiste ENR à côté de chez vous",
   description:
     "SOLITEK à Strasbourg et en Alsace : photovoltaïque, pompe à chaleur, climatisation, ventilation et électricité. Étude gratuite pour votre projet énergétique.",
   alternates: {
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     "devis énergétique Strasbourg",
   ],
   openGraph: {
-    title: "Solutions énergétiques à Strasbourg | SOLITEK",
+    title: "SOLITEK ENERGIE - Votre spécialiste ENR à côté de chez vous",
     description:
       "SOLITEK à Strasbourg et en Alsace : photovoltaïque, pompe à chaleur, climatisation, ventilation et électricité. Étude gratuite.",
     url: "/",

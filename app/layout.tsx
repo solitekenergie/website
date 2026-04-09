@@ -19,8 +19,8 @@ const figtree = Figtree({
 
 export const metadata: Metadata = {
   title: {
-    default: "Solutions énergétiques à Strasbourg",
-    template: "%s | SOLITEK",
+    default: "SOLITEK ENERGIE - Votre spécialiste ENR à côté de chez vous",
+    template: "%s | SOLITEK ENERGIE",
   },
   description:
     "SOLITEK à Strasbourg et en Alsace : photovoltaïque, pompe à chaleur, climatisation, ventilation et électricité. Étude gratuite pour votre projet énergétique.",
