@@ -44,7 +44,7 @@ export default function ContactPage() {
                   </p>
                 </div>
                 {/* Contenu */}
-                <div className="flex flex-1 flex-col justify-between gap-6 px-6 py-8">
+                <div className="flex flex-1 flex-col gap-6 px-6 py-8">
                   <div>
                     <p className="font-title text-xl font-black uppercase text-[#161A1E]">Florian Baret</p>
                     <p className="mt-1 font-ui text-base text-black/50">Dirigeant SOLITEK</p>
@@ -84,7 +84,7 @@ export default function ContactPage() {
                       <p className="mt-0.5 font-ui text-sm text-black/50">08h00 - 12h00 / 14h00 - 18h00</p>
                     </div>
                   </div>
-                  <div className="h-px bg-slate-100" />
+                  <div className="flex-1" />
                   <a
                     href="/florian-baret.vcf"
                     download="Florian Baret - SOLITEK.vcf"
