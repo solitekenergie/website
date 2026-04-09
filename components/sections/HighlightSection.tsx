@@ -14,7 +14,7 @@ export function HighlightSection() {
         <div className="flex flex-col items-start justify-end gap-4 sm:gap-[18px]">
           <div className="flex flex-col items-start justify-start gap-4 sm:gap-6">
             <div className="inline-flex items-center justify-center gap-1">
-              <div className="flex flex-col justify-end font-['Outfit'] text-[11px] font-medium uppercase leading-[22px] text-[#5D6B6C]">
+              <div className="flex flex-col justify-end font-ui text-[11px] font-medium uppercase leading-[22px] text-[#5D6B6C]">
                 Sous titre
               </div>
             </div>
@@ -23,7 +23,7 @@ export function HighlightSection() {
             </h2>
           </div>
           <div className="flex flex-col items-start justify-start gap-2 sm:gap-[10px]">
-            <p className="max-w-[524px] font-['Elza'] text-sm font-normal leading-relaxed text-[#5D6B6C] sm:text-[15px] sm:leading-[22.5px]">
+            <p className="max-w-[524px] font-ui text-sm font-normal leading-relaxed text-[#5D6B6C] sm:text-[15px] sm:leading-[22.5px]">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nec elit nec diam efficitur auctor. Praesent
               eros est, laoreet in ornare vitae, volutpat quis velit. Quisque condimentum finibus nisl vel viverra. Nunc sed lectus
               sem. Aenean non lacus ac lacus dictum tincidunt. Duis risus ligula, porttitor a orci vel, consequat feugiat nibh.

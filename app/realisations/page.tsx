@@ -60,8 +60,26 @@ export default async function RealisationsPage() {
     category: r.categorie,
   }));
 
+  const realisationsSchema = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "Réalisations SOLITEK en Alsace",
+    description: "Découvrez les réalisations SOLITEK en Alsace en solaire, chauffage et climatisation.",
+    url: "https://www.solitekenergie.fr/realisations",
+    mainEntity: {
+      "@type": "ItemList",
+      itemListElement: cards.slice(0, 10).map((c, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        url: `https://www.solitekenergie.fr/realisations/${c.slug}`,
+        name: c.title,
+      })),
+    },
+  };
+
   return (
     <div className="flex flex-col">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(realisationsSchema) }} />
       {/* Hero */}
       <section className="bg-[#161A1E] px-4 pb-16 pt-16 sm:px-8 sm:pb-20 sm:pt-20 lg:px-20 lg:pb-24 lg:pt-24">
         <div className="mx-auto max-w-[1440px]">

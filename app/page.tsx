@@ -46,8 +46,22 @@ export const metadata: Metadata = {
 export default async function Home() {
   const realisations = await getRealisations();
 
+  const websiteSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "SOLITEK",
+    url: "https://www.solitekenergie.fr",
+    description: "Installateur RGE à Strasbourg et en Alsace : photovoltaïque, pompe à chaleur, climatisation, ventilation et électricité.",
+    potentialAction: {
+      "@type": "SearchAction",
+      target: "https://www.solitekenergie.fr/blog?q={search_term_string}",
+      "query-input": "required name=search_term_string",
+    },
+  };
+
   return (
     <div className="space-y-0">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }} />
       <section className="relative isolate left-1/2 w-screen -translate-x-1/2 overflow-hidden bg-black text-white">
         <div className="absolute inset-0 overflow-hidden">
           {/* Vidéo sur tous les formats - pas de poster pour éviter le flash d'image */}

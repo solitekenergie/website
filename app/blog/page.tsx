@@ -83,8 +83,26 @@ export default async function BlogPage() {
     featured: post.misEnAvant,
   }));
 
+  const blogSchema = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "Blog énergie en Alsace",
+    description: "Guides sur le photovoltaïque, la pompe à chaleur, la climatisation et les aides en Alsace.",
+    url: "https://www.solitekenergie.fr/blog",
+    mainEntity: {
+      "@type": "ItemList",
+      itemListElement: cards.slice(0, 10).map((c, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        url: `https://www.solitekenergie.fr/blog/${c.slug}`,
+        name: c.title,
+      })),
+    },
+  };
+
   return (
     <div className="flex flex-col">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(blogSchema) }} />
       {/* Hero */}
       <section className="bg-[#161A1E] px-4 pb-16 pt-16 sm:px-8 sm:pb-20 sm:pt-20 lg:px-20 lg:pb-24 lg:pt-24">
         <div className="mx-auto max-w-[1440px]">

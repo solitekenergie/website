@@ -1,7 +1,30 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import ContactForm from "@/components/forms/ContactForm";
 import { FadeIn } from "@/components/ui/FadeIn";
+
+export const metadata: Metadata = {
+  title: "Contact - Devis gratuit",
+  description:
+    "Demandez votre devis gratuit à SOLITEK, installateur RGE à Strasbourg. Panneaux solaires, pompe à chaleur, climatisation, ventilation, électricité. Rappel sous 24h.",
+  alternates: {
+    canonical: "/contact",
+  },
+  keywords: [
+    "devis panneaux solaires Strasbourg",
+    "contact installateur RGE Alsace",
+    "devis pompe à chaleur Strasbourg",
+    "devis climatisation Strasbourg",
+    "installateur photovoltaïque Alsace",
+  ],
+  openGraph: {
+    title: "Contact - Devis gratuit | SOLITEK",
+    description:
+      "Demandez votre devis gratuit à SOLITEK. Rappel sous 24h, étude personnalisée, sans engagement.",
+    url: "/contact",
+  },
+};
 
 export default function ContactPage() {
   return (
