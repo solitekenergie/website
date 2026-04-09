@@ -205,7 +205,7 @@ export default function ServicesPage() {
                       alt={service.title}
                       fill
                       sizes="(max-width: 1024px) 100vw, 50vw"
-                      className="object-cover scale-[1.02]"
+                      className="object-cover scale-[1.05]"
                       style={service.imagePosition ? { objectPosition: service.imagePosition } : undefined}
                     />
                   </div>
