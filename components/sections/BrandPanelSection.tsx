@@ -104,7 +104,7 @@ export function BrandPanelSection() {
         <div className="grid w-full grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 lg:gap-12">
           {/* Description */}
           <div className="flex flex-col items-start justify-start gap-4 sm:gap-6">
-            <p className="self-stretch font-ui text-base font-normal leading-relaxed text-white sm:text-lg sm:leading-[27px]">
+            <p className="self-stretch text-left font-ui text-base font-normal leading-relaxed text-white sm:text-lg sm:leading-[27px]">
               Installateur RGE à Strasbourg et en Alsace, SOLITEK est un partenaire engagé, humain et fiable, à vos côtés dans
               chaque étape de votre transition énergétique.
             </p>
