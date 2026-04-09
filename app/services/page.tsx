@@ -198,7 +198,7 @@ export default function ServicesPage() {
               >
                 {/* Image */}
                 <div className="lg:flex-1">
-                  <div className="relative h-[280px] overflow-hidden rounded-2xl shadow-xl sm:h-[380px] lg:h-[480px]">
+                  <div className="relative h-[280px] overflow-hidden rounded-2xl bg-[#161A1E] shadow-xl sm:h-[380px] lg:h-[480px]">
                     <Image
                       src={service.image}
                       alt={service.title}
