@@ -24,19 +24,19 @@ export default function ContactPage() {
       {/* Formulaire + Carte contact */}
       <section id="formulaire" className="bg-[#F5F7FA] px-4 py-12 sm:px-8 sm:py-16 lg:px-20 lg:py-20">
         <div className="mx-auto max-w-[1200px]">
-          <div className="grid grid-cols-1 items-stretch gap-10 lg:grid-cols-5 lg:gap-16">
+          <h2 className="mb-8 font-title text-2xl font-black uppercase text-[#161A1E] sm:text-3xl">
+            Décrivez votre projet
+          </h2>
+          <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-5 lg:gap-16">
 
             {/* Formulaire - 3 colonnes */}
             <div className="lg:col-span-3">
-              <h2 className="mb-6 font-title text-2xl font-black uppercase text-[#161A1E] sm:text-3xl">
-                Décrivez votre projet
-              </h2>
               <ContactForm />
             </div>
 
             {/* Card contact Florian - 2 colonnes */}
-            <div className="flex flex-col lg:col-span-2">
-              <div className="flex flex-1 flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-lg">
+            <div className="lg:col-span-2">
+              <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-lg">
                 {/* Bandeau vert */}
                 <div className="bg-[#2DB180] px-6 py-5">
                   <p className="font-ui text-xs font-semibold uppercase tracking-wide text-white/70">
@@ -44,7 +44,7 @@ export default function ContactPage() {
                   </p>
                 </div>
                 {/* Contenu */}
-                <div className="flex flex-1 flex-col gap-6 px-6 py-8">
+                <div className="flex flex-col gap-6 px-6 py-8">
                   <div>
                     <p className="font-title text-xl font-black uppercase text-[#161A1E]">Florian Baret</p>
                     <p className="mt-1 font-ui text-base text-black/50">Dirigeant SOLITEK</p>
@@ -84,7 +84,7 @@ export default function ContactPage() {
                       <p className="mt-0.5 font-ui text-sm text-black/50">08h00 - 12h00 / 14h00 - 18h00</p>
                     </div>
                   </div>
-                  <div className="flex-1" />
+                  <div className="h-px bg-slate-100" />
                   <a
                     href="/florian-baret.vcf"
                     download="Florian Baret - SOLITEK.vcf"
