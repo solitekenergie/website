@@ -132,6 +132,7 @@ const services: Service[] = [
     description:
       "Un panneau encrassé perd jusqu'à 20 % de production. Contrat annuel : nettoyage, contrôle onduleurs, câblage et fixations. Rapport d'intervention systématique.",
     image: '/images/solitek-entretien-nettoyage-panneaux-solaires.jpg',
+    imagePosition: 'center top',
     points: ['Nettoyage professionnel des modules', 'Contrôle onduleurs & câblage', 'Contrat de maintenance annuel', 'Rapport d\'intervention inclus'],
     imageLeft: true,
     cta: { href: '/contact', label: 'Demander un devis' },
@@ -204,7 +205,7 @@ export default function ServicesPage() {
                       alt={service.title}
                       fill
                       sizes="(max-width: 1024px) 100vw, 50vw"
-                      className="object-cover"
+                      className="object-cover scale-[1.02]"
                       style={service.imagePosition ? { objectPosition: service.imagePosition } : undefined}
                     />
                   </div>
