@@ -36,9 +36,9 @@ const images = [
     position: '70% center',
   },
   {
-    src: '/images/solitek-panneaux-solaires-village-alsacien-vignes.jpg',
-    alt: 'Panneaux solaires sur toiture avec village alsacien et vignes',
-    position: 'center',
+    src: '/images/solitek-maison-alsacienne-colombages-panneaux.jpg',
+    alt: 'Maison alsacienne à colombages avec panneaux solaires SOLITEK',
+    position: 'center 35%',
   },
 ];
 
