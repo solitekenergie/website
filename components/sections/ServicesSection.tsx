@@ -24,7 +24,7 @@ function ServiceCard({ title, description, image, href, className, alt, bgPositi
   return (
     <Link
       href={href}
-      className={`${className ?? ""} flex w-full flex-col items-center justify-center gap-4 overflow-hidden rounded-lg bg-cover px-6 py-8 sm:gap-6 sm:rounded-xl sm:px-12 sm:py-10 lg:px-20 lg:py-12`}
+      className={`${className ?? ""} flex w-full flex-col items-center justify-center gap-4 overflow-hidden rounded-lg bg-[#161A1E] bg-cover px-6 py-8 sm:gap-6 sm:rounded-xl sm:px-12 sm:py-10 lg:px-20 lg:py-12`}
       style={cardBackground(image, bgPosition)}
     >
       <div className="flex w-full max-w-[603px] flex-col items-center justify-end gap-8 text-center sm:gap-12">
