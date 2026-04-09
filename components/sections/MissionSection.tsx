@@ -6,9 +6,9 @@ import { FadeIn } from '@/components/ui/FadeIn';
 
 const images = [
   {
-    src: '/images/solitek-installation-nacelle-toiture-alsace.jpg',
-    alt: 'Installation de panneaux solaires avec nacelle en Alsace',
-    position: 'center 40%',
+    src: '/images/solitek-installation-panneaux-solaires-toiture-alsace-pro.jpg',
+    alt: 'Installation de panneaux solaires sur toiture de maison en Alsace par SOLITEK',
+    position: 'center 30%',
   },
   {
     src: '/images/solitek-pompe-chaleur-facade-moderne.jpg',
