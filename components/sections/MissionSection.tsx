@@ -21,9 +21,9 @@ const images = [
     position: 'center 40%',
   },
   {
-    src: '/images/solitek-technicien-entretien-client.jpg',
-    alt: 'Technicien SOLITEK accompagnant un client',
-    position: 'center 25%',
+    src: '/images/solitek-carport-solaire-ciel-bleu.jpg',
+    alt: 'Carport solaire installé par SOLITEK en Alsace',
+    position: 'center 45%',
   },
   {
     src: '/images/solitek-maison-photovoltaique-toiture-ciel-bleu.jpg',
