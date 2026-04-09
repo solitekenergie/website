@@ -110,7 +110,7 @@ export default function ContactPage() {
             Qui sommes-nous ?
           </h2>
           <p className="max-w-[900px] font-ui text-base leading-relaxed text-black/70 sm:text-lg sm:leading-[27px]">
-            SOLITEK, c'est avant tout un expert du terrain. Formé au sein des leaders de l'énergie en Alsace (ES Énergie, FranceSolar, Groupe Beyer), notre fondateur a créé SOLITEK avec une ambition simple : vous offrir un service que les grandes structures ne peuvent pas garantir. Un interlocuteur unique, des conseils honnêtes, et des installations réalisées dans les règles de l'art. Résultat : des clients satisfaits qui nous recommandent, et un accompagnement humain du premier appel à la mise en service.
+            SOLITEK, c'est un interlocuteur unique, des conseils honnêtes et des installations réalisées dans les règles de l'art. Notre fondateur a créé SOLITEK avec une ambition simple : vous offrir un service que les grandes structures ne peuvent pas garantir. Un accompagnement humain du premier appel à la mise en service.
           </p>
         </FadeIn>
       </section>
@@ -131,7 +131,7 @@ export default function ContactPage() {
           bg: "bg-[#F5F7FA]",
           label: "Mission",
           title: "Des solutions fiables, au juste prix",
-          text: "Avec Solitek, bénéficiez de solutions intelligentes et durables pour protéger votre habitat dès aujourd'hui. Et pour demain, nous mettons la technologie au service de votre confort et de vos économies.",
+          text: "Avec Solitek, bénéficiez de solutions intelligentes et durables pour protéger votre habitat dès aujourd'hui. Pour demain, nous mettons la technologie au service de votre confort et de vos économies.",
           image: "/images/solitek-pompe-chaleur-facade-moderne.jpg",
           alt: "Pompe à chaleur installée sur facade moderne",
           position: "center",
