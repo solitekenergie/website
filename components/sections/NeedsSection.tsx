@@ -111,11 +111,11 @@ export function NeedsSection() {
         <div className="relative hidden flex-1 lg:flex">
           <Image
             className="rounded-xl object-cover"
-            src="/images/solitek-technicien-pose-panneaux-solaires-strasbourg.jpg"
-            alt="Technicien solarisé présentant une installation"
+            src="/images/solitek-maison-alsacienne-colombages-panneaux.jpg"
+            alt="Maison alsacienne à colombages avec panneaux solaires SOLITEK"
             fill
             sizes="50vw"
-            style={{ objectPosition: 'center 35%' }}
+            style={{ objectPosition: 'center' }}
           />
         </div>
       </div>
