@@ -7,7 +7,7 @@ excerpt: >-
   rénovation énergétique en 2026.
 category: Aides & Primes
 tags: 'Photovoltaïque, Aides & Primes'
-image: /images/solitek-installation-panneaux-solaires-alsace.jpg
+image: /images/solitek-aides-photovoltaiques-pieces-croissance.jpg
 ---
 
 ## Prime CEE pour vos travaux : définition, conditions et montants
