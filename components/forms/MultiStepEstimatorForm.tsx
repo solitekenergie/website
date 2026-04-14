@@ -366,13 +366,13 @@ export default function MultiStepEstimatorForm() {
           </div>
 
           {/* Right side - Image */}
-          <div className="relative hidden h-[450px] lg:block">
+          <div className="relative hidden min-h-[450px] overflow-hidden rounded-2xl lg:block">
             <Image
               src="/images/solitek-ensoleillement-alsace-panneaux.jpg"
               alt="Maison alsacienne à colombages avec panneaux solaires SOLITEK"
               fill
               sizes="50vw"
-              className="rounded-2xl object-cover"
+              className="object-cover"
             />
           </div>
         </div>
