@@ -160,14 +160,6 @@ export default function Step1Address({ formData, updateFormData, onNext }: Step1
 
         {showMap && selectedCoords && (
           <div className="space-y-3">
-            <div className="rounded-lg bg-[#5CB88F] px-4 py-3 text-white">
-              <p className="text-center font-medium">
-                Cliquez sur votre habitation
-                <br />
-                sur la carte ci-dessous
-              </p>
-            </div>
-
             <div className="relative h-[300px] w-full overflow-hidden rounded-lg border-2 border-slate-200">
               <iframe
                 width="100%"
