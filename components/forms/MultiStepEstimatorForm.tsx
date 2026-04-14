@@ -256,10 +256,10 @@ export default function MultiStepEstimatorForm() {
         </div>
       )}
 
-      <div className="mx-auto w-full max-w-[1400px] px-4 py-8">
+      <div className="mx-auto w-full max-w-[1400px] px-4 pb-8 pt-16 sm:pt-12 lg:pt-8">
         {/* Centered Header */}
         <div className="mb-6 text-center">
-          <h1 className="font-[900] text-[48px] leading-tight tracking-tight text-slate-900">
+          <h1 className="font-[900] text-[32px] leading-tight tracking-tight text-slate-900 sm:text-[40px] lg:text-[48px]">
             CONNAÎTRE VOTRE BESOIN
           </h1>
         </div>
